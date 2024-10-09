@@ -18,4 +18,4 @@
 ## STEP 05
 - [유즈케이스 분석](https://xmind.ai/share/Su2VagJq?xid=nIqEcML4)
 - [마일스톤](https://github.com/users/hyojin202406/projects/1)
-- [시퀀스 다이어그램](https://github.com/hyojin202406/hanghae-concert/tree/main/docs/sequnece_diagram.md)
+- [시퀀스 다이어그램](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/sequence_diagram.md)
