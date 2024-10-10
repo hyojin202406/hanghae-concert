@@ -8,5 +8,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 public class PointRequest {
-    private Long amount;
+    private Long pointAmount;
 }

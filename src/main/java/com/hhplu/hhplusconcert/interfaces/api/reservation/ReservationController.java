@@ -71,7 +71,7 @@ public class ReservationController {
                                                   @RequestBody PointRequest request) {
         PointResponse response = PointResponse.builder()
                 .userId(1L)
-                .currentAmount(40000L)
+                .currentPointAmount(40000L)
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -85,7 +85,7 @@ public class ReservationController {
     public ResponseEntity<PointResponse> point(@PathVariable("userId") Long userId) {
         PointResponse response = PointResponse.builder()
                 .userId(1L)
-                .currentAmount(40000L)
+                .currentPointAmount(40000L)
                 .build();
         return ResponseEntity.ok(response);
     }

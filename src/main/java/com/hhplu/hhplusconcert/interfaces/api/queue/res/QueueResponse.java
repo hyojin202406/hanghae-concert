@@ -13,6 +13,7 @@ public class QueueResponse {
     private Long userId;
     private String queueToken;
     private Long queuePosition;
+    private Long lastActivedQueuePosition;
     private String queueStatus;
     private LocalDateTime issuedAt;
 }
