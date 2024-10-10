@@ -190,8 +190,8 @@ sequenceDiagram
 sequenceDiagram
     actor Client
     participant API
-    participant 토큰서비스
-    participant 잔액서비스
+    participant 토큰서비스 as 토큰
+    participant 잔액서비스 as 잔액
     participant DB
 
     Client ->> API: 잔액 조회 요청
@@ -201,6 +201,36 @@ sequenceDiagram
     잔액서비스 -->> API: 잔액 반환
     API -->> Client: 잔액 반환
 ```
+
+## 좌석 예약 API
+```mermaid
+sequenceDiagram
+    actor Client
+    participant API
+    participant 토큰서비스 as 토큰
+    participant 잔액서비스 as 잔액
+    participant 예약서비스 as 예약
+    participant DB
+
+    Client ->> API: 대기열 정보 조회 요청
+    API ->> 토큰서비스: 토큰 유효성 검증 요청
+    토큰서비스 ->> DB: 토큰 유효성 검증
+    DB -->> 토큰서비스: 토큰 유효성 반환
+    토큰서비스 -->> API: 토큰 유효성 반환
+    opt 토큰 유효하지 않음
+        토큰서비스-->>Client: 인증 실패 메시지
+    end
+    API ->> 예약서비스: 좌석 예약 요청
+    예약서비스 ->> DB: 좌석 예약 (임시배정 5분)
+    alt 결제 완료
+        DB -->> 예약서비스: 좌석 예약 완료
+        예약서비스 -->> API: 좌석 예약 완료
+        API -->> Client: 좌석 예약 완료
+    else 임시배정 5분 초과
+        API -->> Client: 예약 실패
+    end
+```
+
 
 ## 결제 API
 
