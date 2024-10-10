@@ -232,6 +232,7 @@ sequenceDiagram
         결제서비스-->>API: 결제 실패
         API-->>Client: 결제 실패
     end
+    결제서비스 ->> DB:  Client 잔액 차감
     결제서비스 ->> DB:  결제 요청
     DB -->> 결제서비스: 결제 내역 반환
     결제서비스 -->> API: 결제 내역 반환
