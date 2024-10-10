@@ -28,7 +28,8 @@
 {
   "userId": 1,
   "queueToken": "d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5",
-  "queuePosition": 10,
+  "queuePosition": 5000,
+  "lastActiveQueuePosition": 1000,
   "queueStatus": "WAITING",
   "issuedAt": "2024-10-08T10:25:00Z"
 }

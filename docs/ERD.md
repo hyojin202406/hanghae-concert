@@ -16,7 +16,7 @@ erDiagram
         Long user_id FK
         STRING queued_status
         TIMESTAMP created_at
-        TIMESTAMP expires_at
+        TIMESTAMP recented_at
     }
 
     POINT {
