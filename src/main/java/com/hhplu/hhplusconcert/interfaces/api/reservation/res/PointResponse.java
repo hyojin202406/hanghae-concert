@@ -9,5 +9,5 @@ import lombok.Getter;
 @Builder
 public class PointResponse {
     private Long userId;
-    private Long currentAmount;
+    private Long currentPointAmount;
 }

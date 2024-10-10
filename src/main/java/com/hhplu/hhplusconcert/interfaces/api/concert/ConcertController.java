@@ -17,16 +17,13 @@ import java.util.List;
 @RequestMapping("/api/concerts")
 public class ConcertController {
 
-    // 콘서트 조회
-
     /**
      * 콘서트 일정 조회
      * @param concertId
-     * @param request
      * @return
      */
-    @GetMapping("/api/concerts/{concertId}/schedules")
-    public ResponseEntity<ScheduleResponse> concertSchedule(@PathVariable Long concertId, @RequestBody ScheduleRequest request) {
+    @GetMapping("/{concertId}/schedules")
+    public ResponseEntity<ScheduleResponse> concertSchedule(@PathVariable Long concertId) {
         ScheduleResponse response = ScheduleResponse.builder()
                 .concertId(concertId) // concertId 추가
                 .events(List.of( // events 리스트 추가
@@ -48,14 +45,12 @@ public class ConcertController {
      * 콘서트 좌석 조회
      * @param concertId
      * @param scheduleId
-     * @param request
      * @return
      */
-    @GetMapping("/api/concerts/{concertId}/schedules/{scheduleId}/seats")
+    @GetMapping("/{concertId}/schedules/{scheduleId}/seats")
     public ResponseEntity<SeatResponse> concertSchedule(
             @PathVariable Long concertId,
-            @PathVariable Long scheduleId,
-            @RequestBody SeatRequest request) {
+            @PathVariable Long scheduleId) {
         List<Seat> allSeats = List.of(
                 Seat.builder().seatId(1L).seatNumber(1).seatStatus("AVAILABLE").seatPrice(50000).build(),
                 Seat.builder().seatId(2L).seatNumber(2).seatStatus("AVAILABLE").seatPrice(100000).build(),
