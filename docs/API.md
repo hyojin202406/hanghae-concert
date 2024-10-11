@@ -152,7 +152,7 @@
 
 ## 결제
 ### Request
-- **URL**: `/api/reservations/payments/users/{userId}`
+- **URL**: `/api/payments/users/{userId}`
 - **Method**: POST
 - **URL Params**:
     - `userId`: Long
@@ -169,7 +169,7 @@
 
 ## 잔액 충전
 ### Request
-- **URL**: `/api/reservations/point/users/{userId}/recharge`
+- **URL**: `/api/payments/point/users/{userId}/recharge`
 - **Method**: POST
 - **URL Params**:
     - `userId`: Long
@@ -190,7 +190,7 @@
 ```
 ## 잔액 조회
 ### Request
-- **URL**: `/api/reservations/point/users/{userId}`
+- **URL**: `/api/payments/point/users/{userId}`
 - **Method**: GET
 - **URL Params**:
     - `userId`: Long
