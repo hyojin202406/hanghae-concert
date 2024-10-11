@@ -8,7 +8,11 @@ hhplusconcert/
 ├── src/main/java/com/hhplu/
 │                     └── hhplusconcert/
 │                         ├── application/
+│                         │     └── facade/
 │                         ├── domain/
+│                         │      └──concert
+│                         │      └──queue
+│                         │      └──reservation
 │                         ├── infrastructure/
 │                         └── interfaces/
 │                             └──api
