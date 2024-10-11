@@ -13,12 +13,14 @@ hhplusconcert/
 │                         │      └──concert
 │                         │      └──queue
 │                         │      └──reservation
+│                         │      └──payment
 │                         ├── infrastructure/
 │                         └── interfaces/
 │                             └──api
 │                                └──concert
 │                                └──queue
 │                                └──reservation
+│                                └──payment
 └─── resources/
 ```
 
