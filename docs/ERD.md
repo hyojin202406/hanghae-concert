@@ -4,17 +4,17 @@
 
 ```mermaid
 erDiagram
-    USER {
+    USERS {
         Long id PK
-        STRING user_id
-        STRING password
+        VARCHAR name
+        VARCHAR password
     }
 
     QUEUE {
         Long id PK
         STRING queued_token PK
-        Long user_id FK
-        STRING queued_status
+        Long user_id
+        VARCHAR queued_status
         TIMESTAMP created_at
         TIMESTAMP recented_at
     }
@@ -31,11 +31,11 @@ erDiagram
         Long id PK
         Long user_id FK
         Long seat_id FK
-        Long concert_id FK
-        Long schedule_id FK
+%%        Long concert_id FK
+%%        Long schedule_id FK
         Long payment_id FK
         TIMESTAMP reserved_at
-        STRING status
+        VARCHAR status
     }
 
     PAYMENT {
@@ -43,41 +43,46 @@ erDiagram
         Long user_id FK
         Long reservation_id FK
         DECIMAL amount
-        STRING payment_status
+        VARCHAR payment_status
         TIMESTAMP payment_at
     }
 
     CONCERT {
         Long id PK
-        STRING concert_name
+        VARCHAR concert_name
         TIMESTAMP created_at
     }
 
     SCHEDULE {
         Long id PK
         Long concert_id FK
-        TIMESTAMP scheduled_at
+        TIMESTAMP scheduled_start_at
+        TIMESTAMP scheduled_end_at
     }
-
+    
+    SEAT_ITEM {
+        Long id PK
+        Long payment_id FK
+        Long seat_id FK
+    }
+    
     SEAT {
         Long id PK
-        Long concert_id FK
         Long schedule_id FK
         Long seat_number
         Long seat_price
-        STRING status
+        VARCHAR status
         TIMESTAMP created_at
         TIMESTAMP expired_at
     }
 
     %% Relationships
-    USER ||--o{ QUEUE : "has"
-    USER ||--o{ POINT : "has"
-    USER ||--o{ RESERVATION : "makes"
-    USER ||--o{ PAYMENT : "pays"
-    PAYMENT ||--o{ RESERVATION : "has"
-    RESERVATION }o--|| CONCERT : "is for"
-    CONCERT ||--o{ SCHEDULE : "has"
-    SCHEDULE ||--o{ SEAT : "has seats"
+    USERS ||--o{ POINT : "1:1"
+    USERS ||--o{ RESERVATION : "1:N"
+    USERS ||--o{ PAYMENT : "1:N"
+    RESERVATION }o--|| SEAT_ITEM : "1:N"
+    SEAT_ITEM ||--o{ SEAT : "1:N"
+    CONCERT ||--o{ SCHEDULE : "1:N"
+    SCHEDULE ||--o{ SEAT : "1:N"
 
 ```
