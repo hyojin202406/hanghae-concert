@@ -1,7 +1,7 @@
-package com.hhplu.hhplusconcert.application;
+package com.hhplu.hhplusconcert.application.service;
 
-import com.hhplu.hhplusconcert.domain.queue.QueueEntity;
-import com.hhplu.hhplusconcert.domain.user.UserEntity;
+import com.hhplu.hhplusconcert.domain.queue.Queue;
+import com.hhplu.hhplusconcert.domain.user.User;
 import com.hhplu.hhplusconcert.infrastructure.queue.QueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,13 @@ public class QueueService {
      * @param user
      * @return
      */
-    public QueueEntity token(UserEntity user) {
-        QueueEntity queue = new QueueEntity();
+    public Queue token(User user) {
+        Queue queue = new Queue();
         queue.token(user);
         return queueRepository.save(queue);
+    }
+
+    public Queue getToken(String queueToken) {
+        return queueRepository.findByQueueToken(queueToken).orElseThrow(() -> new IllegalArgumentException("Queue token not found"));
     }
 }
