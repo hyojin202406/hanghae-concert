@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.application;
 
-import com.hhplu.hhplusconcert.domain.user.UserEntity;
+import com.hhplu.hhplusconcert.application.service.UserService;
+import com.hhplu.hhplusconcert.domain.user.User;
 import com.hhplu.hhplusconcert.infrastructure.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +25,7 @@ class UserServiceTest {
     UserService userService;
 
     @Test
-    void 회원이_존재하지않으면_예외처리() {
+    void 유저가_존재하지않으면_예외처리() {
 
         // Given
         Long userId = 1L;
@@ -39,10 +40,10 @@ class UserServiceTest {
     }
 
     @Test
-    void 회원_조회_성공() {
+    void 유저_조회_성공() {
         // Given
         Long userId = 1L;
-        UserEntity user = UserEntity.builder()
+        User user = User.builder()
                         .id(1L)
                         .name("userId")
                         .password("password")
@@ -50,7 +51,7 @@ class UserServiceTest {
         when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user)); // 빈 리스트로 반환
 
         // When
-        UserEntity result = userService.user(userId);
+        User result = userService.user(userId);
 
         // Then
         assertEquals(userId, result.getId());
