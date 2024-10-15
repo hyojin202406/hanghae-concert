@@ -12,7 +12,7 @@ erDiagram
 
     QUEUE {
         Long id PK
-        STRING queued_token PK
+        VARCHAR queued_token
         Long user_id
         VARCHAR queued_status
         TIMESTAMP created_at
@@ -56,8 +56,8 @@ erDiagram
     SCHEDULE {
         Long id PK
         Long concert_id FK
-        TIMESTAMP scheduled_start_at
-        TIMESTAMP scheduled_end_at
+        TIMESTAMP schedule_started_at
+        TIMESTAMP schedule_ended_at
     }
     
     SEAT_ITEM {

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
+public class User {
 
     private String token; // 토큰 필드
 

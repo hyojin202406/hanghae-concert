@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.domain.queue;
 
-import com.hhplu.hhplusconcert.domain.user.UserEntity;
+import com.hhplu.hhplusconcert.domain.user.User;
 import com.hhplu.hhplusconcert.infrastructure.queue.QueueStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QueueEntity {
+public class Queue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +35,7 @@ public class QueueEntity {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
-    public void token(UserEntity user) {
+    public void token(User user) {
         user.generateToken();
         this.queueToken = user.getToken();
         this.userId = user.getId();
