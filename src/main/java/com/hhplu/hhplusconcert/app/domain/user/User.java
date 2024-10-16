@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Builder
@@ -25,11 +26,14 @@ public class User {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(name = "point_amount", nullable = false)
+    private BigDecimal pointAmount;
 
     public void generateToken() {
         this.token = UUID.nameUUIDFromBytes(this.name.getBytes()).toString();
     }
 
+    public void changePointAmount(BigDecimal addPointAmount) {
+        this.pointAmount = this.pointAmount.add(addPointAmount);
+    }
 }

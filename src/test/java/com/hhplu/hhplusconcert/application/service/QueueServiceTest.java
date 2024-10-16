@@ -39,7 +39,6 @@ class QueueServiceTest {
             User user = User.builder()
                     .id(1L)
                     .name("user")
-                    .password("1234")
                     .build();
             Queue queue = new Queue();
 
@@ -58,7 +57,6 @@ class QueueServiceTest {
             User user = User.builder()
                     .id(1L)
                     .name("user")
-                    .password("1234")
                     .build();
 
             Queue expectedQueue = Queue.builder()

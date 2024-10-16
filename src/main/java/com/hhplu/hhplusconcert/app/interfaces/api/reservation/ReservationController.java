@@ -1,8 +1,8 @@
-package com.hhplu.hhplusconcert.interfaces.api.reservation;
+package com.hhplu.hhplusconcert.app.interfaces.api.reservation;
 
-import com.hhplu.hhplusconcert.interfaces.api.concert.dto.Seat;
-import com.hhplu.hhplusconcert.interfaces.api.reservation.req.ReservationRequest;
-import com.hhplu.hhplusconcert.interfaces.api.reservation.res.ReservationResponse;
+import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
+import com.hhplu.hhplusconcert.app.interfaces.api.reservation.req.ReservationRequest;
+import com.hhplu.hhplusconcert.app.interfaces.api.reservation.res.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +25,12 @@ public class ReservationController {
      */
     @PostMapping
     public ResponseEntity<ReservationResponse> reserve(@RequestBody ReservationRequest request) {
-        List<Seat> seats = List.of(
-                Seat.builder().seatNumber(10).seatPrice(10000).build(),
-                Seat.builder().seatNumber(11).seatPrice(15000).build()
+        List<SeatValue> seats = List.of(
+                SeatValue.builder().seatNumber(10).seatPrice(10000).build(),
+                SeatValue.builder().seatNumber(11).seatPrice(15000).build()
         );
 
-        int totalPrice = seats.stream().mapToInt(Seat::getSeatPrice).sum();
+        int totalPrice = seats.stream().mapToInt(SeatValue::getSeatPrice).sum();
 
         ReservationResponse response = ReservationResponse.builder()
                 .reservationId(1L)
