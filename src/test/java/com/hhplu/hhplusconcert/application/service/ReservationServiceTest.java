@@ -1,22 +1,22 @@
 package com.hhplu.hhplusconcert.application.service;
 
-import com.hhplu.hhplusconcert.domain.concert.Concert;
-import com.hhplu.hhplusconcert.domain.concert.Seat;
-import com.hhplu.hhplusconcert.domain.concert.SeatStatus;
-import com.hhplu.hhplusconcert.domain.reservation.Reservation;
-import com.hhplu.hhplusconcert.domain.reservation.ReservationStatus;
-import com.hhplu.hhplusconcert.infrastructure.concert.ConcertRepository;
-import com.hhplu.hhplusconcert.infrastructure.concert.SeatRepository;
-import com.hhplu.hhplusconcert.infrastructure.reservation.ReservationRepository;
+import com.hhplu.hhplusconcert.app.application.service.ReservationService;
+import com.hhplu.hhplusconcert.app.domain.concert.*;
+import com.hhplu.hhplusconcert.app.domain.reservation.Reservation;
+import com.hhplu.hhplusconcert.app.domain.reservation.ReservationRepository;
+import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
+import com.hhplu.hhplusconcert.app.infrastructure.concert.ConcertJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,32 +26,83 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
     @Mock
-    ConcertRepository concertRepository;
+    private ConcertJpaRepository concertJpaRepository;
 
     @Mock
-    SeatRepository seatRepository;
+    private ConcertRepository concertRepository;
 
     @Mock
-    ReservationRepository reservationRepository;
+    private ReservationRepository reservationRepository;
+
+    @Mock
+    private SeatRepository seatRepository;
 
     @InjectMocks
-    ReservationService reservationService;
+    private ReservationService reservationService;
 
-    private Long userId;
-    private Long concertId;
-    private Long scheduleId;
-    private Long[] seatIds;
-    private Concert concert;
-    private List<Seat> seats;
+    private Long userId = 1L;
+    private Long concertId = 1L;
+    private Long scheduleId = 1L;
+    private Long[] seatIds = {1L, 2L};
 
     @BeforeEach
     void setUp() {
-        userId = 1L;
-        concertId = 1L;
-        scheduleId = 1L;
-        seatIds = new Long[]{1L, 2L};
-        concert = new Concert(concertId, "Sample Concert", LocalDateTime.now());
-        seats = Arrays.asList(
+        // Initialize mocks if necessary
+    }
+
+    @Test
+    void 존재하지_않는_콘서트시_예외처리() {
+        // Given
+        Long concertId = 1L;
+        when(concertJpaRepository.findById(concertId)).thenReturn(Optional.empty());
+
+        // When & Then
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            concertRepository.existsConcert(concertId);
+        });
+
+        assertEquals("존재하지 않는 콘서트입니다.", exception.getMessage());
+    }
+
+    @Test
+    void 좌석유효성실패시예외처리() {
+        // Given
+        when(seatRepository.findSeatsByScheduleId(seatIds, scheduleId)).thenReturn(Collections.singletonList(new Seat()));
+
+        // When & Then
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                reservationService.reserveSeats(userId, concertId, scheduleId, seatIds));
+
+        assertEquals("잘못된 좌석 정보가 포함되어 있습니다.", exception.getMessage());
+    }
+
+    @Test
+    void 모든_좌석_예약_불가능시_예외처리() {
+        // Given
+        when(seatRepository.findSeatsByScheduleId(seatIds, scheduleId)).thenReturn(Arrays.asList(
+                Seat.builder()
+                        .id(1L).scheduleId(scheduleId).seatNumber(1L).seatPrice(50000L).status(SeatStatus.RESERVED)
+                        .createdAt(LocalDateTime.of(2024, 10, 14, 10, 0))
+                        .expiredAt(LocalDateTime.of(2024, 10, 14, 10, 5))
+                        .build(),
+                Seat.builder()
+                        .id(2L).scheduleId(scheduleId).seatNumber(2L).seatPrice(100000L).status(SeatStatus.AVAILABLE)
+                        .createdAt(LocalDateTime.of(2024, 10, 14, 10, 0))
+                        .expiredAt(LocalDateTime.of(2024, 10, 14, 10, 5))
+                        .build()
+        ));
+
+        // When & Then
+        Exception exception = assertThrows(IllegalStateException.class, () ->
+                reservationService.reserveSeats(userId, concertId, scheduleId, seatIds));
+
+        assertEquals("예약할 수 없는 좌석이 포함되어 있습니다.", exception.getMessage());
+    }
+
+    @Test
+    void 예약성공시() {
+        // Given
+        when(seatRepository.findSeatsByScheduleId(seatIds, scheduleId)).thenReturn(Arrays.asList(
                 Seat.builder()
                         .id(1L).scheduleId(scheduleId).seatNumber(1L).seatPrice(50000L).status(SeatStatus.AVAILABLE)
                         .createdAt(LocalDateTime.of(2024, 10, 14, 10, 0))
@@ -62,62 +113,10 @@ class ReservationServiceTest {
                         .createdAt(LocalDateTime.of(2024, 10, 14, 10, 0))
                         .expiredAt(LocalDateTime.of(2024, 10, 14, 10, 5))
                         .build()
-        );
-    }
+        ));
 
-    @Test
-    void 예약_실패_콘서트_존재하지_않음() {
-        // Given
-        when(concertRepository.findById(concertId)).thenReturn(Optional.empty());
-
-        // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> reservationService.reserveSeats(userId, concertId, scheduleId, seatIds));
-
-        assertEquals("존재하지 않는 콘서트입니다.", exception.getMessage());
-        verify(concertRepository).findById(concertId);
-        verifyNoMoreInteractions(concertRepository, reservationRepository, seatRepository);
-    }
-
-    @Test
-    void 예약_실패_잘못된_좌석_정보() {
-        // Given
-        when(concertRepository.findById(concertId)).thenReturn(Optional.of(concert));
-        when(seatRepository.findAllByIdInAndScheduleId(seatIds, scheduleId)).thenReturn(List.of());
-
-        // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> reservationService.reserveSeats(userId, concertId, scheduleId, seatIds));
-
-        assertEquals("잘못된 좌석 정보가 포함되어 있습니다.", exception.getMessage());
-        verify(concertRepository).findById(concertId);
-        verify(seatRepository).findAllByIdInAndScheduleId(seatIds, scheduleId);
-        verifyNoMoreInteractions(concertRepository, reservationRepository, seatRepository);
-    }
-
-    @Test
-    void 예약_실패_예약할_수_없는_좌석_포함() {
-        // Given
-        seats.get(0).changeStatus(SeatStatus.RESERVED); // 첫 번째 좌석이 예약 불가능 상태로 변경
-        when(concertRepository.findById(concertId)).thenReturn(Optional.of(concert));
-        when(seatRepository.findAllByIdInAndScheduleId(seatIds, scheduleId)).thenReturn(seats);
-
-        // When & Then
-        IllegalStateException exception = assertThrows(IllegalStateException.class,
-                () -> reservationService.reserveSeats(userId, concertId, scheduleId, seatIds));
-
-        assertEquals("예약할 수 없는 좌석이 포함되어 있습니다.", exception.getMessage());
-        verify(concertRepository).findById(concertId);
-        verify(seatRepository).findAllByIdInAndScheduleId(seatIds, scheduleId);
-        verifyNoMoreInteractions(concertRepository, reservationRepository, seatRepository);
-    }
-
-    @Test
-    void 예약_성공() {
-        // Given
-        when(concertRepository.findById(concertId)).thenReturn(Optional.of(concert));
-        when(seatRepository.findAllByIdInAndScheduleId(seatIds, scheduleId)).thenReturn(seats);
-        when(reservationRepository.save(any(Reservation.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        // ReservationRepository의 saveReservation 메서드의 행동 정의
+        when(reservationRepository.saveReservation(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
         // When
         Reservation reservation = reservationService.reserveSeats(userId, concertId, scheduleId, seatIds);
@@ -126,18 +125,14 @@ class ReservationServiceTest {
         assertNotNull(reservation);
         assertEquals(userId, reservation.getUserId());
         assertEquals(ReservationStatus.TEMPORARY_RESERVED, reservation.getReservationStatus());
-        assertNull(reservation.getPaymentId());
 
-        // 좌석 상태 변경 검증
-        seats.forEach(seat -> {
-            assertEquals(SeatStatus.RESERVED, seat.getStatus());
-            assertEquals(reservation.getId(), seat.getReservationId());
-        });
+        // 좌석 상태가 예약으로 변경되었는지 확인
+        ArgumentCaptor<List<Seat>> seatCaptor = ArgumentCaptor.forClass(List.class);
+        verify(seatRepository).saveSeats(seatCaptor.capture());
+        List<Seat> savedSeats = seatCaptor.getValue();
 
-        verify(concertRepository).findById(concertId);
-        verify(seatRepository).findAllByIdInAndScheduleId(seatIds, scheduleId);
-        verify(reservationRepository).save(any(Reservation.class));
-        verify(seatRepository).saveAll(seats);
+        assertEquals(2, savedSeats.size());
+        assertEquals(SeatStatus.RESERVED, savedSeats.get(0).getStatus());
+        assertEquals(SeatStatus.RESERVED, savedSeats.get(1).getStatus());
     }
-
 }

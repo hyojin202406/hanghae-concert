@@ -1,9 +1,10 @@
 package com.hhplu.hhplusconcert.application.service;
 
-import com.hhplu.hhplusconcert.domain.queue.Queue;
-import com.hhplu.hhplusconcert.domain.user.User;
-import com.hhplu.hhplusconcert.infrastructure.queue.QueueRepository;
-import com.hhplu.hhplusconcert.domain.queue.QueueStatus;
+import com.hhplu.hhplusconcert.app.application.service.QueueService;
+import com.hhplu.hhplusconcert.app.domain.queue.Queue;
+import com.hhplu.hhplusconcert.app.domain.user.User;
+import com.hhplu.hhplusconcert.app.infrastructure.queue.QueueJpaRepository;
+import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.when;
 class QueueServiceTest {
 
     @Mock
-    QueueRepository queueRepository;
+    QueueJpaRepository queueJpaRepository;
 
     @InjectMocks
     QueueService queueService;
@@ -68,7 +69,7 @@ class QueueServiceTest {
                     .expiredAt(LocalDateTime.now().plusMinutes(10))
                     .build();
 
-            when(queueRepository.save(any(Queue.class))).thenReturn(expectedQueue);
+            when(queueJpaRepository.save(any(Queue.class))).thenReturn(expectedQueue);
 
             // When
             Queue result = queueService.token(user);
@@ -87,7 +88,7 @@ class QueueServiceTest {
         void 대기열_토큰_조회_실패() {
             // Given
             String queueToken = "0000-8946-4a57-9eaf-cb7f48e8c1a5";
-            when(queueRepository.findByQueueToken(any(String.class))).thenReturn(Optional.empty());
+            when(queueJpaRepository.findByQueueToken(any(String.class))).thenReturn(Optional.empty());
 
             // When
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
@@ -109,7 +110,7 @@ class QueueServiceTest {
                     .issuedAt(LocalDateTime.of(2024, 10, 8, 10, 0, 0))
                     .expiredAt(LocalDateTime.of(2024, 10, 8, 10, 10, 0))
                     .build();
-            when(queueRepository.findByQueueToken(any(String.class))).thenReturn(Optional.of(queue));
+            when(queueJpaRepository.findByQueueToken(any(String.class))).thenReturn(Optional.of(queue));
 
             // When
             Queue result = queueService.getToken(queueToken);

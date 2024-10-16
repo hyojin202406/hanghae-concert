@@ -1,11 +1,12 @@
 package com.hhplu.hhplusconcert.application.service;
 
-import com.hhplu.hhplusconcert.domain.concert.Schedule;
-import com.hhplu.hhplusconcert.domain.concert.Seat;
-import com.hhplu.hhplusconcert.infrastructure.concert.ConcertRepository;
-import com.hhplu.hhplusconcert.infrastructure.concert.ScheduleRepository;
-import com.hhplu.hhplusconcert.infrastructure.concert.SeatRepository;
-import com.hhplu.hhplusconcert.domain.concert.SeatStatus;
+import com.hhplu.hhplusconcert.app.application.service.ConcertService;
+import com.hhplu.hhplusconcert.app.domain.concert.Schedule;
+import com.hhplu.hhplusconcert.app.domain.concert.Seat;
+import com.hhplu.hhplusconcert.app.infrastructure.concert.ConcertJpaRepository;
+import com.hhplu.hhplusconcert.app.infrastructure.concert.ScheduleJpaRepository;
+import com.hhplu.hhplusconcert.app.infrastructure.concert.SeatJpaRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,13 +26,13 @@ import static org.mockito.Mockito.when;
 class ConcertServiceTest {
 
     @Mock
-    ScheduleRepository scheduleRepository;
+    ScheduleJpaRepository scheduleRepository;
 
     @Mock
-    ConcertRepository concertRepository;
+    ConcertJpaRepository concertRepository;
 
     @Mock
-    SeatRepository seatRepository;
+    SeatJpaRepository seatRepository;
 
     @InjectMocks
     ConcertService concertService;
