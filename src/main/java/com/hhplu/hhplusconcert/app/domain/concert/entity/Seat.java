@@ -22,7 +22,7 @@ public class Seat {
     @Column(nullable = false, name = "schedule_id")
     private Long scheduleId;
 
-    @Column(nullable = false, name = "reservation_id")
+    @Column(nullable = true, name = "reservation_id")
     private Long reservationId;
 
     @Column(nullable = false, name = "seat_number")
@@ -39,6 +39,9 @@ public class Seat {
 
     @Column(nullable = false, name = "expired_at")
     private LocalDateTime expiredAt;
+
+    @Version
+    private Long version;
 
     public void changeStatus(SeatStatus newStatus) {
         this.status = newStatus;

@@ -35,6 +35,9 @@ public class WaitingQueue {
     @Column(name = "expired_at")
     private LocalDateTime expiredAt;
 
+    @Version
+    private Long version;
+
     public void token(User user) {
         user.generateToken();
         this.queueToken = user.getToken();
