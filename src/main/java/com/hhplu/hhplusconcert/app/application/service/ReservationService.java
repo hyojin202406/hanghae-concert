@@ -27,12 +27,21 @@ public class ReservationService {
     private final PaymentRepository paymentRepository;
     private final SeatRepository seatRepository;
 
+    /**
+     * 좌석 예약
+     * @param userId
+     * @param concertId
+     * @param scheduleId
+     * @param seatIds
+     * @return
+     */
     @Transactional
     public Reservation reserveSeats(Long userId, Long concertId, Long scheduleId, Long[] seatIds) {
 
         // 콘서트 존재 여부 확인
         concertRepository.existsConcert(concertId);
 
+        // TODO 비관적 락, 낙관적 락 고려
         // 좌석 유효성 확인
         List<Seat> seats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
         if (seats.size() != seatIds.length) {
@@ -55,6 +64,13 @@ public class ReservationService {
                 .build();
         reservationRepository.saveReservation(reservation);
 
+        // 좌석 상태 업데이트 및 예약 ID 설정
+        seats.forEach(seat -> {
+            seat.changeStatus(SeatStatus.TEMPORARILY_RESERVED);
+            seat.changeReservationId(reservation.getId());
+            seat.extendExpiration();
+        });
+
         // 결제 정보 생성 및 저장 (PENDING 상태)
         // 총 결제 금액 계산
         long sumPoint = seats.stream()
@@ -67,15 +83,10 @@ public class ReservationService {
                 .paymentAt(LocalDateTime.now())
                 .build();
 
-        Payment savedPayment = paymentRepository.savePayment(payment); // Payment 저장
+        // Payment(PENDING 상태) 저장
+        Payment savedPayment = paymentRepository.savePayment(payment);
 
-        // 좌석 상태 업데이트 및 예약 ID 설정
-        seats.forEach(seat -> {
-            seat.changeStatus(SeatStatus.RESERVED);
-            seat.changeReservationId(reservation.getId());
-            seat.extendExpiration();
-        });
-        seatRepository.saveSeats(seats);
+//        seatRepository.saveSeats(seats);
         reservation.changePaymentId(savedPayment.getId());
 
         return reservation;
