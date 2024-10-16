@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.interfaces.api.payment.res;
+package com.hhplu.hhplusconcert.app.interfaces.api.point.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
