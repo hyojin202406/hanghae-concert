@@ -6,6 +6,7 @@ import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -32,5 +33,10 @@ public class SeatRepositoryImpl implements SeatRepository {
     @Override
     public List<Seat> getAvailableSeatsByScheduleId(Long scheduleId, SeatStatus seatStatus) {
         return seatJpaRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE).orElseThrow(() -> new IllegalArgumentException("좌석을 찾을 수 없습니다."));
+    }
+
+    @Override
+    public List<Seat> findAllByStatusAndExpiredAtBefore(SeatStatus seatStatus, LocalDateTime now) {
+        return seatJpaRepository.findAllByStatusAndExpiredAtBefore(seatStatus, now);
     }
 }
