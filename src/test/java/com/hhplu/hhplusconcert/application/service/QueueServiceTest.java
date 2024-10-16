@@ -92,10 +92,10 @@ class QueueServiceTest {
             // When
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                     () -> queueService.getToken(queueToken),
-                    "Queue token not found");
+                    "대기열 토큰을 찾을 수 없습니다.");
 
             // Then
-            assertEquals("Queue token not found", exception.getMessage());
+            assertEquals("대기열 토큰을 찾을 수 없습니다.", exception.getMessage());
         }
 
         @Test

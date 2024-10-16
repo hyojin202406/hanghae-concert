@@ -26,6 +26,6 @@ public class QueueService {
     }
 
     public Queue getToken(String queueToken) {
-        return queueRepository.findByQueueToken(queueToken).orElseThrow(() -> new IllegalArgumentException("Queue token not found"));
+        return queueRepository.findByQueueToken(queueToken).orElseThrow(() -> new IllegalArgumentException("대기열 토큰을 찾을 수 없습니다."));
     }
 }

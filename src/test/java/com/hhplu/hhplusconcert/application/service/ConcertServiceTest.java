@@ -88,7 +88,7 @@ class ConcertServiceTest {
             // When & Then
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                     () -> concertService.seats(concertId),
-                    "Seat not found");
+                    "좌석을 찾을 수 없습니다.");
 
             assertThat(exception.getMessage()).isEqualTo("Schedule not found");
         }

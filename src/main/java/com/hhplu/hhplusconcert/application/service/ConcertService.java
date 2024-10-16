@@ -26,12 +26,12 @@ public class ConcertService {
     }
 
     public List<Seat> seats(Long scheduleId) {
-        List<Seat> seats = seatRepository.findByScheduleId(scheduleId).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
+        List<Seat> seats = seatRepository.findByScheduleId(scheduleId).orElseThrow(() -> new IllegalArgumentException("좌석을 찾을 수 없습니다."));
         return seats;
     }
 
     public List<Seat> seats(Long concertId, Long scheduleId) {
-        List<Seat> seats = seatRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE).orElseThrow(() -> new IllegalArgumentException("Seat not found"));
+        List<Seat> seats = seatRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE).orElseThrow(() -> new IllegalArgumentException("좌석을 찾을 수 없습니다."));
         return seats;
     }
 }
