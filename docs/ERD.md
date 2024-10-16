@@ -4,80 +4,75 @@
 
 ```mermaid
 erDiagram
-    USER {
+    USERS {
         Long id PK
-        STRING user_id
-        STRING password
+        VARCHAR name
+        DECIMAL point_amount
     }
 
     QUEUE {
         Long id PK
-        STRING queued_token PK
-        Long user_id FK
-        STRING queued_status
+        VARCHAR queued_token
+        Long user_id
+        VARCHAR queued_status
         TIMESTAMP created_at
-        TIMESTAMP recented_at
-    }
-
-    POINT {
-        Long id PK
-        Long user_id FK
-        DECIMAL point_amount
-        TIMESTAMP created_at
-        TIMESTAMP updated_at
+        TIMESTAMP expired_at
     }
 
     RESERVATION {
         Long id PK
         Long user_id FK
-        Long seat_id FK
-        Long concert_id FK
-        Long schedule_id FK
         Long payment_id FK
         TIMESTAMP reserved_at
-        STRING status
+        VARCHAR reservation_status
     }
 
     PAYMENT {
         Long id PK
-        Long user_id FK
         Long reservation_id FK
         DECIMAL amount
-        STRING payment_status
+        VARCHAR payment_status
         TIMESTAMP payment_at
     }
-
+    
+    PAYMENT_HISTORY {
+        Long id PK
+        Long payment_id FK
+        VARCHAR payment_status
+        DECIMAL amount
+        TIMESTAMP payment_at
+    }
+    
     CONCERT {
         Long id PK
-        STRING concert_name
+        VARCHAR concert_name
         TIMESTAMP created_at
     }
 
     SCHEDULE {
         Long id PK
         Long concert_id FK
-        TIMESTAMP scheduled_at
+        TIMESTAMP schedule_started_at
+        TIMESTAMP schedule_ended_at
     }
-
+    
     SEAT {
         Long id PK
-        Long concert_id FK
         Long schedule_id FK
+        Long reservation_id FK
         Long seat_number
         Long seat_price
-        STRING status
+        VARCHAR status
         TIMESTAMP created_at
         TIMESTAMP expired_at
     }
 
     %% Relationships
-    USER ||--o{ QUEUE : "has"
-    USER ||--o{ POINT : "has"
-    USER ||--o{ RESERVATION : "makes"
-    USER ||--o{ PAYMENT : "pays"
-    PAYMENT ||--o{ RESERVATION : "has"
-    RESERVATION }o--|| CONCERT : "is for"
-    CONCERT ||--o{ SCHEDULE : "has"
-    SCHEDULE ||--o{ SEAT : "has seats"
+    USERS ||--o{ RESERVATION : "1:N"
+    RESERVATION ||--|| PAYMENT : "1:1"
+    PAYMENT ||--o{ PAYMENT_HISTORY : "1:N"
+    RESERVATION ||--o{ SEAT : "1:N"
+    CONCERT ||--o{ SCHEDULE : "1:N"
+    SCHEDULE ||--o{ SEAT : "1:N"
 
 ```

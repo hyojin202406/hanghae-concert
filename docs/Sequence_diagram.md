@@ -42,36 +42,22 @@ sequenceDiagram
 ---
 
 ```mermaid
+
 sequenceDiagram
-   participant Scheduler as 스케줄러
-   participant 대기열서비스 as 대기열
-   participant DB
+    participant Scheduler
+    participant Queue
+    participant DB
 
-%% 주기적으로 스케줄러가 실행됨 %%
-    loop 주기적 실행
-        Scheduler->>대기열서비스: 오래된 유저 제거 요청
-        대기열서비스->>DB: 오래된 유저 조회
-        DB-->>대기열서비스: 오래된 유저 목록 반환
-    alt 오래된 유저가 있을 때
-        대기열서비스->>DB: 오래된 유저 제거
-        DB-->>대기열서비스: 제거된 유저 정보 반환
-        대기열서비스-->>Scheduler: 대기열에서 유저 제거 완료
-        Scheduler->>대기열서비스: 활성화 유저 변경 요청
-        대기열서비스->>DB: 대기 유저 조회
-        DB-->>대기열서비스: 대기 유저 조회 반환
-        alt 대기 유저가 있을 때
-            대기열서비스->>DB: 활성 유저 변경
-            DB-->>대기열서비스: 활성 유저 반환
-            대기열서비스-->>Scheduler: 활성 유저 반환 완료
-        else 대기 유저가 없을 때
-            대기열서비스-->>Scheduler: 제거할 유저 없음
-        end
-    else 오래된 유저가 없을 때
-        대기열서비스-->>Scheduler: 제거할 유저 없음
+    loop 주기적으로 실행
+        Scheduler ->> Queue: 대기열 만료상태 변경  요청
+        Queue ->> DB: 현재시간과 만료 시간을 비교하여 상태 변경
+        DB ->> Queue: 만료상태 변경 완료
+        Queue ->> Scheduler: 만료상태 변경 완료
+        Scheduler ->> Queue: 대기 인원 활성화 요청 (N명)
+        Queue ->> DB: 대기인원 우선순위를 확인하여 활성화 상태 변경 (N명)
+        DB ->> Queue: 활성화 변경 완료 (N명)
+        Queue ->> Scheduler: 활성화 변경 완료 (N명)
     end
-      
-   end
-
 ```
 
 ## 대기열 정보 조회 API
@@ -269,6 +255,7 @@ sequenceDiagram
     API ->> 결제서비스: 좌석 예약 요청
     결제서비스 ->> DB:  좌석 예약
     DB -->> 결제서비스: 결제 내역 반환
+    결제서비스 -->> API: 결제 내역 반환
     API ->> 대기열서비스: 대기열 토큰 만료 요청
     대기열서비스 ->> DB: 대기열 토큰 만료
     DB -->> 대기열서비스: 만료 처리 완료
