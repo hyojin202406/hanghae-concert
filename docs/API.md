@@ -20,7 +20,7 @@
 ### Request
 - **URL**: `/api/queue/tokens/users`
 - **Method**: GET
-- **URL Params**:
+- **Headers**:
     - `QUEUE-TOKEN`: String
 
 ### Response
@@ -51,11 +51,11 @@
   "events": [
     {
       "scheduleId": 1,
-      "concertAt": "2024-10-08T10:00:00"
+      "scheduleStartedAt": "2024-10-08T10:00:00"
     },
     {
       "scheduleId": 2,
-      "concertAt": "2024-10-08T12:00:00"
+      "scheduleStartedAt": "2024-10-08T12:00:00"
     }
   ]
 }
@@ -118,12 +118,13 @@
 - **Method**: POST
 - **Headers**:
     - `QUEUE-TOKEN`: String
+    - 'userId' : Long
 - **Body**:
 ```json
 {
-  "userId": 1,
   "concertId": 1,
   "scheduleId": 1,
+  "paymentId": 1,
   "seatIdsArr": [1, 2]
 }
 ```
@@ -152,10 +153,11 @@
 
 ## 결제
 ### Request
-- **URL**: `/api/payments/users/{userId}`
+- **URL**: `/api/payments/{paymentId}/users/{userId}`
 - **Method**: POST
 - **URL Params**:
     - `userId`: Long
+    - 'paymentId' : Long
 - **Headers**:
     - `QUEUE-TOKEN`: String
 ### Response
@@ -164,6 +166,35 @@
   "paymentId": 1,
   "amount": 25000,
   "paymentStatus": "PAYMENT_SUCCESS"
+}
+```
+## 결제 내역 조회 (사용자별)
+### Request
+- **URL**: `/api/payments/history/users/{userId}`
+- **Method**: GET
+- **URL Params**:
+  - `userId`: Long
+- **Headers**:
+  - `QUEUE-TOKEN`: String
+
+### Response
+```json
+{
+  "userId": 1,
+  "payments": [
+    {
+      "paymentId": 1,
+      "amount": 25000,
+      "paymentStatus": "PAYMENT_SUCCESS",
+      "paymentAt": "2024-10-08T10:00:00Z"
+    },
+    {
+      "paymentId": 2,
+      "amount": 30000,
+      "paymentStatus": "PAYMENT_PENDING",
+      "paymentAt": "2024-10-09T10:00:00Z"
+    }
+  ]
 }
 ```
 
