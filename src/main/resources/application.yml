@@ -11,6 +11,12 @@ spring:
   h2:
     console:
       enabled: true
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
+      data-locations: classpath:sql/data.sql
+
   p6spy:
     logLevel: DEBUG
     log: com.p6spy.engine.spy.appender.Slf4JLogger
