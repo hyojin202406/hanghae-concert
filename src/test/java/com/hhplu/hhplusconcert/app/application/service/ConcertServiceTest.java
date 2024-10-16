@@ -1,6 +1,5 @@
-package com.hhplu.hhplusconcert.application.service;
+package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.application.service.ConcertService;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.infrastructure.concert.ScheduleJpaRepository;
 import org.junit.jupiter.api.Nested;

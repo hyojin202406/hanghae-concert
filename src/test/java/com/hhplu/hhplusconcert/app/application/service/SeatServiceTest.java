@@ -2,7 +2,7 @@ package com.hhplu.hhplusconcert.app.application.service;
 
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
-import com.hhplu.hhplusconcert.app.infrastructure.concert.SeatJpaRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -22,7 +21,7 @@ import static org.mockito.Mockito.when;
 class SeatServiceTest {
 
     @Mock
-    SeatJpaRepository seatRepository;
+    SeatRepository seatRepository;
 
     @InjectMocks
     SeatService seatService;
@@ -35,11 +34,11 @@ class SeatServiceTest {
             Long concertId = 1L;
             Long scheduleId = 2L;
 
-            when(seatRepository.findByScheduleId(scheduleId)).thenReturn(Optional.empty());
+            when(seatRepository.getAllSeatsByScheduleId(scheduleId)).thenThrow(new IllegalArgumentException("좌석을 찾을 수 없습니다."));
 
             // When & Then
             IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                    () -> seatService.seats(scheduleId),
+                    () -> seatService.getAllSeatsByScheduleId(scheduleId),
                     "좌석을 찾을 수 없습니다.");
 
             assertThat(exception.getMessage()).isEqualTo("좌석을 찾을 수 없습니다.");
@@ -67,12 +66,11 @@ class SeatServiceTest {
                             .build()
             );
 
-            // Optional<List<Seat>>로 반환하도록 수정
-            when(seatRepository.findByScheduleId(scheduleId)).thenReturn(Optional.of(allSeats));
+            when(seatRepository.getAllSeatsByScheduleId(scheduleId)).thenReturn(allSeats);
 
 
             // When
-            List<Seat> response = seatService.seats(scheduleId);
+            List<Seat> response = seatService.getAllSeatsByScheduleId(scheduleId);
 
             // Then
             assertThat(response).hasSize(3);
@@ -123,10 +121,10 @@ class SeatServiceTest {
                             .build()
             );
 
-            when(seatRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE)).thenReturn(Optional.of(availableSeats));
+            when(seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)).thenReturn(availableSeats);
 
             // When
-            List<Seat> response = seatService.seats(concertId, scheduleId);
+            List<Seat> response = seatService.getAvailableSeatsByScheduleId(concertId, scheduleId);
 
             // Then
             // 첫 번째 좌석 검증

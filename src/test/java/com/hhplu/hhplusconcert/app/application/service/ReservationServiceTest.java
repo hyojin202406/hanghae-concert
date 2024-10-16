@@ -1,10 +1,11 @@
-package com.hhplu.hhplusconcert.application.service;
+package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.application.service.ReservationService;
 import com.hhplu.hhplusconcert.app.domain.concert.*;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
+import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
+import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
@@ -28,6 +29,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
+    @Mock
+    PaymentRepository paymentRepository;
+
     @Mock
     private ConcertJpaRepository concertJpaRepository;
 
@@ -68,7 +72,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    void 좌석유효성실패시예외처리() {
+    void 좌석_유효성_실패시_예외처리() {
         // Given
         when(seatRepository.findSeatsByScheduleId(seatIds, scheduleId)).thenReturn(Collections.singletonList(new Seat()));
 
@@ -103,7 +107,7 @@ class ReservationServiceTest {
     }
 
     @Test
-    void 예약성공시() {
+    void 예약_성공시() {
         // Given
         when(seatRepository.findSeatsByScheduleId(seatIds, scheduleId)).thenReturn(Arrays.asList(
                 Seat.builder()
@@ -121,6 +125,17 @@ class ReservationServiceTest {
         // ReservationRepository의 saveReservation 메서드의 행동 정의
         when(reservationRepository.saveReservation(any())).thenAnswer(invocation -> invocation.getArgument(0));
 
+        when(paymentRepository.savePayment(any())).thenAnswer(invocation -> {
+            Payment payment = invocation.getArgument(0);
+            return Payment.builder()
+                    .id(1L) // 가상의 결제 ID 설정
+                    .reservationId(payment.getReservationId())
+                    .amount(payment.getAmount())
+                    .paymentStatus(payment.getPaymentStatus())
+                    .paymentAt(payment.getPaymentAt())
+                    .build();
+        });
+
         // When
         Reservation reservation = reservationService.reserveSeats(userId, concertId, scheduleId, seatIds);
 
@@ -128,6 +143,8 @@ class ReservationServiceTest {
         assertNotNull(reservation);
         assertEquals(userId, reservation.getUserId());
         assertEquals(ReservationStatus.TEMPORARY_RESERVED, reservation.getReservationStatus());
+        assertNotNull(reservation.getPaymentId()); // 결제 ID가 설정되었는지 확인
+        assertEquals(1L, reservation.getPaymentId()); // 결제 ID가 예상된 값인지 확인
 
         // 좌석 상태가 예약으로 변경되었는지 확인
         ArgumentCaptor<List<Seat>> seatCaptor = ArgumentCaptor.forClass(List.class);
@@ -137,5 +154,12 @@ class ReservationServiceTest {
         assertEquals(2, savedSeats.size());
         assertEquals(SeatStatus.RESERVED, savedSeats.get(0).getStatus());
         assertEquals(SeatStatus.RESERVED, savedSeats.get(1).getStatus());
+
+        // 임시배정 만료 시간이 현재 시간 기준 5분 후로 설정되었는지 확인
+        LocalDateTime now = LocalDateTime.now();
+        savedSeats.forEach(seat -> {
+            assertTrue(seat.getExpiredAt().isAfter(now.plusMinutes(4)));
+            assertTrue(seat.getExpiredAt().isBefore(now.plusMinutes(6)));
+        });
     }
 }

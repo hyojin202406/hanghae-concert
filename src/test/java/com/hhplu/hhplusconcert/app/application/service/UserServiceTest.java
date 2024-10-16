@@ -1,6 +1,5 @@
-package com.hhplu.hhplusconcert.application.service;
+package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.application.service.UserService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Nested;

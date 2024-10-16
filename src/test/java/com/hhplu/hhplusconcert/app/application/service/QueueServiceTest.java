@@ -1,8 +1,7 @@
-package com.hhplu.hhplusconcert.application.service;
+package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.application.service.QueueService;
 import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.Queue;
+import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
 import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import org.junit.jupiter.api.Nested;
@@ -40,7 +39,7 @@ class QueueServiceTest {
                     .id(1L)
                     .name("user")
                     .build();
-            Queue queue = new Queue();
+            WaitingQueue queue = new WaitingQueue();
 
             String expectedToken = UUID.nameUUIDFromBytes(user.getName().getBytes()).toString();
 
@@ -59,7 +58,7 @@ class QueueServiceTest {
                     .name("user")
                     .build();
 
-            Queue expectedQueue = Queue.builder()
+            WaitingQueue expectedQueue = WaitingQueue.builder()
                     .queueToken("d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5")
                     .userId(user.getId())
                     .queueStatus(QueueStatus.WAITING)
@@ -67,10 +66,10 @@ class QueueServiceTest {
                     .expiredAt(LocalDateTime.now().plusMinutes(10))
                     .build();
 
-            when(queueRepository.token(any(Queue.class))).thenReturn(expectedQueue);
+            when(queueRepository.token(any(WaitingQueue.class))).thenReturn(expectedQueue);
 
             // When
-            Queue result = queueService.token(user);
+            WaitingQueue result = queueService.token(user);
 
             // Then
             assertThat(result).isNotNull();
@@ -101,7 +100,7 @@ class QueueServiceTest {
         void 대기열_토큰_조회_성공() {
             // Given
             String queueToken = "0000-8946-4a57-9eaf-cb7f48e8c1a5";
-            Queue queue = Queue.builder()
+            WaitingQueue queue = WaitingQueue.builder()
                     .id(1L)
                     .queueToken(queueToken)
                     .userId(1L)
@@ -111,7 +110,7 @@ class QueueServiceTest {
             when(queueRepository.getToken(any(String.class))).thenReturn(queue);
 
             // When
-            Queue result = queueService.getToken(queueToken);
+            WaitingQueue result = queueService.getToken(queueToken);
 
             // Then
             assertThat(result).isNotNull();
