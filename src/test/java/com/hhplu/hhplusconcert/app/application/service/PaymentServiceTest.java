@@ -27,19 +27,19 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceTest {
     @Mock
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Mock
-    private PaymentRepository paymentRepository;
+    PaymentRepository paymentRepository;
 
     @Mock
-    private SeatRepository seatRepository;
+    SeatRepository seatRepository;
 
     @Mock
-    private QueueRepository queueRepository;
+    QueueRepository queueRepository;
 
     @InjectMocks
-    private PaymentService paymentService;
+    PaymentService paymentService;
 
 
     @Test
