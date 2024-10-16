@@ -40,6 +40,7 @@ erDiagram
         Long payment_id FK
         VARCHAR payment_status
         DECIMAL amount
+        TIMESTAMP payment_at
     }
     
     CONCERT {
