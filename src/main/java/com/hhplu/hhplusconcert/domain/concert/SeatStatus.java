@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.infrastructure.concert;
+package com.hhplu.hhplusconcert.domain.concert;
 
 public enum SeatStatus {
     AVAILABLE,              // 예약 가능

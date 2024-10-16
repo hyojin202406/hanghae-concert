@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.infrastructure.queue;
+package com.hhplu.hhplusconcert.domain.queue;
 
 public enum QueueStatus {
     WAITING,  // 대기상태

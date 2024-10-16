@@ -1,6 +1,5 @@
 package com.hhplu.hhplusconcert.domain.concert;
 
-import com.hhplu.hhplusconcert.infrastructure.concert.SeatStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +21,9 @@ public class Seat {
     @Column(nullable = false, name = "schedule_id")
     private Long scheduleId;
 
+    @Column(nullable = false, name = "reservation_id")
+    private Long reservationId;
+
     @Column(nullable = false, name = "seat_number")
     private Long seatNumber;
 
@@ -36,4 +38,13 @@ public class Seat {
 
     @Column(nullable = false, name = "expired_at")
     private LocalDateTime expiredAt;
+
+    // 상태 변경 메서드
+    public void changeStatus(SeatStatus newStatus) {
+        this.status = newStatus;
+    }
+
+    public void changeReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
 }

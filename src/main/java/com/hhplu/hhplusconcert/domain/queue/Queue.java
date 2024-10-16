@@ -1,7 +1,6 @@
 package com.hhplu.hhplusconcert.domain.queue;
 
 import com.hhplu.hhplusconcert.domain.user.User;
-import com.hhplu.hhplusconcert.infrastructure.queue.QueueStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

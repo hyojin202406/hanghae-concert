@@ -1,10 +1,9 @@
-package com.hhplu.hhplusconcert.application;
+package com.hhplu.hhplusconcert.application.service;
 
-import com.hhplu.hhplusconcert.application.service.QueueService;
 import com.hhplu.hhplusconcert.domain.queue.Queue;
 import com.hhplu.hhplusconcert.domain.user.User;
 import com.hhplu.hhplusconcert.infrastructure.queue.QueueRepository;
-import com.hhplu.hhplusconcert.infrastructure.queue.QueueStatus;
+import com.hhplu.hhplusconcert.domain.queue.QueueStatus;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
