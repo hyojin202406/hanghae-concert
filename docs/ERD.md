@@ -16,7 +16,7 @@ erDiagram
         Long user_id
         VARCHAR queued_status
         TIMESTAMP created_at
-        TIMESTAMP recented_at
+        TIMESTAMP expired_at
     }
 
     RESERVATION {
