@@ -1,31 +1,16 @@
-package com.hhplu.hhplusconcert.interfaces.api.payment;
+package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
-import com.hhplu.hhplusconcert.interfaces.api.payment.req.PointRequest;
-import com.hhplu.hhplusconcert.interfaces.api.payment.res.PaymentResponse;
-import com.hhplu.hhplusconcert.interfaces.api.payment.res.PointResponse;
+
+import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
+import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/payments")
-public class PaymentController {
-
-    /**
-     * 결제
-     * @param userId
-     * @return
-     */
-    @PostMapping("/users/{userId}")
-    public ResponseEntity<PaymentResponse> pay(@PathVariable("userId") Long userId) {
-        PaymentResponse response = PaymentResponse.builder()
-                .paymentId(1L)
-                .amount(25000L)
-                .paymentStatus("PAYMENT_SUCCESS")
-                .build();
-        return ResponseEntity.ok(response);
-    }
+@RequestMapping("/api/points")
+public class PointController {
 
     /**
      * 잔액 충전
