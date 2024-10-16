@@ -1,11 +1,11 @@
 package com.hhplu.hhplusconcert.app.domain.queue.repository;
 
-import com.hhplu.hhplusconcert.app.domain.queue.entity.Queue;
+import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
 
 public interface QueueRepository {
-    Queue token(Queue queue);
+    WaitingQueue token(WaitingQueue queue);
 
-    Queue getToken(String queueToken);
+    WaitingQueue getToken(String queueToken);
 
     Long getLastActiveId();
 }

@@ -48,4 +48,8 @@ public class Seat {
     public void changeReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
+
+    public void extendExpiration() {
+        this.expiredAt = LocalDateTime.now().plusMinutes(5);
+    }
 }

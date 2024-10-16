@@ -1,15 +1,15 @@
 package com.hhplu.hhplusconcert.app.infrastructure.queue;
 
 import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.Queue;
+import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface QueueJpaRepository extends JpaRepository<Queue, Long> {
+public interface QueueJpaRepository extends JpaRepository<WaitingQueue, Long> {
 
-    Optional<Queue> findByQueueToken(String any);
+    Optional<WaitingQueue> findByQueueToken(String any);
 
-    Optional<Queue> findFirstByQueueStatusOrderByIssuedAtDesc(QueueStatus queueStatus);
+    Optional<WaitingQueue> findFirstByQueueStatusOrderByIssuedAtDesc(QueueStatus queueStatus);
 
 }

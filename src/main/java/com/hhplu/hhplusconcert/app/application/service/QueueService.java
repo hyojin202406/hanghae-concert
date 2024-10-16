@@ -1,7 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.Queue;
+import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
 import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,8 @@ public class QueueService {
      * @param user
      * @return
      */
-    public Queue token(User user) {
-        Queue queue = new Queue();
+    public WaitingQueue token(User user) {
+        WaitingQueue queue = new WaitingQueue();
         queue.token(user);
         return queueRepository.token(queue);
     }
@@ -28,7 +27,7 @@ public class QueueService {
      * 대기열 토큰 조회
      * @return
      */
-    public Queue getToken(String queueToken) {
+    public WaitingQueue getToken(String queueToken) {
         return queueRepository.getToken(queueToken);
     }
 

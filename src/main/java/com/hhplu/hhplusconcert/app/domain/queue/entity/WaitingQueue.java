@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Queue {
+public class WaitingQueue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,5 +42,9 @@ public class Queue {
         this.queueStatus = QueueStatus.WAITING;
         this.issuedAt = LocalDateTime.now();
         this.expiredAt = LocalDateTime.now().plusMinutes(10);
+    }
+
+    public void expireToken(QueueStatus queueStatus) {
+        this.queueStatus = queueStatus;
     }
 }

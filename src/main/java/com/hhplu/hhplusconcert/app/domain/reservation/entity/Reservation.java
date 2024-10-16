@@ -31,4 +31,8 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(name = "reservation_status")
     private ReservationStatus reservationStatus;
+
+    public void changePaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
 }

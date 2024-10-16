@@ -4,6 +4,9 @@ import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
+import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
+import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
+import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
@@ -11,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +24,7 @@ import java.util.List;
 public class ReservationService {
     private final ConcertRepository concertRepository;
     private final ReservationRepository reservationRepository;
+    private final PaymentRepository paymentRepository;
     private final SeatRepository seatRepository;
 
     @Transactional
@@ -50,12 +55,28 @@ public class ReservationService {
                 .build();
         reservationRepository.saveReservation(reservation);
 
+        // 결제 정보 생성 및 저장 (PENDING 상태)
+        // 총 결제 금액 계산
+        long sumPoint = seats.stream()
+                .mapToLong(Seat::getSeatPrice)
+                .sum();
+        Payment payment = Payment.builder()
+                .reservationId(reservation.getId())
+                .amount(BigDecimal.valueOf(sumPoint)) // 총 결제 금액 계산
+                .paymentStatus(PaymentStatus.PENDING) // 결제 준비 상태
+                .paymentAt(LocalDateTime.now())
+                .build();
+
+        Payment savedPayment = paymentRepository.savePayment(payment); // Payment 저장
+
         // 좌석 상태 업데이트 및 예약 ID 설정
         seats.forEach(seat -> {
             seat.changeStatus(SeatStatus.RESERVED);
             seat.changeReservationId(reservation.getId());
+            seat.extendExpiration();
         });
         seatRepository.saveSeats(seats);
+        reservation.changePaymentId(savedPayment.getId());
 
         return reservation;
     }
