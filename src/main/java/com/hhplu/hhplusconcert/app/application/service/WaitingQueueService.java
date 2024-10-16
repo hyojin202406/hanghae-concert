@@ -1,16 +1,16 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QueueService {
+public class WaitingQueueService {
 
-    private final QueueRepository queueRepository;
+    private final WaitingQueueRepository waitingQueueRepository;
 
     /**
      * 토큰 생성 및 대기열 저장
@@ -20,7 +20,7 @@ public class QueueService {
     public WaitingQueue token(User user) {
         WaitingQueue queue = new WaitingQueue();
         queue.token(user);
-        return queueRepository.token(queue);
+        return waitingQueueRepository.token(queue);
     }
 
     /**
@@ -28,7 +28,7 @@ public class QueueService {
      * @return
      */
     public WaitingQueue getToken(String queueToken) {
-        return queueRepository.getToken(queueToken);
+        return waitingQueueRepository.getToken(queueToken);
     }
 
     /**
@@ -36,6 +36,6 @@ public class QueueService {
      * @return
      */
     public Long getLastActiveId() {
-        return queueRepository.getLastActiveId();
+        return waitingQueueRepository.getLastActiveId();
     }
 }

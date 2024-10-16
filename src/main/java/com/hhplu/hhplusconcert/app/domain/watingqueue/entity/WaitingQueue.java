@@ -1,6 +1,6 @@
-package com.hhplu.hhplusconcert.app.domain.queue.entity;
+package com.hhplu.hhplusconcert.app.domain.watingqueue.entity;
 
-import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class WaitingQueue {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "queue_status")
-    private QueueStatus queueStatus;
+    private WaitingQueueStatus queueStatus;
 
     @Column(name = "issued_at")
     private LocalDateTime issuedAt;
@@ -39,12 +39,12 @@ public class WaitingQueue {
         user.generateToken();
         this.queueToken = user.getToken();
         this.userId = user.getId();
-        this.queueStatus = QueueStatus.WAITING;
+        this.queueStatus = WaitingQueueStatus.WAITING;
         this.issuedAt = LocalDateTime.now();
         this.expiredAt = LocalDateTime.now().plusMinutes(10);
     }
 
-    public void expireToken(QueueStatus queueStatus) {
+    public void expireToken(WaitingQueueStatus queueStatus) {
         this.queueStatus = queueStatus;
     }
 }

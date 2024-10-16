@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,10 @@ import static org.mockito.Mockito.when;
 class QueueServiceTest {
 
     @Mock
-    QueueRepository queueRepository;
+    WaitingQueueRepository queueRepository;
 
     @InjectMocks
-    QueueService queueService;
+    WaitingQueueService queueService;
 
 
     @Nested
@@ -61,7 +61,7 @@ class QueueServiceTest {
             WaitingQueue expectedQueue = WaitingQueue.builder()
                     .queueToken("d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5")
                     .userId(user.getId())
-                    .queueStatus(QueueStatus.WAITING)
+                    .queueStatus(WaitingQueueStatus.WAITING)
                     .issuedAt(LocalDateTime.now())
                     .expiredAt(LocalDateTime.now().plusMinutes(10))
                     .build();
@@ -75,7 +75,7 @@ class QueueServiceTest {
             assertThat(result).isNotNull();
             assertThat(result.getQueueToken()).isEqualTo(expectedQueue.getQueueToken());
             assertThat(result.getUserId()).isEqualTo(user.getId());
-            assertThat(result.getQueueStatus()).isEqualTo(QueueStatus.WAITING);
+            assertThat(result.getQueueStatus()).isEqualTo(WaitingQueueStatus.WAITING);
         }
     }
 

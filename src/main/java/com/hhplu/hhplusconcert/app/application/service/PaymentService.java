@@ -6,9 +6,9 @@ import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
-import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -24,7 +24,7 @@ public class PaymentService {
     private final UserRepository userRepository;
     private final PaymentRepository paymentRepository;
     private final SeatRepository seatRepository;
-    private final QueueRepository queueRepository;
+    private final WaitingQueueRepository waitingQueueRepository;
 
     /**
      * 결제
@@ -59,8 +59,8 @@ public class PaymentService {
         payment.changePaymentStatus(PaymentStatus.COMPLETED);
 
         // 대기열 토큰 만료 처리
-        WaitingQueue queue = queueRepository.getToken(queueToken);
-        queue.expireToken(QueueStatus.EXPIRED);
+        WaitingQueue queue = waitingQueueRepository.getToken(queueToken);
+        queue.expireToken(WaitingQueueStatus.EXPIRED);
 
         // 결제 내역 저장
 

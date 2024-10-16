@@ -6,9 +6,9 @@ import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
-import com.hhplu.hhplusconcert.app.domain.queue.QueueStatus;
-import com.hhplu.hhplusconcert.app.domain.queue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.queue.repository.QueueRepository;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class PaymentServiceTest {
     SeatRepository seatRepository;
 
     @Mock
-    QueueRepository queueRepository;
+    WaitingQueueRepository queueRepository;
 
     @InjectMocks
     PaymentService paymentService;
@@ -72,7 +72,7 @@ class PaymentServiceTest {
 
         WaitingQueue queue = WaitingQueue.builder()
                 .queueToken(queueToken)
-                .queueStatus(QueueStatus.ACTIVE)
+                .queueStatus(WaitingQueueStatus.ACTIVE)
                 .build();
 
         // Mocking
@@ -98,7 +98,7 @@ class PaymentServiceTest {
         }
 
         // 대기열 만료 검증
-        assertEquals(QueueStatus.EXPIRED, queue.getQueueStatus());
+        assertEquals(WaitingQueueStatus.EXPIRED, queue.getQueueStatus());
 
         // Verification
         verify(userRepository).getUser(userId);
