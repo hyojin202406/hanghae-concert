@@ -1,9 +1,8 @@
 package com.hhplu.hhplusconcert.application.service;
 
 import com.hhplu.hhplusconcert.app.application.service.UserService;
-import com.hhplu.hhplusconcert.app.domain.user.User;
-import com.hhplu.hhplusconcert.app.domain.user.UserRepository;
-import com.hhplu.hhplusconcert.app.infrastructure.user.UserJpaRepository;
+import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

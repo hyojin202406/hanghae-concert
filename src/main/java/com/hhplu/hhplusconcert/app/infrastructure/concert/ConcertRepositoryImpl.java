@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.infrastructure.concert;
 
-import com.hhplu.hhplusconcert.app.domain.concert.ConcertRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

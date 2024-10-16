@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.infrastructure.concert;
 
-import com.hhplu.hhplusconcert.app.domain.concert.Seat;
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 

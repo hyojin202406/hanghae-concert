@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.domain.concert;
+package com.hhplu.hhplusconcert.app.domain.concert.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

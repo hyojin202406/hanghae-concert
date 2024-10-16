@@ -1,8 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.user.User;
-import com.hhplu.hhplusconcert.app.domain.user.UserRepository;
-import com.hhplu.hhplusconcert.app.infrastructure.user.UserJpaRepository;
+import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

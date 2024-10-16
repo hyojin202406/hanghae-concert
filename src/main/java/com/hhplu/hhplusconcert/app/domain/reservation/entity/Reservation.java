@@ -1,5 +1,6 @@
-package com.hhplu.hhplusconcert.app.domain.reservation;
+package com.hhplu.hhplusconcert.app.domain.reservation.entity;
 
+import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

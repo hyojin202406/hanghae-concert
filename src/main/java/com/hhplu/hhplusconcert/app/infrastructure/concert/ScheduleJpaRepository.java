@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.infrastructure.concert;
 
-import com.hhplu.hhplusconcert.app.domain.concert.Schedule;
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

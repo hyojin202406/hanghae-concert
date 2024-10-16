@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.queue.Queue;
-import com.hhplu.hhplusconcert.app.domain.user.User;
+import com.hhplu.hhplusconcert.app.domain.queue.entity.Queue;
+import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.infrastructure.queue.QueueJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,13 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
-import com.hhplu.hhplusconcert.app.domain.concert.ConcertRepository;
-import com.hhplu.hhplusconcert.app.domain.concert.Seat;
-import com.hhplu.hhplusconcert.app.domain.concert.SeatRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
-import com.hhplu.hhplusconcert.app.domain.reservation.Reservation;
-import com.hhplu.hhplusconcert.app.domain.reservation.ReservationRepository;
+import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
+import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final SeatRepository seatRepository;
 
+    @Transactional
     public Reservation reserveSeats(Long userId, Long concertId, Long scheduleId, Long[] seatIds) {
 
         // 콘서트 존재 여부 확인

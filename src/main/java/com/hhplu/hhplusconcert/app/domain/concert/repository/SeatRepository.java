@@ -1,4 +1,6 @@
-package com.hhplu.hhplusconcert.app.domain.concert;
+package com.hhplu.hhplusconcert.app.domain.concert.repository;
+
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 
 import java.util.List;
 

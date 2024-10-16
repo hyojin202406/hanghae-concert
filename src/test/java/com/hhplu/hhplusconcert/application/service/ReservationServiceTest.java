@@ -2,8 +2,11 @@ package com.hhplu.hhplusconcert.application.service;
 
 import com.hhplu.hhplusconcert.app.application.service.ReservationService;
 import com.hhplu.hhplusconcert.app.domain.concert.*;
-import com.hhplu.hhplusconcert.app.domain.reservation.Reservation;
-import com.hhplu.hhplusconcert.app.domain.reservation.ReservationRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
+import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
+import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import com.hhplu.hhplusconcert.app.infrastructure.concert.ConcertJpaRepository;
 import org.junit.jupiter.api.BeforeEach;

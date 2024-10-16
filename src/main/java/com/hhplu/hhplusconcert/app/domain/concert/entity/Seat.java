@@ -1,5 +1,6 @@
-package com.hhplu.hhplusconcert.app.domain.concert;
+package com.hhplu.hhplusconcert.app.domain.concert.entity;
 
+import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
