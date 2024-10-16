@@ -40,7 +40,6 @@ public class Seat {
     @Column(nullable = false, name = "expired_at")
     private LocalDateTime expiredAt;
 
-    // 상태 변경 메서드
     public void changeStatus(SeatStatus newStatus) {
         this.status = newStatus;
     }

@@ -6,6 +6,9 @@ import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
@@ -30,11 +33,24 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
 
     @Override
     public void deactivateStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        List<WaitingQueue> expiredQueues = waitingQueueJpaRepository.findByExpiredAtBefore(now);
 
+        for (WaitingQueue queue : expiredQueues) {
+            queue.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
+        }
+
+        waitingQueueJpaRepository.saveAll(expiredQueues); // 모든 변경 사항 저장
     }
 
     @Override
     public void activateStatus() {
+        List<WaitingQueue> waitingQueues = waitingQueueJpaRepository.findTop10ByQueueStatusOrderByIssuedAtAsc(WaitingQueueStatus.WAITING);
 
+        for (WaitingQueue queue : waitingQueues) {
+            queue.changeWaitingQueueStatus(WaitingQueueStatus.ACTIVE);
+        }
+
+        waitingQueueJpaRepository.saveAll(waitingQueues); // 모든 변경 사항 저장
     }
 }

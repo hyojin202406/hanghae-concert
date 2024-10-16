@@ -44,7 +44,7 @@ public class WaitingQueue {
         this.expiredAt = LocalDateTime.now().plusMinutes(10);
     }
 
-    public void expireToken(WaitingQueueStatus queueStatus) {
+    public void changeWaitingQueueStatus(WaitingQueueStatus queueStatus) {
         this.queueStatus = queueStatus;
     }
 }

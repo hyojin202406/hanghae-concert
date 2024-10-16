@@ -60,7 +60,7 @@ public class PaymentService {
 
         // 대기열 토큰 만료 처리
         WaitingQueue queue = waitingQueueRepository.getToken(queueToken);
-        queue.expireToken(WaitingQueueStatus.EXPIRED);
+        queue.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
 
         // 결제 내역 저장
 

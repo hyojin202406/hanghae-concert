@@ -18,9 +18,9 @@ public class WaitingQueueService {
      * @return
      */
     public WaitingQueue token(User user) {
-        WaitingQueue queue = new WaitingQueue();
-        queue.token(user);
-        return waitingQueueRepository.token(queue);
+        WaitingQueue waitingQueue = new WaitingQueue();
+        waitingQueue.token(user);
+        return waitingQueueRepository.token(waitingQueue);
     }
 
     /**
