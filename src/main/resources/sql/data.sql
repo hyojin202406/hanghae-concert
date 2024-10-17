@@ -42,6 +42,13 @@ VALUES
     ('UserB', 1000.00);
     ('UserC', 1000.00);
 
+-- Point 테이블 초기 데이터 삽입
+INSERT INTO point (user_id, point_amount)
+VALUES
+    (1, 1000.00),
+    (2, 1000.00),
+    (3, 1000.00);
+
 -- 스크립트 설명:
 -- Concert 테이블에는 Concert A, Concert B 두 개의 콘서트가 추가됩니다.
 -- Schedule 테이블에는 각 콘서트에 대한 스케줄을 3개 추가합니다.
