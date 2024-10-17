@@ -6,4 +6,6 @@ public interface PaymentRepository {
     Payment savePayment(Payment payment);
 
     Payment getPayment(Long paymentId);
+
+    Payment existsPayment(Long paymentId);
 }

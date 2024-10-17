@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.reservation.service;
 
+import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
-import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,4 +26,5 @@ public class ReservationService {
 
         return reservation;
     }
+
 }

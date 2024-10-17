@@ -39,4 +39,9 @@ public class SeatRepositoryImpl implements SeatRepository {
     public List<Seat> findAllByStatusAndExpiredAtBefore(SeatStatus seatStatus, LocalDateTime now) {
         return seatJpaRepository.findAllByStatusAndExpiredAtBefore(seatStatus, now);
     }
+
+    @Override
+    public List<Seat> findSeatsByReservationId(Long reservationId) {
+        return seatJpaRepository.findByReservationId(reservationId);
+    }
 }

@@ -18,6 +18,12 @@ public class PaymentRepositoryImpl implements PaymentRepository {
 
     @Override
     public Payment getPayment(Long paymentId) {
-        return paymentJpaRepository.findById(paymentId).orElseThrow(() -> new IllegalArgumentException("토큰이 존재하지 않습니다."));
+        return paymentJpaRepository.findById(paymentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 결제 정보입니다."));
+    }
+
+    @Override
+    public Payment existsPayment(Long paymentId) {
+        return paymentJpaRepository.findById(paymentId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 결제 정보입니다."));
     }
 }

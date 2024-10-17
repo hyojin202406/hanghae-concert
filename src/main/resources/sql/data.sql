@@ -20,6 +20,7 @@ VALUES
 --     (2, NULL, 2, 150, 'AVAILABLE', NOW(), NOW() + INTERVAL 30 MINUTE, 0),
 --     (3, NULL, 1, 200, 'AVAILABLE', NOW(), NOW() + INTERVAL 30 MINUTE, 0),
 --     (3, NULL, 2, 200, 'AVAILABLE', NOW(), NOW() + INTERVAL 30 MINUTE, 0);
+
 INSERT INTO seat (schedule_id, reservation_id, seat_number, seat_price, status, created_at, expired_at, version)
 VALUES
     (1, NULL, 1, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
@@ -36,11 +37,11 @@ VALUES
     ('d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a4', 2, 'ACTIVE', NOW(), TIMESTAMPADD(MINUTE, 10, NOW()), 0),
     ('d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5', 3, 'WAITING', NOW(), TIMESTAMPADD(MINUTE, 10, NOW()), 0);
 
-INSERT INTO users (name, point_amount)
+INSERT INTO users (name)
 VALUES
-    ('UserA', 1000.00);
-    ('UserB', 1000.00);
-    ('UserC', 1000.00);
+    ('UserA'),
+    ('UserB'),
+    ('UserC');
 
 -- Point 테이블 초기 데이터 삽입
 INSERT INTO point (user_id, point_amount)
@@ -49,7 +50,19 @@ VALUES
     (2, 1000.00),
     (3, 1000.00);
 
--- 스크립트 설명:
--- Concert 테이블에는 Concert A, Concert B 두 개의 콘서트가 추가됩니다.
--- Schedule 테이블에는 각 콘서트에 대한 스케줄을 3개 추가합니다.
--- Seat 테이블에는 각 스케줄에 좌석을 추가합니다. 상태는 'AVAILABLE'이며, 버전 필드는 0으로 설정하여 낙관적 락
+-- PaymentHistory 테이블에 결제 내역 삽입
+INSERT INTO payment_history (user_id, payment_id, payment_status, amount, payment_at)
+VALUES
+    (1, 1001, 'COMPLETED', 100.00, NOW()),
+    (1, 1002, 'PENDING', 150.00, NOW()),
+    (2, 1003, 'COMPLETED', 200.00, NOW()),
+    (3, 1004, 'FAILED', 120.00, NOW()),
+    (3, 1005, 'COMPLETED', 130.00, NOW());
+
+INSERT INTO payment (reservation_id, amount, payment_status, payment_at)
+VALUES
+    (1, 100.00, 'COMPLETED', NOW()),
+    (2, 150.00, 'PENDING', NOW()),
+    (3, 200.00, 'FAILED', NOW()),
+    (4, 120.00, 'COMPLETED', NOW()),
+    (5, 130.00, 'PENDING', NOW());

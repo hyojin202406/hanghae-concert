@@ -41,4 +41,11 @@ public class SeatService {
 
         return seats;
     }
+
+    public void reserveSeats(Long reservationId) {
+        List<Seat> seats = seatRepository.findSeatsByReservationId(reservationId);
+        for (Seat seat : seats) {
+            seat.changeStatus(SeatStatus.RESERVED);
+        }
+    }
 }

@@ -34,4 +34,12 @@ public class PointService {
         return new GetPointCommand(point.getPointAmount());
     }
 
+    public Point subtractUserPoints(Long userId, BigDecimal totalAmount) {
+        Point point = point(userId);
+        if (point.getPointAmount().compareTo(totalAmount) < 0) {
+            throw new IllegalArgumentException("잔액이 부족합니다.");
+        }
+        point.subtractPointAmount(totalAmount);
+        return point;
+    }
 }

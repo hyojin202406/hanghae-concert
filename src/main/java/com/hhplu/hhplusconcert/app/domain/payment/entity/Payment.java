@@ -28,6 +28,7 @@ public class Payment {
     private BigDecimal amount;
 
     @Column(nullable = false, name = "payment_status")
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
     @Column(nullable = false, name = "payment_at")

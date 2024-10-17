@@ -5,6 +5,8 @@ import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentHistoryRepos
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class PaymentHistoryRepositoryImpl implements PaymentHistoryRepository {
@@ -19,5 +21,10 @@ public class PaymentHistoryRepositoryImpl implements PaymentHistoryRepository {
     @Override
     public PaymentHistory getPaymentHistory(Long paymentId) {
         return paymentHistoryJpaRepository.findById(paymentId).orElseThrow(() -> new IllegalArgumentException("결재내역이 존재하지 않습니다."));
+    }
+
+    @Override
+    public List<PaymentHistory> getPaymentHistoryByUserId(Long userId) {
+        return paymentHistoryJpaRepository.findByUserId(userId);
     }
 }

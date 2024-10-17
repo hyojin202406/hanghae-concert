@@ -21,10 +21,14 @@ public class PaymentHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, name = "user_id")
+    private Long userId;
+
     @Column(nullable = false, name = "payment_id")
     private Long paymentId;
 
     @Column(nullable = false, name = "payment_status")
+    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
     @Column(nullable = false, precision = 10, scale = 2, name = "amount")
