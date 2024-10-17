@@ -60,9 +60,9 @@ public class ConcertController {
             @Parameter(description = "일정 ID") @PathVariable Long scheduleId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
         List<SeatValue> allSeats = List.of(
-                SeatValue.builder().seatId(1L).seatNumber(1).seatStatus("AVAILABLE").seatPrice(50000).build(),
-                SeatValue.builder().seatId(2L).seatNumber(2).seatStatus("AVAILABLE").seatPrice(100000).build(),
-                SeatValue.builder().seatId(3L).seatNumber(3).seatStatus("UNAVAILABLE").seatPrice(200000).build()
+                SeatValue.builder().seatId(1L).seatNumber(1L).seatStatus("AVAILABLE").seatPrice(50000L).build(),
+                SeatValue.builder().seatId(2L).seatNumber(2L).seatStatus("AVAILABLE").seatPrice(100000L).build(),
+                SeatValue.builder().seatId(3L).seatNumber(3L).seatStatus("UNAVAILABLE").seatPrice(200000L).build()
         );
 
         List<SeatValue> availableSeats = allSeats.stream()

@@ -9,8 +9,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class SeatValue {
     private Long seatId;
-    private int seatNumber;
+    private Long seatNumber;
     private String seatStatus;
-    private int seatPrice;
+    private Long seatPrice;
 }
 
