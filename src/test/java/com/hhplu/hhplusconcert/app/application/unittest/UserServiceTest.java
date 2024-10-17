@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.token;
+package com.hhplu.hhplusconcert.app.application.unittest;
 
 import com.hhplu.hhplusconcert.app.application.user.service.UserService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;

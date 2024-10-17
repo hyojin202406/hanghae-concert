@@ -39,7 +39,7 @@ public class ReservationFacadeTest {
     private ReservationFacade reservationFacade;
 
     @Test
-    public void testReserveSeats_Success() {
+    public void 좌석_예약_성공() {
         // Given
         Long userId = 1L;
         Long concertId = 1L;
@@ -68,7 +68,7 @@ public class ReservationFacadeTest {
     }
 
     @Test
-    public void testReserveSeats_OptimisticLockException() {
+    public void 좌석_예약_실패() {
         // Given
         Long userId = 1L;
         Long concertId = 1L;

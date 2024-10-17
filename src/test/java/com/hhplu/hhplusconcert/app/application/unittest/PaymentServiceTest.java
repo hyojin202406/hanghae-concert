@@ -1,16 +1,15 @@
-package com.hhplu.hhplusconcert.app.application.payment.service;
+package com.hhplu.hhplusconcert.app.application.unittest;
 
+import com.hhplu.hhplusconcert.app.application.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;

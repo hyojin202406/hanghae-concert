@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-//@Sql(scripts = "sql/data.sql") // 테스트 전에 실행할 SQL 스크립트 경로
 class ReservationFacadeIntegrationTest {
 
     @Autowired

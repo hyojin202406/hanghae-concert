@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.integrationTest;
+package com.hhplu.hhplusconcert.app.application.Concurrency;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
 import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsCommand;
