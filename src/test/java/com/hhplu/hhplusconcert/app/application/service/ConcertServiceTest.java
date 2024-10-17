@@ -1,6 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.service;
 
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;
 import com.hhplu.hhplusconcert.app.infrastructure.concert.ScheduleJpaRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -10,17 +12,21 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ConcertServiceTest {
 
     @Mock
-    ScheduleJpaRepository scheduleRepository;
+    ScheduleRepository scheduleRepository;
+
+    @Mock
+    ConcertRepository concertRepository;
 
     @InjectMocks
     ConcertService concertService;
@@ -31,14 +37,15 @@ class ConcertServiceTest {
         void 콘서트_일정_조회_실패시_예외처리() {
             // Given
             Long concertId = 1L;
-            String QUEUE_TOKEN= "d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5";
-
-            when(scheduleRepository.findByConcertId(concertId)).thenReturn(null);
+            when(concertRepository.existsConcert(concertId)).thenReturn(any());
+            when(scheduleRepository.existsSchedule(concertId)).thenReturn(Collections.emptyList());
 
             // When & Then
-            assertThrows(IllegalArgumentException.class,
-                    () -> concertService.schedule(concertId),
-                    "Schedule not found");
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                    () -> concertService.schedule(concertId));
+
+            assertThat(exception.getMessage()).isEqualTo("콘서트 일정이 존재하지 않습니다.");
+            verify(scheduleRepository, times(1)).existsSchedule(concertId);
         }
 
         @Test
@@ -52,16 +59,16 @@ class ConcertServiceTest {
                     Schedule.builder().id(4L).concertId(1L).scheduleStaredtAt(LocalDateTime.of(2025, 1, 17, 10, 0)).scheduleEndedAt(LocalDateTime.of(2025, 1, 17, 12, 0)).build()
             );
 
-            when(scheduleRepository.findByConcertId(concertId)).thenReturn(schedules);
+            when(scheduleRepository.existsSchedule(concertId)).thenReturn(schedules);
 
             // When
-            List<Schedule> schedule = concertService.schedule(concertId);
+            List<Schedule> result = concertService.schedule(concertId);
 
             // Then
-            assertThat(schedule).hasSize(4);
-            assertThat(schedule.get(0).getScheduleStaredtAt()).isEqualTo(LocalDateTime.of(2024, 10, 14, 10, 0));
-            assertThat(schedule.get(0).getScheduleEndedAt()).isEqualTo(LocalDateTime.of(2024, 10, 14, 12, 0));
+            assertThat(result).hasSize(4);
+            assertThat(result.get(0).getScheduleStaredtAt()).isEqualTo(LocalDateTime.of(2024, 10, 14, 10, 0));
+            assertThat(result.get(0).getScheduleEndedAt()).isEqualTo(LocalDateTime.of(2024, 10, 14, 12, 0));
+            verify(scheduleRepository, times(1)).existsSchedule(concertId);
         }
     }
-
 }
