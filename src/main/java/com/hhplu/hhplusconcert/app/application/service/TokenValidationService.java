@@ -5,6 +5,8 @@ import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TokenValidationService {
@@ -12,8 +14,8 @@ public class TokenValidationService {
     private final WaitingQueueRepository queueRepository;
 
     public boolean isValidToken(String token) {
-        WaitingQueue waitingQueue = queueRepository.getToken(token);
-        return waitingQueue != null;
+        Optional<WaitingQueue> waitingQueue = queueRepository.isValidToken(token);
+        return waitingQueue.isPresent();
     }
 
 }
