@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.interfaces.api.queue.req;
+package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.req;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

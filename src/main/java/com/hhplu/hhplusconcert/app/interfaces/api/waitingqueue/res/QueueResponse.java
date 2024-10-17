@@ -1,5 +1,6 @@
-package com.hhplu.hhplusconcert.app.interfaces.api.queue.res;
+package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res;
 
+import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,6 @@ public class QueueResponse {
     private String queueToken;
     private Long queuePosition;
     private Long lastActivedQueuePosition;
-    private String queueStatus;
+    private WaitingQueueStatus queueStatus;
     private LocalDateTime issuedAt;
 }
