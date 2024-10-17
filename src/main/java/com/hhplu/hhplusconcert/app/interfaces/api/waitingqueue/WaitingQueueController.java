@@ -1,10 +1,9 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue;
 
 import com.hhplu.hhplusconcert.app.application.facade.WaitingQueueFacade;
-import com.hhplu.hhplusconcert.app.application.service.WaitingQueueService;
-import com.hhplu.hhplusconcert.app.application.waitingqueue.CreateWaitingQueueCommand;
-import com.hhplu.hhplusconcert.app.application.waitingqueue.GetWaitingQueueCommand;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.application.waitingqueue.service.WaitingQueueService;
+import com.hhplu.hhplusconcert.app.application.waitingqueue.command.CreateWaitingQueueCommand;
+import com.hhplu.hhplusconcert.app.application.waitingqueue.command.GetWaitingQueueCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.QueueResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,8 +34,8 @@ public class WaitingQueueController {
         CreateWaitingQueueCommand command = waitingQueueFacade.token(userId);
         TokenResponse response = TokenResponse.builder()
                 .userId(userId)
-                .queueToken(command.getWaitingQueue().getQueueToken())
-                .issuedAt(command.getWaitingQueue().getIssuedAt())
+                .queueToken(command.getQueueToken())
+                .issuedAt(command.getIssuedAt())
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -51,12 +50,12 @@ public class WaitingQueueController {
     public ResponseEntity<QueueResponse> queue(@RequestHeader("QUEUE-TOKEN") String queueToken) {
         GetWaitingQueueCommand command = waitingQueueFacade.queue(queueToken);
         QueueResponse response = QueueResponse.builder()
-                .userId(command.getWaitingQueue().getUserId())
+                .userId(command.getUserId())
                 .queueToken(queueToken)
-                .queuePosition(command.getWaitingQueue().getId())
+                .queuePosition(command.getId())
                 .lastActivedQueuePosition(command.getLastActiveId())
-                .queueStatus(command.getWaitingQueue().getQueueStatus())
-                .issuedAt(command.getWaitingQueue().getIssuedAt())
+                .queueStatus(command.getQueueStatus())
+                .issuedAt(command.getIssuedAt())
                 .build();
         return ResponseEntity.ok(response);
     }
