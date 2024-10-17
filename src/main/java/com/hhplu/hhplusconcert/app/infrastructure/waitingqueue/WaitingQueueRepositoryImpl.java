@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -52,5 +53,10 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
         }
 
         waitingQueueJpaRepository.saveAll(waitingQueues); // 모든 변경 사항 저장
+    }
+
+    @Override
+    public Optional<WaitingQueue> isValidToken(String queueToken) {
+        return waitingQueueJpaRepository.findByQueueToken(queueToken);
     }
 }

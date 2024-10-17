@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.common.filter;
 
-import com.hhplu.hhplusconcert.app.application.service.TokenValidationService;
+import com.hhplu.hhplusconcert.app.application.token.service.TokenValidationService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

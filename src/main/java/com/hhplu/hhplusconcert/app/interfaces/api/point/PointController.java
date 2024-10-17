@@ -1,5 +1,8 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
+import com.hhplu.hhplusconcert.app.application.point.command.GetPointCommand;
+import com.hhplu.hhplusconcert.app.application.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.point.service.PointService;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/points")
 public class PointController {
 
+    private final PointService pointService;
+
     /**
      * 잔액 충전
      * @param userId
@@ -26,11 +31,8 @@ public class PointController {
     public ResponseEntity<PointResponse> recharge(
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId,
             @Parameter(description = "충전 요청 정보") @RequestBody PointRequest request) {
-        PointResponse response = PointResponse.builder()
-                .userId(1L)
-                .currentPointAmount(40000L)
-                .build();
-        return ResponseEntity.ok(response);
+        GetPointCommand command = pointService.rechargePoint(new RechargeCommand(userId, request.getPointAmount()));
+        return ResponseEntity.ok(PointResponse.from(userId, command));
     }
 
     /**
@@ -43,10 +45,7 @@ public class PointController {
     @PostMapping("/users/{userId}")
     public ResponseEntity<PointResponse> point(
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId) {
-        PointResponse response = PointResponse.builder()
-                .userId(1L)
-                .currentPointAmount(40000L)
-                .build();
-        return ResponseEntity.ok(response);
+        GetPointCommand command = pointService.getPoint(userId);
+        return ResponseEntity.ok(PointResponse.from(userId, command));
     }
 }

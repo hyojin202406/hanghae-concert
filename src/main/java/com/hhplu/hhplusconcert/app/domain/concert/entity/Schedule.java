@@ -30,7 +30,7 @@ public class Schedule {
 
     public static List<Schedule> validateSchedules(List<Schedule> schedules) {
         if (schedules == null || schedules.isEmpty()) {
-            throw new IllegalArgumentException("Schedule not found");
+            throw new IllegalArgumentException("콘서트 일정이 존재하지 않습니다.");
         }
         return schedules;
     }

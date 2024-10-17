@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.reservation.res;
 
-import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
+import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,19 @@ public class ReservationResponse {
     private Long concertId;
     private String concertName;
     private LocalDateTime concertAt;
-    private List<SeatValue> seats;
-    private int totalPrice;
+    private List<SeatItem> seats;
+    private Long totalPrice;
     private String reservationStatus;
+
+    public static ReservationResponse from(ReserveSeatsResponseCommand command) {
+        return ReservationResponse.builder()
+                .reservationId(command.getReservationId())
+                .concertId(command.getConcertId())
+                .concertName(command.getConcertName())
+                .concertAt(command.getConcertAt())
+                .seats(command.getSeats())
+                .totalPrice(command.getTotalPrice())
+                .reservationStatus(command.getReservationStatus())
+                .build();
+    }
 }
