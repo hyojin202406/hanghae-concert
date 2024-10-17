@@ -1,18 +1,5 @@
 # 콘서트 예약 서비스
 
---- 
-## 과제
-### **`STEP 05`**
-- 시나리오 선정 및 프로젝트 Milestone 제출
-- 시나리오 요구사항 별 분석 자료 제출
-  > 시퀀스 다이어그램, 플로우 차트 등
-- 자료들을 리드미에 작성 후 PR 링크 제출
-
-### **`STEP 06`**
-- ERD 설계 자료 제출
-- API 명세 및 Mock API 작성
-- 자료들을 리드미에 작성 후 PR링크 제출 ( 기본 패키지 구조, 서버 Configuration 등 )
-
 ---
 
 ## STEP 05
@@ -24,3 +11,7 @@
 - [ERD](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/ERD.md)
 - [API 명세](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/API.md)
 - [프로젝트 구조](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/Project_configuration.md)
+
+## STEP 07
+[GUI Swagger 접속](http://localhost:8080/swagger-ui/index.html)
+[API-Swagger](/docs/API-Swagger.md)
