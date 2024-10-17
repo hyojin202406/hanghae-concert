@@ -18,7 +18,7 @@ public class SeatService {
         return seatRepository.getAllSeatsByScheduleId(scheduleId);
     }
 
-    public List<Seat> getAvailableSeatsByScheduleId(Long concertId, Long scheduleId) {
+    public List<Seat> getAvailableSeatsByScheduleId(Long scheduleId) {
         return seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE);
     }
 

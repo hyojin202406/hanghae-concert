@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
+import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,13 +14,24 @@ import java.util.List;
 @AllArgsConstructor
 public class ScheduleResponse {
     private Long concertId;
-    private List<EventResponse> events; // events 필드 추가
+    private List<ScheduleItem> events;
 
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class EventResponse {
+    public static class ScheduleItem {
         private Long scheduleId;
-        private LocalDateTime concertAt;
+        private LocalDateTime scheduleStartedAt;
+    }
+
+    public static ScheduleResponse from(ConcertResponseCommand command) {
+        List<ScheduleItem> list = command.getSchedules().stream().map(schedule -> new ScheduleItem(
+                schedule.getId(),
+                schedule.getScheduleStaredtAt()
+        )).toList();
+        return ScheduleResponse.builder()
+                .concertId(command.getConcertId())
+                .events(list)
+                .build();
     }
 }

@@ -3,6 +3,7 @@ package com.hhplu.hhplusconcert.app.application.service;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
+import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;
 import com.hhplu.hhplusconcert.app.infrastructure.concert.ScheduleJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,11 @@ import java.util.List;
 public class ConcertService {
 
     private final ConcertRepository concertRepository;
-
-    @Autowired
-    ScheduleJpaRepository scheduleRepository;
+    private final ScheduleRepository scheduleRepository;
 
     public List<Schedule> schedule(Long concertId) {
-        List<Schedule> schedules = scheduleRepository.findByConcertId(concertId);
+        concertRepository.existsConcert(concertId);
+        List<Schedule> schedules = scheduleRepository.existsSchedule(concertId);
         Schedule.validateSchedules(schedules);
         return schedules;
     }

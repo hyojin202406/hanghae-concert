@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service;
+package com.hhplu.hhplusconcert.app.application.reservation.service;
 
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;

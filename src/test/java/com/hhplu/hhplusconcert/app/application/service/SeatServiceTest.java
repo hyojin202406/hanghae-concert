@@ -124,7 +124,7 @@ class SeatServiceTest {
             when(seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)).thenReturn(availableSeats);
 
             // When
-            List<Seat> response = seatService.getAvailableSeatsByScheduleId(concertId, scheduleId);
+            List<Seat> response = seatService.getAvailableSeatsByScheduleId(scheduleId);
 
             // Then
             // 첫 번째 좌석 검증

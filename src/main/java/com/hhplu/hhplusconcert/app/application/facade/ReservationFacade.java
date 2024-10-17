@@ -4,7 +4,7 @@ import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsC
 import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.application.service.ConcertService;
 import com.hhplu.hhplusconcert.app.application.service.PaymentService;
-import com.hhplu.hhplusconcert.app.application.service.ReservationService;
+import com.hhplu.hhplusconcert.app.application.reservation.service.ReservationService;
 import com.hhplu.hhplusconcert.app.application.service.SeatService;
 import com.hhplu.hhplusconcert.app.domain.concert.ConcertManagement;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;

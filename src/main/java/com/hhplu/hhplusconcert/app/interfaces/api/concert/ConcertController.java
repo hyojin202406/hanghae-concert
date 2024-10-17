@@ -1,5 +1,10 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert;
 
+import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.facade.ConcertFacade;
+import com.hhplu.hhplusconcert.app.application.service.ConcertService;
+import com.hhplu.hhplusconcert.app.application.service.SeatService;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.ScheduleResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.SeatResponse;
@@ -18,6 +23,8 @@ import java.util.List;
 @RequestMapping("/api/concerts")
 public class ConcertController {
 
+    private final ConcertFacade concertFacade;
+
     /**
      * 콘서트 일정 조회
      * @param concertId
@@ -26,24 +33,11 @@ public class ConcertController {
     @Operation(summary = "콘서트 일정 조회", description = "주어진 콘서트 ID에 대한 일정 정보를 반환합니다.")
     @ApiResponse(responseCode = "200", description = "일정 조회 성공")
     @GetMapping("/{concertId}/schedules")
-    public ResponseEntity<ScheduleResponse> concertSchedule(
+    public ResponseEntity<ScheduleResponse> concertSchedules(
             @Parameter(description = "콘서트 ID") @PathVariable Long concertId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
-        ScheduleResponse response = ScheduleResponse.builder()
-                .concertId(concertId) // concertId 추가
-                .events(List.of( // events 리스트 추가
-                        ScheduleResponse.EventResponse.builder()
-                                .scheduleId(1L)
-                                .concertAt(LocalDateTime.parse("2024-10-08T10:00:00"))
-                                .build(),
-                        ScheduleResponse.EventResponse.builder()
-                                .scheduleId(2L)
-                                .concertAt(LocalDateTime.parse("2024-10-08T12:00:00"))
-                                .build()
-                ))
-                .build();
-
-        return ResponseEntity.ok(response);
+        ConcertResponseCommand command = concertFacade.getConcertSchedules(concertId);
+        return ResponseEntity.ok(ScheduleResponse.from(command));
     }
 
     /**
@@ -55,27 +49,11 @@ public class ConcertController {
     @Operation(summary = "콘서트 좌석 조회", description = "주어진 콘서트 ID와 일정 ID에 대한 좌석 정보를 반환합니다.")
     @ApiResponse(responseCode = "200", description = "좌석 조회 성공")
     @GetMapping("/{concertId}/schedules/{scheduleId}/seats")
-    public ResponseEntity<SeatResponse> concertSchedule(
+    public ResponseEntity<SeatResponse> concertSeats(
             @Parameter(description = "콘서트 ID") @PathVariable Long concertId,
             @Parameter(description = "일정 ID") @PathVariable Long scheduleId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
-        List<SeatValue> allSeats = List.of(
-                SeatValue.builder().seatId(1L).seatNumber(1L).seatStatus("AVAILABLE").seatPrice(50000L).build(),
-                SeatValue.builder().seatId(2L).seatNumber(2L).seatStatus("AVAILABLE").seatPrice(100000L).build(),
-                SeatValue.builder().seatId(3L).seatNumber(3L).seatStatus("UNAVAILABLE").seatPrice(200000L).build()
-        );
-
-        List<SeatValue> availableSeats = allSeats.stream()
-                .filter(seat -> "AVAILABLE".equals(seat.getSeatStatus()))
-                .toList();
-
-        SeatResponse response = SeatResponse.builder()
-                .concertId(concertId)
-                .scheduleId(scheduleId)
-                .allSeats(allSeats)
-                .availableSeats(availableSeats)
-                .build();
-
-        return ResponseEntity.ok(response);
+        ConcertSeatsResponseCommand command = concertFacade.getConcertSeats(concertId, scheduleId);
+        return ResponseEntity.ok(SeatResponse.from(command));
     }
 }
