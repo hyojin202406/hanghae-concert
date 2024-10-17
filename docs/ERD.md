@@ -18,7 +18,7 @@ erDiagram
     QUEUE {
         Long id PK
         VARCHAR queued_token
-        Long user_id
+        Long user_id FK
         VARCHAR queued_status
         TIMESTAMP created_at
         TIMESTAMP expired_at
@@ -42,6 +42,7 @@ erDiagram
     
     PAYMENT_HISTORY {
         Long id PK
+        Long user_id FK
         Long payment_id FK
         VARCHAR payment_status
         DECIMAL amount
@@ -74,9 +75,10 @@ erDiagram
 
     %% Relationships
     USERS ||--o{ RESERVATION : "1:N"
+    USERS ||--o{ PAYMENT_HISTORY : "1:N"
     USERS ||--o{ POINT : "1:N"
-    RESERVATION ||--|| PAYMENT : "1:1"
     PAYMENT ||--o{ PAYMENT_HISTORY : "1:N"
+    RESERVATION ||--|| PAYMENT : "1:1"
     RESERVATION ||--o{ SEAT : "1:N"
     CONCERT ||--o{ SCHEDULE : "1:N"
     SCHEDULE ||--o{ SEAT : "1:N"
