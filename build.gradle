@@ -30,12 +30,16 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    runtimeOnly 'com.h2database:h2'
 
+    // 설정 변경에 따라 인메모리 DB와 RDBMS 테스트 하기위해 추가하였습니다.
+    runtimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
     runtimeOnly 'com.mysql:mysql-connector-j'
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.3'
+
+    // Springfox Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 }
 
 tasks.named('test') {
