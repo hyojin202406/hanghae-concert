@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class SeatValue {
+public class SeatItem {
     private Long seatId;
     private Long seatNumber;
     private String seatStatus;

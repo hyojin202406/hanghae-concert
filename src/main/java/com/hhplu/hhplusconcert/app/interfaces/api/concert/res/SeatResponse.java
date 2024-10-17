@@ -1,8 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
 import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
+import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,19 +14,19 @@ import java.util.List;
 public class SeatResponse {
     private Long concertId;
     private Long scheduleId;
-    private List<SeatValue> allSeats;
-    private List<SeatValue> availableSeats;
+    private List<SeatItem> allSeats;
+    private List<SeatItem> availableSeats;
 
     public static SeatResponse from(ConcertSeatsResponseCommand command) {
 
-        List<SeatValue> allSeats = command.getAllSeats().stream().map(seat -> new SeatValue(
+        List<SeatItem> allSeats = command.getAllSeats().stream().map(seat -> new SeatItem(
                 seat.getId(),
                 seat.getSeatNumber(),
                 seat.getStatus().toString(),
                 seat.getSeatPrice()
         )).toList();
 
-        List<SeatValue> availableSeats = command.getAvailableSeats().stream().map(seat -> new SeatValue(
+        List<SeatItem> availableSeats = command.getAvailableSeats().stream().map(seat -> new SeatItem(
                 seat.getId(),
                 seat.getSeatNumber(),
                 seat.getStatus().toString(),

@@ -1,11 +1,9 @@
-package com.hhplu.hhplusconcert.app.application.service;
+package com.hhplu.hhplusconcert.app.application.user.service;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor

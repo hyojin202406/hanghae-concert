@@ -1,12 +1,10 @@
-package com.hhplu.hhplusconcert.app.application.service;
+package com.hhplu.hhplusconcert.app.application.concert.service;
 
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;
-import com.hhplu.hhplusconcert.app.infrastructure.concert.ScheduleJpaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

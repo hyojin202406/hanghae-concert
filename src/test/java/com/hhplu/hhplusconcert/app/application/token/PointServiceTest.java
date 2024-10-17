@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service;
+package com.hhplu.hhplusconcert.app.application.token;
 
 import com.hhplu.hhplusconcert.app.application.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.point.service.PointService;

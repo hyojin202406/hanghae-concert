@@ -3,12 +3,11 @@ package com.hhplu.hhplusconcert.app.application.reservation.command;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
-import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
+import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatItem;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class ReserveSeatsResponseCommand {
@@ -16,7 +15,7 @@ public class ReserveSeatsResponseCommand {
     private Long concertId;
     private String concertName;
     private LocalDateTime concertAt;
-    private List<SeatValue> seats;
+    private List<SeatItem> seats;
     private long totalPrice;
     private String reservationStatus;
 
@@ -26,7 +25,7 @@ public class ReserveSeatsResponseCommand {
         this.concertName = concert.getConsertName();
         this.concertAt = concert.getCreatedAt();
         this.seats = seats.stream()
-                .map(seat -> new SeatValue(
+                .map(seat -> new SeatItem(
                         seat.getId(),
                         seat.getSeatNumber(),
                         seat.getStatus().toString(),

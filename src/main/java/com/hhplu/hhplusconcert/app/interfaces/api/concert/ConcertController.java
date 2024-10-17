@@ -3,9 +3,6 @@ package com.hhplu.hhplusconcert.app.interfaces.api.concert;
 import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
 import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.application.facade.ConcertFacade;
-import com.hhplu.hhplusconcert.app.application.service.ConcertService;
-import com.hhplu.hhplusconcert.app.application.service.SeatService;
-import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatValue;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.ScheduleResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.SeatResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,9 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

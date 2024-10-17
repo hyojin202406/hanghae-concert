@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service;
+package com.hhplu.hhplusconcert.app.application.token;
 
 import com.hhplu.hhplusconcert.app.application.waitingqueue.service.WaitingQueueService;
 import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
