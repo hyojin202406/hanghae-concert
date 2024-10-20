@@ -42,7 +42,7 @@ public class SeatRepositoryImpl implements SeatRepository {
     }
 
     @Override
-    public List<Seat> findSeatsByReservationId(Long reservationId) {
+    public Optional<List<Seat>> findSeatsByReservationId(Long reservationId) {
         return seatJpaRepository.findByReservationId(reservationId);
     }
 }

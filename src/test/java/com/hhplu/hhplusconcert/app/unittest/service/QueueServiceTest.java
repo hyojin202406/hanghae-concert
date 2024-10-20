@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -108,7 +109,7 @@ class QueueServiceTest {
                     .issuedAt(LocalDateTime.of(2024, 10, 8, 10, 0, 0))
                     .expiredAt(LocalDateTime.of(2024, 10, 8, 10, 10, 0))
                     .build();
-            when(queueRepository.getToken(any(String.class))).thenReturn(queue);
+            when(queueRepository.getToken(any(String.class))).thenReturn(Optional.ofNullable(queue));
 
             // When
             WaitingQueue result = queueService.getToken(queueToken);

@@ -24,6 +24,9 @@ public enum ErrorCode {
     PAYMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_PAY01", "결제 정보를 찾을 수 없습니다.", "Invalid request"),
     PAYMENT_BAD_REQUEST(HttpStatus.BAD_REQUEST, "ERR_PAY02", "잘못된 결제 정보 요청입니다.", "Invalid request"),
 
+    // Payment History Errors
+    PAYMENT_HISTORY_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_PAY_HIST01", "결제 내역을 찾을 수 없습니다.", "Invalid request"),
+
     // User Errors
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERR_US01", "해당 유저를 찾을 수 없습니다.", "Invalid request"),
 

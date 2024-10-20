@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.payment.service;
 
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
@@ -33,6 +35,7 @@ public class PaymentService {
     }
 
     public Payment getPayment(Long paymentId) {
-        return paymentRepository.getPayment(paymentId);
+        return paymentRepository.getPayment(paymentId)
+                .orElseThrow(() -> new BaseException(ErrorCode.PAYMENT_NOT_FOUND));
     }
 }

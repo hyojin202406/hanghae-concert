@@ -10,6 +10,8 @@ import com.hhplu.hhplusconcert.app.application.service.point.service.PointServic
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
 import com.hhplu.hhplusconcert.app.application.service.user.service.UserService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.PaymentHistory;
@@ -18,10 +20,12 @@ import com.hhplu.hhplusconcert.app.domain.waitingqueue.WaitingQueueStatus;
 import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PaymentFacade {
@@ -36,29 +40,36 @@ public class PaymentFacade {
 
     @Transactional
     public PaymentResponseCommand pay(PaymentRequestCommand paymentRequestCommand) {
-        // 유저, 결제 유효성 검사
-        User user = userService.user(paymentRequestCommand.getUserId());
-        Payment payment = paymentService.getPayment(paymentRequestCommand.getPaymentId());
-        // 포인트 차감
-        pointService.subtractUserPoints(user.getId(), payment.getAmount());
-        // 좌석 예약
-        seatService.reserveSeats(payment.getReservationId());
-        // 결제 완료 상태 변경
-        payment.changePaymentStatus(PaymentStatus.COMPLETED);
-        // 대기열 토큰 만료 처리
-        WaitingQueue token = waitingQueueService.getToken(paymentRequestCommand.getQueueToken());
-        token.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
-        // 결제 내역 저장
-        paymentHistoryService.createPaymentHistory(user.getId(), payment.getId(), payment.getPaymentStatus(), payment.getAmount(), payment.getPaymentAt());
-
-        // 결제 응답 생성
-        return new PaymentResponseCommand(payment.getId(), payment.getAmount(), payment.getPaymentStatus());
+        try {
+            User user = userService.user(paymentRequestCommand.getUserId());
+            Payment payment = paymentService.getPayment(paymentRequestCommand.getPaymentId());
+            pointService.subtractUserPoints(user.getId(), payment.getAmount());
+            seatService.reserveSeats(payment.getReservationId());
+            payment.changePaymentStatus(PaymentStatus.COMPLETED);
+            WaitingQueue token = waitingQueueService.getToken(paymentRequestCommand.getQueueToken());
+            token.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
+            paymentHistoryService.createPaymentHistory(user.getId(), payment.getId(), payment.getPaymentStatus(), payment.getAmount(), payment.getPaymentAt());
+            return new PaymentResponseCommand(payment.getId(), payment.getAmount(), payment.getPaymentStatus());
+        } catch (BaseException e) {
+            ErrorCode errorCode = e.getErrorCode();
+            log.error(errorCode.getInternalMessage());
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public GetPaymentsHistoryResponseCommand getPayments(Long userId) {
-        // 유저, 결제 유효성 검사
-        User user = userService.user(userId);
-        List<PaymentHistory> paymentsHistory = paymentHistoryService.getPaymentsHistory(user.getId());
-        return new GetPaymentsHistoryResponseCommand(user.getId(), paymentsHistory);
+        try {
+            User user = userService.user(userId);
+            List<PaymentHistory> paymentsHistory = paymentHistoryService.getPaymentsHistory(user.getId());
+            return new GetPaymentsHistoryResponseCommand(user.getId(), paymentsHistory);
+        } catch (BaseException e) {
+            ErrorCode errorCode = e.getErrorCode();
+            log.error(errorCode.getInternalMessage());
+            throw new IllegalArgumentException(e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

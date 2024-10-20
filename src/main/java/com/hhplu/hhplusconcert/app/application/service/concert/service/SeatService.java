@@ -36,7 +36,7 @@ public class SeatService {
         // 좌석 상태 업데이트
         seats.forEach(seat -> {
             if (seat.getStatus() != SeatStatus.AVAILABLE) {
-                throw new IllegalStateException("예약할 수 없는 좌석이 포함되어 있습니다.");
+                throw new BaseException(ErrorCode.SEAT_NOT_AVAILABLE);
             }
             seat.changeStatus(SeatStatus.TEMPORARILY_RESERVED);
             seat.changeReservationId(reservationId);
@@ -47,7 +47,8 @@ public class SeatService {
     }
 
     public void reserveSeats(Long reservationId) {
-        List<Seat> seats = seatRepository.findSeatsByReservationId(reservationId);
+        List<Seat> seats = seatRepository.findSeatsByReservationId(reservationId)
+                .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_AVAILABLE));
         for (Seat seat : seats) {
             seat.changeStatus(SeatStatus.RESERVED);
         }

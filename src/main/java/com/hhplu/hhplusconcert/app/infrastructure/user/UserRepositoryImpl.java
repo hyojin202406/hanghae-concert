@@ -5,6 +5,8 @@ import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
@@ -12,7 +14,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     @Override
-    public User getUser(Long userId) {
-        return userJpaRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+    public Optional<User> getUser(Long userId) {
+        return userJpaRepository.findById(userId);
     }
 }

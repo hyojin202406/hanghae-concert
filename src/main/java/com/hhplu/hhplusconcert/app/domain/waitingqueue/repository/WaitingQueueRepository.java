@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface WaitingQueueRepository {
     WaitingQueue token(WaitingQueue queue);
 
-    WaitingQueue getToken(String queueToken);
+    Optional<WaitingQueue> getToken(String queueToken);
 
     Long getLastActiveId();
 

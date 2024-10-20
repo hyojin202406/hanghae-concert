@@ -18,5 +18,5 @@ public interface SeatJpaRepository extends JpaRepository<Seat, Long> {
 
     List<Seat> findAllByStatusAndExpiredAtBefore(SeatStatus seatStatus, LocalDateTime now);
 
-    List<Seat> findByReservationId(Long reservationId);
+    Optional<List<Seat>> findByReservationId(Long reservationId);
 }

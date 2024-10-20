@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class PaymentHistoryRepositoryImpl implements PaymentHistoryRepository {
     }
 
     @Override
-    public List<PaymentHistory> getPaymentHistoryByUserId(Long userId) {
+    public Optional<List<PaymentHistory>> getPaymentHistoryByUserId(Long userId) {
         return paymentHistoryJpaRepository.findByUserId(userId);
     }
 }

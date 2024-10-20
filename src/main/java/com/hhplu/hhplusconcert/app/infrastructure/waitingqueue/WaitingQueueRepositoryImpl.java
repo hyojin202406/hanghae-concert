@@ -21,8 +21,8 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     }
 
     @Override
-    public WaitingQueue getToken(String queueToken) {
-        return waitingQueueJpaRepository.findByQueueToken(queueToken).orElseThrow(() -> new IllegalArgumentException("대기열 토큰을 찾을 수 없습니다."));
+    public Optional<WaitingQueue> getToken(String queueToken) {
+        return waitingQueueJpaRepository.findByQueueToken(queueToken);
     }
 
     @Override

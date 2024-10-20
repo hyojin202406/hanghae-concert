@@ -18,5 +18,5 @@ public interface SeatRepository {
 
     List<Seat> findAllByStatusAndExpiredAtBefore(SeatStatus seatStatus, LocalDateTime now);
 
-    List<Seat> findSeatsByReservationId(Long reservationId);
+    Optional<List<Seat>> findSeatsByReservationId(Long reservationId);
 }

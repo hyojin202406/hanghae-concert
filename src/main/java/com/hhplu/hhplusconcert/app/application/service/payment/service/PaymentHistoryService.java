@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.payment.service;
 
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.PaymentHistory;
@@ -29,6 +31,7 @@ public class PaymentHistoryService {
     }
 
     public List<PaymentHistory> getPaymentsHistory(Long userId) {
-        return paymentHistoryRepository.getPaymentHistoryByUserId(userId);
+        return paymentHistoryRepository.getPaymentHistoryByUserId(userId)
+                .orElseThrow(() -> new BaseException(ErrorCode.PAYMENT_HISTORY_NOT_FOUND));
     }
 }

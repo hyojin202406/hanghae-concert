@@ -2,10 +2,12 @@ package com.hhplu.hhplusconcert.app.domain.payment.repository;
 
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 
+import java.util.Optional;
+
 public interface PaymentRepository {
     Payment savePayment(Payment payment);
 
-    Payment getPayment(Long paymentId);
+    Optional<Payment> getPayment(Long paymentId);
 
     Payment existsPayment(Long paymentId);
 }

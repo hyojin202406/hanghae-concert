@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -76,7 +77,7 @@ class PaymentServiceTest {
                 .build();
 
         // when
-        when(paymentRepository.getPayment(paymentId)).thenReturn(payment);
+        when(paymentRepository.getPayment(paymentId)).thenReturn(Optional.ofNullable(payment));
 
         Payment foundPayment = paymentService.getPayment(paymentId);
 
