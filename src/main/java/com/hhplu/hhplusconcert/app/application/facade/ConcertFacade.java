@@ -9,10 +9,13 @@ import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ConcertFacade {
@@ -21,13 +24,15 @@ public class ConcertFacade {
     private final SeatService seatService;
 
     public ConcertResponseCommand getConcertSchedules(Long concertId) {
-        Concert concert = concertService.validateConcertExists(concertId);
+        Concert concert = concertService.validateConcertExists(concertId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘서트입니다."));
         List<Schedule> schedules = concertService.schedule(concert.getId());
         return new ConcertResponseCommand(concert.getId(), schedules);
     }
 
     public ConcertSeatsResponseCommand getConcertSeats(Long concertId, Long scheduleId) {
-        Concert concert = concertService.validateConcertExists(concertId);
+        Concert concert = concertService.validateConcertExists(concertId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘서트입니다."));
         List<Schedule> schedule = scheduleService.validateScheduleExists(scheduleId);
         List<Seat> allSeats = seatService.getAllSeatsByScheduleId(scheduleId);
         List<Seat> availableSeats = seatService.getAvailableSeatsByScheduleId(scheduleId);

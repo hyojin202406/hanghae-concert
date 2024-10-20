@@ -15,7 +15,7 @@ public class ScheduleService {
     public List<Schedule> validateScheduleExists(Long scheduleId) {
         List<Schedule> schedules = scheduleRepository.existsSchedule(scheduleId);
         if (schedules.isEmpty()) {
-            throw new IllegalArgumentException("콘서트 일정이 존재하지 않습니디ㅏ.");
+            throw new IllegalArgumentException("콘서트 일정이 존재하지 않습니다.");
         }
         return schedules;
     }

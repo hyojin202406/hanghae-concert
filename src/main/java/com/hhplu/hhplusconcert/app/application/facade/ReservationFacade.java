@@ -33,7 +33,8 @@ public class ReservationFacade {
     @Transactional
     public ReserveSeatsResponseCommand reserveSeats(ReserveSeatsCommand command) {
         try {
-            Concert concert = concertService.validateConcertExists(command.getConcertId());
+            Concert concert = concertService.validateConcertExists(command.getConcertId())
+                    .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘서트입니다."));
             Reservation reservation = reservationService.createReservation(command.getUserId());
             List<Seat> seats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds());
             long sumPoint = ConcertManagement.calculateTotalPrice(seats);
