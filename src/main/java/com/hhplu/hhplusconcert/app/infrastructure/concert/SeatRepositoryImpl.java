@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,13 +27,13 @@ public class SeatRepositoryImpl implements SeatRepository {
     }
 
     @Override
-    public List<Seat> getAllSeatsByScheduleId(Long scheduleId) {
-        return seatJpaRepository.findByScheduleId(scheduleId).orElseThrow(() -> new IllegalArgumentException("좌석을 찾을 수 없습니다."));
+    public Optional<List<Seat>> getAllSeatsByScheduleId(Long scheduleId) {
+        return seatJpaRepository.findByScheduleId(scheduleId);
     }
 
     @Override
-    public List<Seat> getAvailableSeatsByScheduleId(Long scheduleId, SeatStatus seatStatus) {
-        return seatJpaRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE).orElseThrow(() -> new IllegalArgumentException("좌석을 찾을 수 없습니다."));
+    public Optional<List<Seat>> getAvailableSeatsByScheduleId(Long scheduleId, SeatStatus seatStatus) {
+        return seatJpaRepository.findByScheduleIdAndStatus(scheduleId, SeatStatus.AVAILABLE);
     }
 
     @Override

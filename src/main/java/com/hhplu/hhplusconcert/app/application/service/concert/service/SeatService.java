@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.concert.service;
 
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
@@ -15,18 +17,20 @@ public class SeatService {
     SeatRepository seatRepository;
 
     public List<Seat> getAllSeatsByScheduleId(Long scheduleId) {
-        return seatRepository.getAllSeatsByScheduleId(scheduleId);
+        return seatRepository.getAllSeatsByScheduleId(scheduleId)
+                .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_FOUND));
     }
 
     public List<Seat> getAvailableSeatsByScheduleId(Long scheduleId) {
-        return seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE);
+        return seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)
+                .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_FOUND));
     }
 
     public List<Seat> updateSeatStatus(Long reservationId, Long scheduleId, Long[] seatIds) {
         // 좌석 유효성 확인
         List<Seat> seats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
         if (seats.size() != seatIds.length) {
-            throw new IllegalArgumentException("잘못된 좌석 정보가 포함되어 있습니다.");
+            throw new BaseException(ErrorCode.SEAT_NOT_FOUND);
         }
 
         // 좌석 상태 업데이트

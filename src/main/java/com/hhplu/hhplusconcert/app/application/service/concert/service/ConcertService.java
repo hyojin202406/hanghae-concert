@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.concert.service;
 
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
@@ -21,13 +23,14 @@ public class ConcertService {
 
     public List<Schedule> schedule(Long concertId) {
         concertRepository.existsConcert(concertId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 콘서트입니다."));
+                .orElseThrow(() -> new BaseException(ErrorCode.CONCERT_NOT_FOUND));
         List<Schedule> schedules = scheduleRepository.existsSchedule(concertId);
         Schedule.validateSchedules(schedules);
         return schedules;
     }
 
-    public Optional<Concert> validateConcertExists(Long concertId) {
-        return concertRepository.existsConcert(concertId);
+    public Concert validateConcertExists(Long concertId) {
+        return concertRepository.existsConcert(concertId)
+                .orElseThrow(() -> new BaseException(ErrorCode.CONCERT_NOT_FOUND));
     }
 }
