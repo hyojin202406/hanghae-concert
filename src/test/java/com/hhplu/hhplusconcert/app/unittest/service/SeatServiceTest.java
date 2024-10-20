@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.unittest;
+package com.hhplu.hhplusconcert.app.unittest.service;
 
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,7 +68,7 @@ class SeatServiceTest {
                             .build()
             );
 
-            when(seatRepository.getAllSeatsByScheduleId(scheduleId)).thenReturn(allSeats);
+            when(seatRepository.getAllSeatsByScheduleId(scheduleId)).thenReturn(Optional.of(allSeats));
 
 
             // When
@@ -122,7 +123,7 @@ class SeatServiceTest {
                             .build()
             );
 
-            when(seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)).thenReturn(availableSeats);
+            when(seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)).thenReturn(Optional.of(availableSeats));
 
             // When
             List<Seat> response = seatService.getAvailableSeatsByScheduleId(scheduleId);

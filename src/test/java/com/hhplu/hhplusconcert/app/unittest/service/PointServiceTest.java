@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.unittest;
+package com.hhplu.hhplusconcert.app.unittest.service;
 
 import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
