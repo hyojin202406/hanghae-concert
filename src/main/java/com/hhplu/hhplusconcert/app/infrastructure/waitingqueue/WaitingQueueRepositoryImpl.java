@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.infrastructure.waitingqueue;
 
-import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

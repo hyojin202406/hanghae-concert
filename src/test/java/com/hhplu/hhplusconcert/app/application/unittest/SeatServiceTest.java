@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.concert.service.SeatService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;

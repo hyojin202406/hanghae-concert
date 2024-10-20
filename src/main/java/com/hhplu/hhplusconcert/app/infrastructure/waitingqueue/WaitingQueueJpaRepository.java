@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.infrastructure.waitingqueue;
 
-import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

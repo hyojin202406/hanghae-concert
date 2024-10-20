@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.concert.service.ConcertService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;

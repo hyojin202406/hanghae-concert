@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

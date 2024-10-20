@@ -9,11 +9,15 @@ hhplusconcert/
 │                     └── hhplusconcert/
 │                         ├── application/
 │                         │     └── facade/
+│                         │     └── service/
+│                         │     └── scheduler/
 │                         ├── domain/
 │                         │      └──concert
-│                         │      └──queue
-│                         │      └──reservation
 │                         │      └──payment
+│                         │      └──point
+│                         │      └──reservation
+│                         │      └──user
+│                         │      └──waitingqueue
 │                         ├── infrastructure/
 │                         └── interfaces/
 │                             └──api

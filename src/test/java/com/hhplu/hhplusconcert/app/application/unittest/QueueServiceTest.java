@@ -1,9 +1,9 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.waitingqueue.service.WaitingQueueService;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

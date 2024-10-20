@@ -1,16 +1,12 @@
 package com.hhplu.hhplusconcert.app.application.Concurrency;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
-import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsCommand;
-import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.application.reservation.service.ReservationService;
+import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
-import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
-import com.hhplu.hhplusconcert.app.infrastructure.concert.SeatJpaRepository;
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

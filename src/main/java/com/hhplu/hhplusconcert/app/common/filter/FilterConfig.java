@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.common.filter;
 
-import com.hhplu.hhplusconcert.app.application.token.service.TokenValidationService;
+import com.hhplu.hhplusconcert.app.application.service.token.service.TokenValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

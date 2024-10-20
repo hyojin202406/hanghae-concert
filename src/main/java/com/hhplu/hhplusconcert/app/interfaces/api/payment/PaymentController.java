@@ -1,10 +1,9 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.payment;
 
 import com.hhplu.hhplusconcert.app.application.facade.PaymentFacade;
-import com.hhplu.hhplusconcert.app.application.payment.command.GetPaymentsHistoryResponseCommand;
-import com.hhplu.hhplusconcert.app.application.payment.command.PaymentRequestCommand;
-import com.hhplu.hhplusconcert.app.application.payment.command.PaymentResponseCommand;
-import com.hhplu.hhplusconcert.app.interfaces.api.payment.res.PaymentHistoryItem;
+import com.hhplu.hhplusconcert.app.application.service.payment.command.GetPaymentsHistoryResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.payment.command.PaymentRequestCommand;
+import com.hhplu.hhplusconcert.app.application.service.payment.command.PaymentResponseCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.payment.res.PaymentHistoryResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.payment.res.PaymentResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,10 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

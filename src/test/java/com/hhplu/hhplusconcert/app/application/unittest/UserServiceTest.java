@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.user.service.UserService;
+import com.hhplu.hhplusconcert.app.application.service.user.service.UserService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import com.hhplu.hhplusconcert.app.domain.user.repository.UserRepository;
 import org.junit.jupiter.api.Nested;

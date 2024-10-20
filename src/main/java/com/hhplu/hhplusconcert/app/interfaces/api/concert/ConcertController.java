@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert;
 
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.application.facade.ConcertFacade;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.ScheduleResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.SeatResponse;

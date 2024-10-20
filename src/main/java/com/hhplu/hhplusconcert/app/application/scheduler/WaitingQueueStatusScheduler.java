@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.scheduler;
 
-import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

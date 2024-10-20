@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.point.res;
 
-import com.hhplu.hhplusconcert.app.application.point.command.GetPointCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

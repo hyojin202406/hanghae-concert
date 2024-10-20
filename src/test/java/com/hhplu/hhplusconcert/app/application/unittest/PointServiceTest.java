@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.point.service.PointService;
-import com.hhplu.hhplusconcert.app.application.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
+import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import org.junit.jupiter.api.Nested;

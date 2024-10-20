@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.unittest;
 
-import com.hhplu.hhplusconcert.app.application.payment.service.PaymentService;
+import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
