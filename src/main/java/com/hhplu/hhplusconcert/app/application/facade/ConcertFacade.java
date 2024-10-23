@@ -1,18 +1,22 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertResponseCommand;
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.application.concert.service.ScheduleService;
-import com.hhplu.hhplusconcert.app.application.concert.service.ConcertService;
-import com.hhplu.hhplusconcert.app.application.concert.service.SeatService;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.ScheduleService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
+import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ConcertFacade {

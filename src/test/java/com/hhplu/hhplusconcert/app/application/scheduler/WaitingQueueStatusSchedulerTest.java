@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.scheduler;
 
-import com.hhplu.hhplusconcert.app.domain.watingqueue.repository.WaitingQueueRepository;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

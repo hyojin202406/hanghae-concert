@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res;
 
-import com.hhplu.hhplusconcert.app.domain.watingqueue.WaitingQueueStatus;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.WaitingQueueStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

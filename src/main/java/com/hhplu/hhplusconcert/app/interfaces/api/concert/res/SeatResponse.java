@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
-import com.hhplu.hhplusconcert.app.application.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

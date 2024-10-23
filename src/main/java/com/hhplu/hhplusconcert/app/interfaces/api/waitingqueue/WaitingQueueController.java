@@ -1,9 +1,9 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue;
 
 import com.hhplu.hhplusconcert.app.application.facade.WaitingQueueFacade;
-import com.hhplu.hhplusconcert.app.application.waitingqueue.service.WaitingQueueService;
-import com.hhplu.hhplusconcert.app.application.waitingqueue.command.CreateWaitingQueueCommand;
-import com.hhplu.hhplusconcert.app.application.waitingqueue.command.GetWaitingQueueCommand;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.CreateWaitingQueueCommand;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.GetWaitingQueueCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.QueueResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;

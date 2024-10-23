@@ -14,8 +14,8 @@ erDiagram
         Long user_id FK
         DECIMAL point_amount
     }
-    
-    QUEUE {
+
+    WAITINGQUEUE {
         Long id PK
         VARCHAR queued_token
         Long user_id FK
@@ -76,7 +76,8 @@ erDiagram
     %% Relationships
     USERS ||--o{ RESERVATION : "1:N"
     USERS ||--o{ PAYMENT_HISTORY : "1:N"
-    USERS ||--o{ POINT : "1:N"
+    USERS ||--|| POINT : "1:1"
+    USERS ||--o{ WAITINGQUEUE : "1:N"
     PAYMENT ||--o{ PAYMENT_HISTORY : "1:N"
     RESERVATION ||--|| PAYMENT : "1:1"
     RESERVATION ||--o{ SEAT : "1:N"

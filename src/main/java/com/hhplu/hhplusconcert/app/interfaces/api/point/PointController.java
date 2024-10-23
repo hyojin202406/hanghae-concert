@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
-import com.hhplu.hhplusconcert.app.application.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.point.command.RechargeCommand;
-import com.hhplu.hhplusconcert.app.application.point.service.PointService;
+import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
 import io.swagger.v3.oas.annotations.Operation;

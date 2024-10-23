@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.reservation.req;
 
-import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

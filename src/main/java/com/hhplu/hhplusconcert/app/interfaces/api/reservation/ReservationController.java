@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.reservation;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
-import com.hhplu.hhplusconcert.app.application.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.reservation.req.ReservationRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.reservation.res.ReservationResponse;
 import io.swagger.v3.oas.annotations.Operation;

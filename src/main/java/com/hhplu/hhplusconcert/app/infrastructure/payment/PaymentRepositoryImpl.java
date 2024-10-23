@@ -5,6 +5,8 @@ import com.hhplu.hhplusconcert.app.domain.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class PaymentRepositoryImpl implements PaymentRepository {
@@ -17,8 +19,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     }
 
     @Override
-    public Payment getPayment(Long paymentId) {
-        return paymentJpaRepository.findById(paymentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 결제 정보입니다."));
+    public Optional<Payment> getPayment(Long paymentId) {
+        return paymentJpaRepository.findById(paymentId);
     }
 
     @Override
