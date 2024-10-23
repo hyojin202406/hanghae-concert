@@ -18,6 +18,7 @@ public class TokenValidationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("QUEUE-TOKEN");
+
         if (StringUtils.hasText(token) && tokenValidationService.isValidToken(token)) {
             return true;
         } else {
