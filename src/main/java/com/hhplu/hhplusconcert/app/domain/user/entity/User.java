@@ -27,7 +27,8 @@ public class User {
     private String name;
 
     public void generateToken() {
-        this.token = UUID.nameUUIDFromBytes(this.name.getBytes()).toString();
+        String uniqueString = name + System.currentTimeMillis();
+        this.token = UUID.nameUUIDFromBytes(uniqueString.getBytes()).toString();
     }
 
 }
