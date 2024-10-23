@@ -25,7 +25,7 @@ public class ConcertService {
         concertRepository.existsConcert(concertId)
                 .orElseThrow(() -> new BaseException(ErrorCode.CONCERT_NOT_FOUND));
         List<Schedule> schedules = scheduleRepository.existsSchedule(concertId);
-        Schedule.validateSchedules(schedules);
+        Schedule.existSchedules(schedules);
         return schedules;
     }
 

@@ -25,32 +25,16 @@ public class ConcertFacade {
     private final SeatService seatService;
 
     public ConcertResponseCommand getConcertSchedules(Long concertId) {
-        try {
-            Concert concert = concertService.validateConcertExists(concertId);
-            List<Schedule> schedules = concertService.schedule(concert.getId());
-            return new ConcertResponseCommand(concert.getId(), schedules);
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Concert concert = concertService.validateConcertExists(concertId);
+        List<Schedule> schedules = concertService.schedule(concert.getId());
+        return new ConcertResponseCommand(concert.getId(), schedules);
     }
 
     public ConcertSeatsResponseCommand getConcertSeats(Long concertId, Long scheduleId) {
-        try {
-            Concert concert = concertService.validateConcertExists(concertId);
-            List<Schedule> schedule = scheduleService.validateScheduleExists(scheduleId);
-            List<Seat> allSeats = seatService.getAllSeatsByScheduleId(scheduleId);
-            List<Seat> availableSeats = seatService.getAvailableSeatsByScheduleId(scheduleId);
-            return new ConcertSeatsResponseCommand(concert.getId(), schedule.get(0).getId(), allSeats, availableSeats);
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Concert concert = concertService.validateConcertExists(concertId);
+        List<Schedule> schedule = scheduleService.validateScheduleExists(scheduleId);
+        List<Seat> allSeats = seatService.getAllSeatsByScheduleId(scheduleId);
+        List<Seat> availableSeats = seatService.getAvailableSeatsByScheduleId(scheduleId);
+        return new ConcertSeatsResponseCommand(concert.getId(), schedule.get(0).getId(), allSeats, availableSeats);
     }
 }

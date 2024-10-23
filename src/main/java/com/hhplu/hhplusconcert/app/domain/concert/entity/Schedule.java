@@ -28,7 +28,7 @@ public class Schedule {
     @Column(nullable = false, name = "schedule_ended_at")
     private LocalDateTime scheduleEndedAt;
 
-    public static List<Schedule> validateSchedules(List<Schedule> schedules) {
+    public static List<Schedule> existSchedules(List<Schedule> schedules) {
         if (schedules == null || schedules.isEmpty()) {
             throw new IllegalArgumentException("콘서트 일정이 존재하지 않습니다.");
         }

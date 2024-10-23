@@ -5,16 +5,16 @@ import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SeatService {
 
-    @Autowired
-    SeatRepository seatRepository;
+    private final SeatRepository seatRepository;
 
     public List<Seat> getAllSeatsByScheduleId(Long scheduleId) {
         return seatRepository.getAllSeatsByScheduleId(scheduleId)
@@ -27,13 +27,10 @@ public class SeatService {
     }
 
     public List<Seat> updateSeatStatus(Long reservationId, Long scheduleId, Long[] seatIds) {
-        // 좌석 유효성 확인
         List<Seat> seats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
         if (seats.size() != seatIds.length) {
             throw new BaseException(ErrorCode.SEAT_NOT_FOUND);
         }
-
-        // 좌석 상태 업데이트
         seats.forEach(seat -> {
             if (seat.getStatus() != SeatStatus.AVAILABLE) {
                 throw new BaseException(ErrorCode.SEAT_NOT_AVAILABLE);

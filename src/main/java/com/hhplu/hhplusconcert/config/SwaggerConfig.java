@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.common.config;
+package com.hhplu.hhplusconcert.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

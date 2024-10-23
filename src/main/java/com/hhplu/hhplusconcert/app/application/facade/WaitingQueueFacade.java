@@ -25,16 +25,8 @@ public class WaitingQueueFacade {
     }
 
     public GetWaitingQueueCommand queue(String queueToken) {
-        try {
-            WaitingQueue waitingQueue = waitingQueueService.getToken(queueToken);
-            Long lastActiveId = waitingQueueService.getLastActiveId();
-            return new GetWaitingQueueCommand(waitingQueue.getId(), waitingQueue.getUserId(), waitingQueue.getQueueStatus(), waitingQueue.getIssuedAt(), lastActiveId);
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        WaitingQueue waitingQueue = waitingQueueService.getToken(queueToken);
+        Long lastActiveId = waitingQueueService.getLastActiveId();
+        return new GetWaitingQueueCommand(waitingQueue.getId(), waitingQueue.getUserId(), waitingQueue.getQueueStatus(), waitingQueue.getIssuedAt(), lastActiveId);
     }
 }

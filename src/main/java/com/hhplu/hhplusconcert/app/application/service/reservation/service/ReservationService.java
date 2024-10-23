@@ -15,7 +15,6 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     public Reservation createReservation(Long userId) {
-        // 예약 정보 생성 및 저장
         Reservation reservation = Reservation.builder()
                 .userId(userId)
                 .paymentId(null) // 결제 정보는 별도 처리
@@ -23,7 +22,6 @@ public class ReservationService {
                 .reservationStatus(ReservationStatus.TEMPORARY_RESERVED)
                 .build();
         reservationRepository.saveReservation(reservation);
-
         return reservation;
     }
 

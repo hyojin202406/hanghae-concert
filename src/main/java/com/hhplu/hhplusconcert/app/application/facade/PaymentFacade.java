@@ -40,36 +40,20 @@ public class PaymentFacade {
 
     @Transactional
     public PaymentResponseCommand pay(PaymentRequestCommand paymentRequestCommand) {
-        try {
-            User user = userService.user(paymentRequestCommand.getUserId());
-            Payment payment = paymentService.getPayment(paymentRequestCommand.getPaymentId());
-            pointService.subtractUserPoints(user.getId(), payment.getAmount());
-            seatService.reserveSeats(payment.getReservationId());
-            payment.changePaymentStatus(PaymentStatus.COMPLETED);
-            WaitingQueue token = waitingQueueService.getToken(paymentRequestCommand.getQueueToken());
-            token.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
-            paymentHistoryService.createPaymentHistory(user.getId(), payment.getId(), payment.getPaymentStatus(), payment.getAmount(), payment.getPaymentAt());
-            return new PaymentResponseCommand(payment.getId(), payment.getAmount(), payment.getPaymentStatus());
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        User user = userService.user(paymentRequestCommand.getUserId());
+        Payment payment = paymentService.getPayment(paymentRequestCommand.getPaymentId());
+        pointService.subtractUserPoints(user.getId(), payment.getAmount());
+        seatService.reserveSeats(payment.getReservationId());
+        payment.changePaymentStatus(PaymentStatus.COMPLETED);
+        WaitingQueue token = waitingQueueService.getToken(paymentRequestCommand.getQueueToken());
+        token.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
+        paymentHistoryService.createPaymentHistory(user.getId(), payment.getId(), payment.getPaymentStatus(), payment.getAmount(), payment.getPaymentAt());
+        return new PaymentResponseCommand(payment.getId(), payment.getAmount(), payment.getPaymentStatus());
     }
 
     public GetPaymentsHistoryResponseCommand getPayments(Long userId) {
-        try {
-            User user = userService.user(userId);
-            List<PaymentHistory> paymentsHistory = paymentHistoryService.getPaymentsHistory(user.getId());
-            return new GetPaymentsHistoryResponseCommand(user.getId(), paymentsHistory);
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        User user = userService.user(userId);
+        List<PaymentHistory> paymentsHistory = paymentHistoryService.getPaymentsHistory(user.getId());
+        return new GetPaymentsHistoryResponseCommand(user.getId(), paymentsHistory);
     }
 }

@@ -13,5 +13,5 @@
 - [프로젝트 구조](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/Project_configuration.md)
 
 ## STEP 07
-[GUI Swagger 접속](http://localhost:8080/swagger-ui/index.html)
-[API-Swagger](/docs/API-Swagger.md)
+- [GUI Swagger 접속](http://localhost:8080/swagger-ui/index.html)
+- [API-Swagger](/docs/API-Swagger.md)

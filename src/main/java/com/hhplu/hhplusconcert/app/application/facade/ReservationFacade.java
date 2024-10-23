@@ -36,21 +36,11 @@ public class ReservationFacade {
      */
     @Transactional
     public ReserveSeatsResponseCommand reserveSeats(ReserveSeatsCommand command) {
-        try {
-            Concert concert = concertService.validateConcertExists(command.getConcertId());
-            Reservation reservation = reservationService.createReservation(command.getUserId());
-            List<Seat> seats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds());
-            long sumPoint = ConcertManagement.calculateTotalPrice(seats);
-            paymentService.createPendingPayment(reservation, sumPoint);
-            return new ReserveSeatsResponseCommand(reservation, concert, seats, sumPoint);
-        } catch (BaseException e) {
-            ErrorCode errorCode = e.getErrorCode();
-            log.error(errorCode.getInternalMessage());
-            throw new IllegalArgumentException(e.getMessage());
-        } catch (OptimisticLockException e) {
-            throw new IllegalStateException("좌석 예약에 실패했습니다. 다시 시도해 주세요.");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        Concert concert = concertService.validateConcertExists(command.getConcertId());
+        Reservation reservation = reservationService.createReservation(command.getUserId());
+        List<Seat> seats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds());
+        long sumPoint = ConcertManagement.calculateTotalPrice(seats);
+        paymentService.createPendingPayment(reservation, sumPoint);
+        return new ReserveSeatsResponseCommand(reservation, concert, seats, sumPoint);
     }
 }
