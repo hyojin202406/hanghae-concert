@@ -1,6 +1,6 @@
-package com.hhplu.hhplusconcert.app.common.exception;
+package com.hhplu.hhplusconcert.common.exception;
 
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
 import lombok.Getter;
 
 @Getter

@@ -1,5 +1,6 @@
-package com.hhplu.hhplusconcert.config.interceptor;
+package com.hhplu.hhplusconcert.common.config;
 
+import com.hhplu.hhplusconcert.common.interceptor.TokenValidationInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

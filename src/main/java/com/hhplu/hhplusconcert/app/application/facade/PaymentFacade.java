@@ -10,8 +10,6 @@ import com.hhplu.hhplusconcert.app.application.service.point.service.PointServic
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
 import com.hhplu.hhplusconcert.app.application.service.user.service.UserService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.PaymentHistory;

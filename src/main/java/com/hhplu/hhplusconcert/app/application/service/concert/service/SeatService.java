@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.concert.service;
 
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;

@@ -1,7 +1,9 @@
-package com.hhplu.hhplusconcert.config;
+package com.hhplu.hhplusconcert.app.interfaces;
 
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorResponse;
+import jakarta.persistence.OptimisticLockException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,16 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
         return ResponseEntity
                 .status(errorCode.getHttpStatus())
                 .body(new ErrorResponse(errorCode.getErrorCode(), errorCode.getExternalMessage()));
+    }
+
+    @ExceptionHandler(value = OptimisticLockException.class)
+    public ResponseEntity<ErrorResponse> handleOptimisticLockException(OptimisticLockException e) {
+        log.error("Optimistic lock failure: " + e.getMessage(), e);
+
+        ErrorCode errorCode = ErrorCode.SEAT_RESERVATION_FAILED;
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT) // 낙관적 락 충돌의 경우, 409 Conflict를 사용할 수 있습니다.
+                .body(new ErrorResponse(errorCode.getErrorCode(), "요청이 실패했습니다. 다시 시도해 주세요."));
     }
 
     @ExceptionHandler(value = Exception.class)

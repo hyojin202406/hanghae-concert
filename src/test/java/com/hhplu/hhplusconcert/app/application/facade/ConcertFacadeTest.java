@@ -2,6 +2,7 @@ package com.hhplu.hhplusconcert.app.application.facade;
 
 import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
 import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,10 @@ public class ConcertFacadeTest {
         Long concertId = 999L; // 존재하지 않는 콘서트 ID
 
         // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        BaseException exception = assertThrows(BaseException.class, () -> {
             concertFacade.getConcertSchedules(concertId);
         });
-        assertEquals("Invalid request", exception.getMessage());
+        assertEquals("Not found", exception.getMessage());
     }
 
     @Test
@@ -68,9 +69,9 @@ public class ConcertFacadeTest {
         Long scheduleId = 999L; // 존재하지 않는 스케줄 ID
 
         // When & Then
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        BaseException exception = assertThrows(BaseException.class, () -> {
             concertFacade.getConcertSeats(concertId, scheduleId);
         });
-        assertEquals("콘서트 일정이 존재하지 않습니다.", exception.getMessage());
+        assertEquals("Not found", exception.getMessage());
     }
 }

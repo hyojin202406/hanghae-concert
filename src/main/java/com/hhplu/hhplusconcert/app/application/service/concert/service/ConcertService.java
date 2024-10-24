@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.concert.service;
 
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

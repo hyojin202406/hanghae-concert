@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.config;
+package com.hhplu.hhplusconcert.common.error;
 
 public record ErrorResponse(
         String code,

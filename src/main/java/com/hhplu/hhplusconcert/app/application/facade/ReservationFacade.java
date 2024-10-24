@@ -6,13 +6,10 @@ import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertSe
 import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.ConcertManagement;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
-import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +26,6 @@ public class ReservationFacade {
     private final SeatService seatService;
     private final ConcertService concertService;
 
-    /**
-     * 좌석 예약 파사드 메서드
-     * @param command
-     * @return
-     */
     @Transactional
     public ReserveSeatsResponseCommand reserveSeats(ReserveSeatsCommand command) {
         Concert concert = concertService.validateConcertExists(command.getConcertId());

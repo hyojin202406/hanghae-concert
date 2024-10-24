@@ -1,5 +1,6 @@
-package com.hhplu.hhplusconcert.config.filter;
+package com.hhplu.hhplusconcert.common.filter;
 
+import com.hhplu.hhplusconcert.common.config.LoggingFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

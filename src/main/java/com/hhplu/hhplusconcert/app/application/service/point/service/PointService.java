@@ -2,8 +2,8 @@ package com.hhplu.hhplusconcert.app.application.service.point.service;
 
 import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import jakarta.transaction.Transactional;

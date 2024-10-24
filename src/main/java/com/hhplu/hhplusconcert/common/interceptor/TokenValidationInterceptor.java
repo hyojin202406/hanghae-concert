@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.config.interceptor;
+package com.hhplu.hhplusconcert.common.interceptor;
 
 import com.hhplu.hhplusconcert.app.application.service.token.service.TokenValidationService;
 import lombok.RequiredArgsConstructor;
