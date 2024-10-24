@@ -1,5 +1,7 @@
 package com.hhplu.hhplusconcert.app.domain.point.entity;
 
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,17 +36,17 @@ public class Point {
 
     public void subtractPointAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("차감할 금액은 0 이상이어야 합니다.");
+            throw new BaseException(ErrorCode.POINT_INVALID_DEDUCT_AMOUNT);
         }
         if (this.pointAmount.compareTo(amount) < 0) {
-            throw new IllegalArgumentException("잔액이 부족합니다.");
+            throw new BaseException(ErrorCode.POINT_BAD_RECHARGE_REQUEST);
         }
         this.pointAmount = this.pointAmount.subtract(amount);
     }
 
     public void recharge(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("충전할 금액은 0보다 커야 합니다.");
+            throw new BaseException(ErrorCode.POINT_INVALID_RECHARGE_AMOUNT);
         }
         addPointAmount(amount);
     }
