@@ -1,12 +1,13 @@
 package com.hhplu.hhplusconcert.app.unittest.facade;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
+import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
-import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
-import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
+import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import jakarta.persistence.OptimisticLockException;
@@ -76,15 +77,16 @@ public class ReservationFacadeTest {
         Long scheduleId = 1L;
         Long[] seatIds = {1L, 2L};
 
-        doNothing().when(concertService).validateConcertExists(concertId);
+        Concert mockConcert = new Concert(); // 필요한 경우, mock 객체의 필드를 초기화합니다.
+        when(concertService.validateConcertExists(concertId)).thenReturn(mockConcert);
         when(reservationService.createReservation(userId)).thenThrow(new OptimisticLockException());
 
         // When & Then
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
+        OptimisticLockException exception = assertThrows(OptimisticLockException.class, () -> {
             reservationFacade.reserveSeats(new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds));
         });
 
-        assertEquals("좌석 예약에 실패했습니다. 다시 시도해 주세요.", exception.getMessage());
+        assertEquals(null, exception.getMessage());
         verify(reservationService).createReservation(userId);
     }
 }

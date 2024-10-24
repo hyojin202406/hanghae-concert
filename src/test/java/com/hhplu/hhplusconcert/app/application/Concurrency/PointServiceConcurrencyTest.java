@@ -27,7 +27,7 @@ public class PointServiceConcurrencyTest {
     @Autowired
     private PointRepository pointRepository;
 
-    private static final int THREAD_COUNT = 10;
+    private static final int THREAD_COUNT = 100;
 
     @Test
     void testConcurrentRechargePoint() throws InterruptedException {
@@ -52,7 +52,7 @@ public class PointServiceConcurrencyTest {
         executorService.shutdown();
 
         Point point = pointRepository.point(1L);
-        assertThat(point.getPointAmount()).isEqualTo(new BigDecimal("2000.00"));
+        assertThat(point.getPointAmount()).isEqualTo(new BigDecimal("11000.00")); // DB에는 1000 포인트가 저장되어있습니다.
 
     }
 }

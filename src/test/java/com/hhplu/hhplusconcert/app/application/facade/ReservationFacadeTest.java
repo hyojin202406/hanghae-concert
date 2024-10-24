@@ -2,6 +2,7 @@ package com.hhplu.hhplusconcert.app.application.facade;
 
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
@@ -75,11 +76,11 @@ class ReservationFacadeTest {
                 .getResultList();
 
         // 두 번째 예약 시도 (이미 예약된 좌석을 다시 예약하려고 함)
-        Exception exception = assertThrows(IllegalStateException.class, () -> {
+        BaseException exception = assertThrows(BaseException.class, () -> {
             reservationFacade.reserveSeats(new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds));
         });
 
         // Then
-        assertEquals("예약할 수 없는 좌석이 포함되어 있습니다.", exception.getMessage());
+        assertEquals("Invalid request", exception.getMessage());
     }
 }

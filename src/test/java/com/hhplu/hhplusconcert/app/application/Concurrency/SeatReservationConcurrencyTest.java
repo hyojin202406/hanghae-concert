@@ -7,6 +7,7 @@ import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +20,9 @@ import java.util.concurrent.Future;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 @SpringBootTest
+@Transactional
 public class SeatReservationConcurrencyTest {
 
     @Autowired
@@ -33,20 +36,21 @@ public class SeatReservationConcurrencyTest {
     private Long[] seatIds = {1L, 2L};
 
     @Test
-    @Transactional
     public void 좌석_예약_동시성_제어() throws Exception {
+        // Given
         int threadCount = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         List<Future<ReserveSeatsResponseCommand>> futures = new ArrayList<>();
 
+        // When
         for (int i = 0; i < threadCount; i++) {
             final Long userId = (long) i + 1;
-            ReserveSeatsCommand command = new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds); // Command 객체 생성
+            ReserveSeatsCommand command = new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds);
             Future<ReserveSeatsResponseCommand> future = executorService.submit(() -> {
                 try {
-                    return reservationFacade.reserveSeats(command); // Facade 호출
+                    return reservationFacade.reserveSeats(command);
                 } catch (Exception e) {
-                    System.out.println("예약 실패: " + e.getMessage());
+                    log.error("Reservation failed: {}", e.getMessage());
                     return null;
                 }
             });
@@ -57,7 +61,7 @@ public class SeatReservationConcurrencyTest {
         for (Future<ReserveSeatsResponseCommand> future : futures) {
             ReserveSeatsResponseCommand reservation = future.get();
             if (reservation != null) {
-                System.out.println("예약 성공: " + reservation.getReservationId());
+                log.info("Reservation successful: {}", reservation.getReservationId());
             }
         }
 
