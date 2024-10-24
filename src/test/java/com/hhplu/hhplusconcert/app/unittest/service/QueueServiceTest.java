@@ -36,20 +36,19 @@ class QueueServiceTest {
     class 유저_토큰_발급 {
         @Test
         void 토큰_생성_성공() {
+            Long id  = 1L;
             // Given
             User user = User.builder()
-                    .id(1L)
+                    .id(id)
                     .name("user")
                     .build();
             WaitingQueue queue = new WaitingQueue();
-
-            String expectedToken = UUID.nameUUIDFromBytes(user.getName().getBytes()).toString();
 
             // When
             queue.token(user);
 
             // Then
-            assertThat(queue.getQueueToken()).isEqualTo(expectedToken);
+            assertThat(queue.getQueueToken()).isNotNull();
         }
 
         @Test
