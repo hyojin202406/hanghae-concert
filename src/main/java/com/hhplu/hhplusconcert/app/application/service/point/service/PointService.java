@@ -6,11 +6,13 @@ import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
 import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PointService {
@@ -21,13 +23,10 @@ public class PointService {
         return pointRepository.point(userId);
     }
 
+    @Transactional
     public GetPointCommand rechargePoint(RechargeCommand command) {
         Point point = point(command.getUserId());
-        BigDecimal pointAmount = command.getPointAmount();
-        if (pointAmount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new BaseException(ErrorCode.POINT_INVALID_RECHARGE_AMOUNT);
-        }
-        point.addPointAmount(pointAmount);
+        point.recharge(command.getPointAmount());
         return new GetPointCommand(point.getPointAmount());
     }
 
@@ -44,4 +43,5 @@ public class PointService {
         point.subtractPointAmount(totalAmount);
         return point;
     }
+
 }

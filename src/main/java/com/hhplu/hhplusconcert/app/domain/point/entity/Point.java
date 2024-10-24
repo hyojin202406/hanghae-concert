@@ -25,7 +25,6 @@ public class Point {
     @Column(name = "point_amount", nullable = false)
     private BigDecimal pointAmount;
 
-    // 포인트 추가 메서드
     public void addPointAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("추가할 금액은 0 이상이어야 합니다.");
@@ -33,7 +32,6 @@ public class Point {
         this.pointAmount = this.pointAmount.add(amount);
     }
 
-    // 포인트 차감 메서드
     public void subtractPointAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("차감할 금액은 0 이상이어야 합니다.");
@@ -42,5 +40,12 @@ public class Point {
             throw new IllegalArgumentException("잔액이 부족합니다.");
         }
         this.pointAmount = this.pointAmount.subtract(amount);
+    }
+
+    public void recharge(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("충전할 금액은 0보다 커야 합니다.");
+        }
+        addPointAmount(amount);
     }
 }
