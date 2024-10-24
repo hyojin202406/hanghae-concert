@@ -5,8 +5,6 @@ import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSe
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ScheduleService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;

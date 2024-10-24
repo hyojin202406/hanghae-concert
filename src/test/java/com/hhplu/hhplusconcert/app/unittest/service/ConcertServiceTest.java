@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.unittest.service;
 
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;
@@ -41,10 +42,10 @@ class ConcertServiceTest {
             when(scheduleRepository.existsSchedule(concertId)).thenReturn(Collections.emptyList());
 
             // When & Then
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+            BaseException exception = assertThrows(BaseException.class,
                     () -> concertService.schedule(concertId));
 
-            assertThat(exception.getMessage()).isEqualTo("콘서트 일정이 존재하지 않습니다.");
+            assertThat(exception.getMessage()).isEqualTo("Invalid request");
             verify(scheduleRepository, times(1)).existsSchedule(concertId);
         }
 

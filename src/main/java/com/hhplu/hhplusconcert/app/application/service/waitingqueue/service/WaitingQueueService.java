@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
-import com.hhplu.hhplusconcert.app.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.app.common.exception.BaseException;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
 import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
