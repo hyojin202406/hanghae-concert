@@ -8,12 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class FilterConfig {
-
     @Bean
     public FilterRegistrationBean<LoggingFilter> loggingFilter() {
         FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new LoggingFilter());
-        registrationBean.addUrlPatterns("/*"); // 모든 요청에 대해 필터 적용
+        registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 }
