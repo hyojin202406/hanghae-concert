@@ -3,8 +3,10 @@ package com.hhplu.hhplusconcert.app.unittest.service;
 import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +18,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,12 +38,15 @@ class PointServiceTest {
             Long userId = 1L;
             long rechargeAmount = -1000;
 
+            // when
+            when(pointRepository.point(any(Long.class))).thenReturn(Point.builder().pointAmount(BigDecimal.valueOf(100)).build());
+
             // When
-            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
+            BaseException exception = assertThrows(BaseException.class, () ->
                     pointService.rechargePoint(new RechargeCommand(userId, rechargeAmount)));
 
             // Then
-            assertEquals("충전 금액은 0보다 커야 합니다.", exception.getMessage());
+            assertEquals("Invalid request", exception.getMessage());
         }
 
         @Test
