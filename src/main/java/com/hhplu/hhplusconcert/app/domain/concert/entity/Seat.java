@@ -40,9 +40,6 @@ public class Seat {
     @Column(nullable = false, name = "expired_at")
     private LocalDateTime expiredAt;
 
-    @Version
-    private Long version;
-
     public void changeStatus(SeatStatus newStatus) {
         this.status = newStatus;
     }

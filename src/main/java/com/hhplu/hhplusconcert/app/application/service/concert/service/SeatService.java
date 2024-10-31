@@ -1,10 +1,10 @@
 package com.hhplu.hhplusconcert.app.application.service.concert.service;
 
-import com.hhplu.hhplusconcert.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +25,8 @@ public class SeatService {
         return seatRepository.getAvailableSeatsByScheduleId(scheduleId, SeatStatus.AVAILABLE)
                 .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_FOUND));
     }
-
-    public List<Seat> updateSeatStatus(Long reservationId, Long scheduleId, Long[] seatIds) {
-        List<Seat> seats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
-        if (seats.size() != seatIds.length) {
-            throw new BaseException(ErrorCode.SEAT_NOT_FOUND);
-        }
+    
+    public List<Seat> updateSeatStatus(Long reservationId, Long scheduleId, Long[] seatIds, List<Seat> seats) {
         seats.forEach(seat -> {
             if (seat.getStatus() != SeatStatus.AVAILABLE) {
                 throw new BaseException(ErrorCode.SEAT_NOT_AVAILABLE);
@@ -40,6 +36,14 @@ public class SeatService {
             seat.extendExpiration();
         });
 
+        return seats;
+    }
+
+    public List<Seat> existSeats(Long scheduleId, Long[] seatIds) {
+        List<Seat> seats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
+        if (seats.size() != seatIds.length) {
+            throw new BaseException(ErrorCode.SEAT_NOT_FOUND);
+        }
         return seats;
     }
 
