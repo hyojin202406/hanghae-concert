@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class PointFacade {
     private final PointService pointService;
 
-    @RedissonLock(value = "#command.getUserId()")
     public GetPointCommand rechargePoint(RechargeCommand command) {
        return pointService.rechargePoint(command);
     }
