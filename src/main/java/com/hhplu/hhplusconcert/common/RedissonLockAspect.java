@@ -24,7 +24,6 @@ public class RedissonLockAspect {
     private final RedissonClient redissonClient;
 
     @Around("@annotation(com.hhplu.hhplusconcert.common.annotation.RedissonLock)")
-    @Transactional
     public Object redissonLock(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
