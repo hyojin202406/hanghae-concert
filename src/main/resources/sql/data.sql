@@ -21,25 +21,15 @@ VALUES
 --     (3, NULL, 1, 200, 'AVAILABLE', NOW(), NOW() + INTERVAL 30 MINUTE, 0),
 --     (3, NULL, 2, 200, 'AVAILABLE', NOW(), NOW() + INTERVAL 30 MINUTE, 0);
 
--- INSERT INTO seat (schedule_id, reservation_id, seat_number, seat_price, status, created_at, expired_at, version)
--- VALUES
---     (1, NULL, 1, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (1, NULL, 2, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (1, NULL, 3, 120, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (2, NULL, 1, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (2, NULL, 2, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (3, NULL, 1, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
---     (3, NULL, 2, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0);
-
-INSERT INTO seat (schedule_id, reservation_id, seat_number, seat_price, status, created_at, expired_at)
+INSERT INTO seat (schedule_id, reservation_id, seat_number, seat_price, status, created_at, expired_at, version)
 VALUES
-    (1, NULL, 1, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (1, NULL, 2, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (1, NULL, 3, 120, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (2, NULL, 1, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (2, NULL, 2, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (3, NULL, 1, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW())),
-    (3, NULL, 2, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()));
+    (1, NULL, 1, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (1, NULL, 2, 100, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (1, NULL, 3, 120, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (2, NULL, 1, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (2, NULL, 2, 150, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (3, NULL, 1, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0),
+    (3, NULL, 2, 200, 'AVAILABLE', NOW(), TIMESTAMPADD(MINUTE, 30, NOW()), 0);
 
 INSERT INTO waiting_queue (queue_token, user_id, queue_status, issued_at, expired_at, version)
 VALUES

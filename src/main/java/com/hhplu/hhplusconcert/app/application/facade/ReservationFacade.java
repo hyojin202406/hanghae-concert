@@ -28,12 +28,11 @@ public class ReservationFacade {
 
     @Transactional
     public ReserveSeatsResponseCommand reserveSeats(ReserveSeatsCommand command) {
-        List<Seat> seats = seatService.existSeats(command.getScheduleId(), command.getSeatIds());
         Concert concert = concertService.validateConcertExists(command.getConcertId());
         Reservation reservation = reservationService.createReservation(command.getUserId());
-        List<Seat> reservedSeats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds(), seats);
-        long sumPoint = ConcertManagement.calculateTotalPrice(reservedSeats);
+        List<Seat> seats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds());
+        long sumPoint = ConcertManagement.calculateTotalPrice(seats);
         paymentService.createPendingPayment(reservation, sumPoint);
-        return new ReserveSeatsResponseCommand(reservation, concert, reservedSeats, sumPoint);
+        return new ReserveSeatsResponseCommand(reservation, concert, seats, sumPoint);
     }
 }
