@@ -9,9 +9,6 @@ import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,7 +23,6 @@ public class PointService {
         return pointRepository.point(userId);
     }
 
-    @Retryable(value = {OptimisticLockingFailureException.class}, maxAttempts = 10, backoff = @Backoff(delay = 100))
     @Transactional
     public GetPointCommand rechargePoint(RechargeCommand command) {
         Point point = point(command.getUserId());

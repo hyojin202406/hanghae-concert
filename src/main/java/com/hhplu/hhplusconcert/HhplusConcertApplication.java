@@ -6,10 +6,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+@SpringBootApplication
+@EnableRetry
 @EnableCaching
 @EnableScheduling
-@EnableRetry
-@SpringBootApplication
 public class HhplusConcertApplication {
 
     public static void main(String[] args) {

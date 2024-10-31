@@ -27,9 +27,6 @@ public class Point {
     @Column(name = "point_amount", nullable = false)
     private BigDecimal pointAmount;
 
-    @Version
-    private Long version;
-
     public void addPointAmount(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("추가할 금액은 0 이상이어야 합니다.");
