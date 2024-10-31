@@ -18,6 +18,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static com.hhplu.hhplusconcert.app.domain.concert.SeatStatus.TEMPORARILY_RESERVED;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
@@ -38,7 +40,7 @@ public class SeatReservationConcurrencyTest {
     @Test
     public void 좌석_예약_동시성_제어() throws Exception {
         // Given
-        int threadCount = 10;
+        int threadCount = 1000;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         List<Future<ReserveSeatsResponseCommand>> futures = new ArrayList<>();
 
@@ -57,21 +59,34 @@ public class SeatReservationConcurrencyTest {
             futures.add(future);
         }
 
+        // 성공 및 실패 카운터
+        int successCount = 0;
+        int failureCount = 0;
+
         // 스레드가 완료될 때까지 대기
         for (Future<ReserveSeatsResponseCommand> future : futures) {
             ReserveSeatsResponseCommand reservation = future.get();
             if (reservation != null) {
+                successCount++;
                 log.info("Reservation successful: {}", reservation.getReservationId());
+            } else {
+                failureCount++;
             }
         }
+        log.info("successCount: {}", successCount);
+        log.info("failureCount: {}", failureCount);
+
+        // Then
+        assertEquals(1, successCount);
+        assertEquals(999, failureCount);
 
         // 모든 스레드가 작업을 완료한 후 예약 상태 확인
         List<Seat> reservedSeats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
         reservedSeats.forEach(seat -> {
-            assertTrue(seat.getStatus() == SeatStatus.TEMPORARILY_RESERVED || seat.getStatus() == SeatStatus.AVAILABLE, "좌석 상태가 잘못되었습니다.");
+            assertEquals(seat.getStatus(), TEMPORARILY_RESERVED);
         });
 
-        // 스레드 종료
         executorService.shutdown();
     }
+
 }
