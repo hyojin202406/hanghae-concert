@@ -43,6 +43,11 @@ dependencies {
 
     // Springfox Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    // 동시성 제어
+    implementation 'org.springframework.retry:spring-retry'
+    implementation 'org.springframework.boot:spring-boot-starter-aop' // AOP 지원을 위한 의존성
+
 }
 
 tasks.named('test') {
