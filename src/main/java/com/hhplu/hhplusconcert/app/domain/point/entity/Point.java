@@ -34,14 +34,17 @@ public class Point {
         this.pointAmount = this.pointAmount.add(amount);
     }
 
-    public void subtractPointAmount(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new BaseException(ErrorCode.POINT_INVALID_DEDUCT_AMOUNT);
-        }
-        if (this.pointAmount.compareTo(amount) < 0) {
+    public void subtractPointAmount(BigDecimal amount, BigDecimal totalAmount) {
+        if (amount.compareTo(totalAmount) < 0) {
             throw new BaseException(ErrorCode.POINT_BAD_RECHARGE_REQUEST);
         }
-        this.pointAmount = this.pointAmount.subtract(amount);
+        if (totalAmount.compareTo(BigDecimal.ZERO) < 0) {
+            throw new BaseException(ErrorCode.POINT_INVALID_DEDUCT_AMOUNT);
+        }
+        if (this.pointAmount.compareTo(totalAmount) < 0) {
+            throw new BaseException(ErrorCode.POINT_BAD_RECHARGE_REQUEST);
+        }
+        this.pointAmount = this.pointAmount.subtract(totalAmount);
     }
 
     public void recharge(BigDecimal amount) {
