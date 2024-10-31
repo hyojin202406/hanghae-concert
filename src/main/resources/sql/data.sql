@@ -44,11 +44,11 @@ VALUES
     ('UserC');
 
 -- Point 테이블 초기 데이터 삽입
-INSERT INTO point (user_id, point_amount, version)
+INSERT INTO point (user_id, point_amount)
 VALUES
-    (1, 1000.00, 0),
-    (2, 1000.00, 0),
-    (3, 1000.00, 0);
+    (1, 1000.00),
+    (2, 1000.00),
+    (3, 1000.00);
 
 -- PaymentHistory 테이블에 결제 내역 삽입
 INSERT INTO payment_history (user_id, payment_id, payment_status, amount, payment_at)
