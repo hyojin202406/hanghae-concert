@@ -24,8 +24,7 @@ public class PointService {
         return pointRepository.point(userId);
     }
 
-//    @Transactional
-    @RedissonLock(value = "#command.getUserId()")
+    @Transactional
     public GetPointCommand rechargePoint(RechargeCommand command) {
         Point point = point(command.getUserId());
         point.recharge(command.getPointAmount());
