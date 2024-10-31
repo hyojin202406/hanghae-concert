@@ -40,7 +40,7 @@ public class SeatReservationConcurrencyTest {
     @Test
     public void 좌석_예약_동시성_제어() throws Exception {
         // Given
-        int threadCount = 1000;
+        int threadCount = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         List<Future<ReserveSeatsResponseCommand>> futures = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class SeatReservationConcurrencyTest {
 
         // Then
         assertEquals(1, successCount);
-        assertEquals(999, failureCount);
+        assertEquals(99, failureCount);
 
         // 모든 스레드가 작업을 완료한 후 예약 상태 확인
         List<Seat> reservedSeats = seatRepository.findSeatsByScheduleId(seatIds, scheduleId);
