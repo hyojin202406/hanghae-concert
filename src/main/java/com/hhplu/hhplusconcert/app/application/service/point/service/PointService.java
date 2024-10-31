@@ -2,6 +2,7 @@ package com.hhplu.hhplusconcert.app.application.service.point.service;
 
 import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.common.annotation.RedissonLock;
 import com.hhplu.hhplusconcert.common.error.ErrorCode;
 import com.hhplu.hhplusconcert.common.exception.BaseException;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
@@ -23,7 +24,8 @@ public class PointService {
         return pointRepository.point(userId);
     }
 
-    @Transactional
+//    @Transactional
+    @RedissonLock(value = "#command.getUserId()")
     public GetPointCommand rechargePoint(RechargeCommand command) {
         Point point = point(command.getUserId());
         point.recharge(command.getPointAmount());

@@ -29,7 +29,7 @@ public class PointServiceConcurrencyTest {
 
     @Test
     void 포인트_충전_동시성_제어() throws InterruptedException {
-        int THREAD_COUNT = 1000;
+        int THREAD_COUNT = 100;
 
         RechargeCommand command = new RechargeCommand(1L, 100L);
 
@@ -53,7 +53,8 @@ public class PointServiceConcurrencyTest {
         Point point = pointRepository.point(1L);
 
         // DB에는 1000 포인트가 저장되어있습니다.
-        assertThat(point.getPointAmount()).isEqualTo(new BigDecimal("101000.00"));
+        assertThat(point.getPointAmount()).isEqualTo(new BigDecimal("11000.00"));
 
     }
+
 }

@@ -8,7 +8,6 @@ spring:
   datasource:
     url: jdbc:h2:mem:testdb
     username: sa
-
   h2:
     console:
       enabled: true
@@ -17,6 +16,10 @@ spring:
       mode: always
       continue-on-error: true
       data-locations: classpath:sql/data.sql
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 logging:
   level:
