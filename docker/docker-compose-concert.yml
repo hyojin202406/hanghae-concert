@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:7.0.0
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - concert_network
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234                # 설정할 루트 비밀번호
+      MYSQL_DATABASE: hhplus                   # 생성할 기본 데이터베이스 이름
+    ports:
+      - '3346:3306'
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - concert_network
+
+volumes:
+  mysqldata:                                   # 볼륨 정의 추가
+
+networks:
+  concert_network:
+    driver: bridge
+
+# docker-compose -p concert -f docker-compose-concert.yml up -d
