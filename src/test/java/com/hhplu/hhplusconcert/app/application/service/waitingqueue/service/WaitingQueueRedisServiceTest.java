@@ -23,7 +23,7 @@ class WaitingQueueRedisServiceTest {
     private RedisTemplate<String, Object> redisTemplate;
 
     private static final String WAITING_QUEUE_KEY = "waitingUserQueue";
-    private static final String ACTIVE_QUEUE_KEY = "activeUserQueue"; // 활성 사용자 대기열 (List)
+    private static final String ACTIVE_QUEUE_KEY = "activeUserQueue";
 
     @BeforeEach
     void 활성_유저수_증가() {
@@ -36,7 +36,7 @@ class WaitingQueueRedisServiceTest {
                     .build();
 
             // When
-            String token = waitingQueueRedisService.createWaitingQueueToken(user, 1L);
+            String token = waitingQueueRedisService.createWaitingQueueToken(user);
         }
     }
 
@@ -50,7 +50,7 @@ class WaitingQueueRedisServiceTest {
                 .build();
 
         // When
-        String token = waitingQueueRedisService.createWaitingQueueToken(user, 1L);
+        String token = waitingQueueRedisService.createWaitingQueueToken(user);
 
         // Then
         // activeQueueSize를 createWaitingQueueToken 실행 후 확인

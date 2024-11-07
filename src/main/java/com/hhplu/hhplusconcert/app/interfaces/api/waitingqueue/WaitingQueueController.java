@@ -1,7 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue;
 
 import com.hhplu.hhplusconcert.app.application.facade.WaitingQueueFacade;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.CreateWaitingQueueCommand;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.GetWaitingQueueCommand;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.QueueResponse;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/queue")
 public class WaitingQueueController {
 
-    private final WaitingQueueService waitingQueueService;
     private final WaitingQueueFacade waitingQueueFacade;
 
     /**
@@ -30,7 +28,7 @@ public class WaitingQueueController {
     @ApiResponse(responseCode = "200", description = "토큰 발급 성공")
     @PostMapping("/tokens/users/{userId}")
     public ResponseEntity<TokenResponse> token(
-            @Parameter(description = "사용자 ID") @PathVariable Long userId) {
+            @Parameter(description = "사용자 ID") @PathVariable(name = "userId") Long userId) {
         CreateWaitingQueueCommand command = waitingQueueFacade.token(userId);
         TokenResponse response = TokenResponse.builder()
                 .userId(userId)
@@ -50,12 +48,7 @@ public class WaitingQueueController {
     public ResponseEntity<QueueResponse> queue(@RequestHeader("QUEUE-TOKEN") String queueToken) {
         GetWaitingQueueCommand command = waitingQueueFacade.queue(queueToken);
         QueueResponse response = QueueResponse.builder()
-                .userId(command.getUserId())
-                .queueToken(queueToken)
-                .queuePosition(command.getId())
-                .lastActivedQueuePosition(command.getLastActiveId())
-                .queueStatus(command.getQueueStatus())
-                .issuedAt(command.getIssuedAt())
+                .queuePosition(command.getWaitingQueuePosition())
                 .build();
         return ResponseEntity.ok(response);
     }

@@ -18,7 +18,7 @@ public class WaitingQueueRedisService {
     private static final String WAITING_QUEUE_KEY = "waitingUserQueue"; // Sorted Set 키 (우선순위 대기열)
     private static final String ACTIVE_QUEUE_KEY = "activeUserQueue"; // 활성 사용자 대기열 (List)
 
-    public String createWaitingQueueToken(User user, Long concertId) {
+    public String createWaitingQueueToken(User user) {
         // 유저의 토큰 생성
         user.generateToken();
         String token = user.getToken();
@@ -32,11 +32,6 @@ public class WaitingQueueRedisService {
             redisTemplate.opsForList().rightPush(ACTIVE_QUEUE_KEY, token);
         } else {
             redisTemplate.opsForZSet().add(WAITING_QUEUE_KEY, token, timestamp);
-        }
-
-        // TTL 설정: 1분 (60초), 한번만 설정하기 위해 조건 추가
-        if (redisTemplate.getExpire(ACTIVE_QUEUE_KEY) == -1) {
-            redisTemplate.expire(ACTIVE_QUEUE_KEY, 180, TimeUnit.SECONDS);
         }
 
         return token;
