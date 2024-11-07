@@ -1,6 +1,9 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
+import com.hhplu.hhplusconcert.common.error.ErrorCode;
+import com.hhplu.hhplusconcert.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -39,4 +42,13 @@ public class WaitingQueueRedisService {
         return token;
     }
 
+    /**
+     * 사용자의 대기 순번 확인
+     * @param queueToken
+     * @return
+     */
+    public int getUserPosition(String queueToken) {
+        Long rank = redisTemplate.opsForZSet().rank(WAITING_QUEUE_KEY, queueToken);
+        return rank != null ? rank.intValue() + 1 : -1; // 순번을 1부터 시작하도록 반환
+    }
 }

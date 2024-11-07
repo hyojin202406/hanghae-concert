@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @SpringBootTest
 class WaitingQueueRedisServiceTest {
     @Autowired
@@ -81,4 +83,25 @@ class WaitingQueueRedisServiceTest {
             assertTrue(timestamp > 0); // 타임스탬프가 양수 값이어야 함
         }
     }
+
+    @Test
+    void 대기열_순번_조회_성공() {
+        // Given
+        // 가장 우선순위가 높은 토큰을 꺼내기 위해 score가 가장 작은 값을 조회
+        Set<Object> set = redisTemplate.opsForZSet().rangeByScore(WAITING_QUEUE_KEY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, 0, 1);
+        if (set.isEmpty()) {
+            log.warn("대기열에 데이터가 없습니다.");
+            return;
+        }
+
+        String queueToken = set.iterator().next().toString();
+
+        // When
+        int result = waitingQueueRedisService.getUserPosition(queueToken);
+        log.info("result: {}", result);
+
+        // Then
+        assertEquals(1, result, "대기열 순번은 1이어야 합니다.");
+    }
+
 }
