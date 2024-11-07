@@ -3,7 +3,7 @@ INSERT INTO concert (concert_name, created_at)
 VALUES ('Concert A', NOW()),
        ('Concert B', NOW());
 
--- 스케줄(Schedule) 데이터 삽입
+-- 콘서트 스케줄(Schedule) 데이터 삽입
 INSERT INTO schedule (concert_id, schedule_started_at, schedule_ended_at)
 VALUES
     (1, '2024-10-01 19:00:00', '2024-10-01 21:00:00'),

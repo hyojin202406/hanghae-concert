@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.unittest.service;
 
-import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
+import com.hhplu.hhplusconcert.app.application.service.concert.service.ScheduleService;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
@@ -31,7 +31,8 @@ class ConcertServiceTest {
     ConcertRepository concertRepository;
 
     @InjectMocks
-    ConcertService concertService;
+    ScheduleService scheduleService;
+
 
     @Nested
     class 콘서트_일정_조회 {
@@ -42,7 +43,7 @@ class ConcertServiceTest {
 
             // When & Then
             BaseException exception = assertThrows(BaseException.class,
-                    () -> concertService.schedule(concertId));
+                    () -> scheduleService.schedule(concertId));
 
             assertThat(exception.getMessage()).isEqualTo("Not found");
         }
@@ -61,7 +62,7 @@ class ConcertServiceTest {
             when(scheduleRepository.existsSchedule(concertId)).thenReturn(schedules);
 
             // When
-            List<Schedule> result = concertService.schedule(concertId);
+            List<Schedule> result = scheduleService.schedule(concertId);
 
             // Then
             assertThat(schedules).isNotEmpty();
