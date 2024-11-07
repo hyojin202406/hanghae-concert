@@ -3,7 +3,6 @@ package com.hhplu.hhplusconcert.app.application.Concurrency;
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
 import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.domain.concert.SeatStatus;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import jakarta.transaction.Transactional;
@@ -20,7 +19,6 @@ import java.util.concurrent.Future;
 
 import static com.hhplu.hhplusconcert.app.domain.concert.SeatStatus.TEMPORARILY_RESERVED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 @SpringBootTest

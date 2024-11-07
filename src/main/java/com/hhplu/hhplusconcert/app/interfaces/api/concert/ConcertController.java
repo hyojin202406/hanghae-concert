@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert;
 
+import com.hhplu.hhplusconcert.app.application.facade.ConcertFacade;
 import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
 import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
-import com.hhplu.hhplusconcert.app.application.facade.ConcertFacade;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.ScheduleResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.res.SeatResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public class ConcertController {
     @ApiResponse(responseCode = "200", description = "일정 조회 성공")
     @GetMapping("/{concertId}/schedules")
     public ResponseEntity<ScheduleResponse> concertSchedules(
-            @Parameter(description = "콘서트 ID") @PathVariable Long concertId,
+            @Parameter(description = "콘서트 ID") @PathVariable(name = "concertId") Long concertId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
         ConcertResponseCommand command = concertFacade.getConcertSchedules(concertId);
         return ResponseEntity.ok(ScheduleResponse.from(command));
@@ -44,8 +44,8 @@ public class ConcertController {
     @ApiResponse(responseCode = "200", description = "좌석 조회 성공")
     @GetMapping("/{concertId}/schedules/{scheduleId}/seats")
     public ResponseEntity<SeatResponse> concertSeats(
-            @Parameter(description = "콘서트 ID") @PathVariable Long concertId,
-            @Parameter(description = "일정 ID") @PathVariable Long scheduleId,
+            @Parameter(description = "콘서트 ID") @PathVariable(name = "concertId") Long concertId,
+            @Parameter(description = "일정 ID") @PathVariable(name = "scheduleId") Long scheduleId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
         ConcertSeatsResponseCommand command = concertFacade.getConcertSeats(concertId, scheduleId);
         return ResponseEntity.ok(SeatResponse.from(command));

@@ -1,21 +1,24 @@
 package com.hhplu.hhplusconcert.app.application.service.token.service;
 
-import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.app.domain.waitingqueue.repository.WaitingQueueRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TokenValidationService {
 
-    private final WaitingQueueRepository queueRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public boolean isValidToken(String token) {
-        Optional<WaitingQueue> waitingQueue = queueRepository.isValidToken(token);
-        return waitingQueue.isPresent();
+        List<Object> activeQueue = redisTemplate.opsForList().range("activeUserQueue", 0, -1);
+
+        if (activeQueue != null && activeQueue.contains(token)) {
+            return true;
+        }
+        return false;
     }
 
 }

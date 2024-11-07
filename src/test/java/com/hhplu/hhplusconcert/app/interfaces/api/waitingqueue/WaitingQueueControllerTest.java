@@ -1,10 +1,12 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,10 +29,23 @@ class WaitingQueueControllerTest {
     @Autowired
     private WebApplicationContext context;
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    private static final String ACTIVE_QUEUE_KEY = "activeUserQueue";
+
     @BeforeEach
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
+        redisTemplate.opsForList().rightPush(ACTIVE_QUEUE_KEY, "2d08cf07-349e-3537-b91c-f69e16977f60");
+    }
+
+    @AfterEach
+    public void cleraToken() {
+        // activeUserQueue에서 해당 토큰을 제거
+        String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
+        redisTemplate.opsForList().remove(ACTIVE_QUEUE_KEY, 1, queueToken);
     }
 
     @Test
@@ -43,7 +58,7 @@ class WaitingQueueControllerTest {
 
     @Test
     void 대기열_정보_조회_성공() throws Exception {
-        String queueToken = "d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a5";
+        String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
         String url = "/api/queue/tokens/users";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
