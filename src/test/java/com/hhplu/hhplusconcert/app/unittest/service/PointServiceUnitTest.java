@@ -3,7 +3,6 @@ package com.hhplu.hhplusconcert.app.unittest.service;
 import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
-import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import com.hhplu.hhplusconcert.common.exception.BaseException;
@@ -22,7 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PointServiceTest {
+class PointServiceUnitTest {
 
     @Mock
     PointRepository pointRepository;
