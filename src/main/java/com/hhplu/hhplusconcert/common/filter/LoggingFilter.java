@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.common.config;
+package com.hhplu.hhplusconcert.common.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
