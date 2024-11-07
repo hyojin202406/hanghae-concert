@@ -24,7 +24,7 @@ public class ConcertFacade {
 
     public ConcertResponseCommand getConcertSchedules(Long concertId) {
         Concert concert = concertService.validateConcertExists(concertId);
-        List<Schedule> schedules = concertService.schedule(concert.getId());
+        List<Schedule> schedules = scheduleService.schedule(concert.getId());
         return new ConcertResponseCommand(concert.getId(), schedules);
     }
 
