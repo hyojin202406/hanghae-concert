@@ -1,14 +1,9 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
-import com.hhplu.hhplusconcert.app.domain.waitingqueue.entity.WaitingQueue;
-import com.hhplu.hhplusconcert.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
