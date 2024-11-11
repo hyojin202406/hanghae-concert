@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
-import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
@@ -31,7 +31,7 @@ public class PointController {
     public ResponseEntity<PointResponse> recharge(
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId,
             @Parameter(description = "충전 요청 정보") @RequestBody PointRequest request) {
-        GetPointCommand command = pointService.rechargePoint(new RechargeCommand(userId, request.getPointAmount()));
+        GetPointDto command = pointService.rechargePoint(new RechargeDto(userId, request.getPointAmount()));
         return ResponseEntity.ok(PointResponse.from(userId, command));
     }
 
@@ -45,7 +45,7 @@ public class PointController {
     @PostMapping("/users/{userId}")
     public ResponseEntity<PointResponse> point(
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId) {
-        GetPointCommand command = pointService.getPoint(userId);
+        GetPointDto command = pointService.getPoint(userId);
         return ResponseEntity.ok(PointResponse.from(userId, command));
     }
 }

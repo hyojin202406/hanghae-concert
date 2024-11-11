@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.interfaces.api.concert.dto.SeatItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ public class SeatResponse {
     private List<SeatItem> allSeats;
     private List<SeatItem> availableSeats;
 
-    public static SeatResponse from(ConcertSeatsResponseCommand command) {
+    public static SeatResponse from(ConcertSeatsResponseDto command) {
 
         List<SeatItem> allSeats = command.getAllSeats().stream().map(seat -> new SeatItem(
                 seat.getId(),

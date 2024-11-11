@@ -4,8 +4,8 @@ import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
 import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsDto;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
@@ -59,7 +59,7 @@ public class ReservationFacadeTest {
         when(seatService.updateSeatStatus(anyLong(), anyLong(), any(Long[].class))).thenReturn(List.of(seat1, seat2));
 
         // When
-        ReserveSeatsResponseCommand result = reservationFacade.reserveSeats(new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds));
+        ReserveSeatsResponseDto result = reservationFacade.reserveSeats(new ReserveSeatsDto(userId, concertId, scheduleId, seatIds));
 
         // Then
         assertNotNull(result);
@@ -83,7 +83,7 @@ public class ReservationFacadeTest {
 
         // When & Then
         OptimisticLockException exception = assertThrows(OptimisticLockException.class, () -> {
-            reservationFacade.reserveSeats(new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds));
+            reservationFacade.reserveSeats(new ReserveSeatsDto(userId, concertId, scheduleId, seatIds));
         });
 
         assertEquals(null, exception.getMessage());

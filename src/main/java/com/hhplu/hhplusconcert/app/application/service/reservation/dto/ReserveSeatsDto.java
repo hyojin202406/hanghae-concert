@@ -1,10 +1,10 @@
-package com.hhplu.hhplusconcert.app.application.service.reservation.command;
+package com.hhplu.hhplusconcert.app.application.service.reservation.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class ReserveSeatsCommand {
+public class ReserveSeatsDto {
     @NotNull
     private Long userId;
     @NotNull
@@ -14,7 +14,7 @@ public class ReserveSeatsCommand {
     @NotNull
     private Long[] seatIds;
 
-    public ReserveSeatsCommand(Long userId, Long concertId, Long scheduleId, @NotNull Long[] seatIds) {
+    public ReserveSeatsDto(Long userId, Long concertId, Long scheduleId, @NotNull Long[] seatIds) {
         this.userId = userId;
         this.concertId = concertId;
         this.scheduleId = scheduleId;

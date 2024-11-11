@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.reservation.command;
+package com.hhplu.hhplusconcert.app.application.service.reservation.dto;
 
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-public class ReserveSeatsResponseCommand {
+public class ReserveSeatsResponseDto {
     private Long reservationId;
     private Long concertId;
     private String concertName;
@@ -19,7 +19,7 @@ public class ReserveSeatsResponseCommand {
     private long totalPrice;
     private String reservationStatus;
 
-    public ReserveSeatsResponseCommand(Reservation reservation, Concert concert, List<Seat> seats, long sumPoint) {
+    public ReserveSeatsResponseDto(Reservation reservation, Concert concert, List<Seat> seats, long sumPoint) {
         this.reservationId = reservation.getId();
         this.concertId = concert.getId();
         this.concertName = concert.getConsertName();

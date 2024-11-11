@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertResponseDto;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertSeatsResponseDto;
 import com.hhplu.hhplusconcert.common.exception.BaseException;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ConcertFacadeTest {
         Long concertId = 1L;
 
         // When
-        ConcertResponseCommand response = concertFacade.getConcertSchedules(concertId);
+        ConcertResponseDto response = concertFacade.getConcertSchedules(concertId);
 
         // Then
         assertNotNull(response);
@@ -52,7 +52,7 @@ public class ConcertFacadeTest {
         Long scheduleId = 1L; // 테스트에 사용할 스케줄 ID
 
         // When
-        ConcertSeatsResponseCommand response = concertFacade.getConcertSeats(concertId, scheduleId);
+        ConcertSeatsResponseDto response = concertFacade.getConcertSeats(concertId, scheduleId);
 
         // Then
         assertNotNull(response);

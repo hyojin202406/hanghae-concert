@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.concert.res;
 
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class ScheduleResponse {
         private LocalDateTime scheduleStartedAt;
     }
 
-    public static ScheduleResponse from(ConcertResponseCommand command) {
+    public static ScheduleResponse from(ConcertResponseDto command) {
         List<ScheduleItem> list = command.getSchedules().stream().map(schedule -> new ScheduleItem(
                 schedule.getId(),
                 schedule.getScheduleStaredtAt()

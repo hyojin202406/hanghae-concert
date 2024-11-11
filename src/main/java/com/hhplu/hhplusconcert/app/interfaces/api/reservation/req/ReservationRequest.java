@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.reservation.req;
 
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class ReservationRequest {
     private Long scheduleId;
     private Long[] seatIdsArr;
 
-    public ReserveSeatsCommand toReserveSeatsCommand() {
-        return new ReserveSeatsCommand(userId, concertId, scheduleId, seatIdsArr);
+    public ReserveSeatsDto toReserveSeatsCommand() {
+        return new ReserveSeatsDto(userId, concertId, scheduleId, seatIdsArr);
     }
 }

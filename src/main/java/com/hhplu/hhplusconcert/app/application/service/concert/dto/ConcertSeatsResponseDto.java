@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.concert.command;
+package com.hhplu.hhplusconcert.app.application.service.concert.dto;
 
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class ConcertSeatsResponseCommand {
+public class ConcertSeatsResponseDto {
     @NotNull
     private Long concertId;
 
@@ -20,7 +20,7 @@ public class ConcertSeatsResponseCommand {
     @NotNull
     private List<Seat>  availableSeats;
 
-    public ConcertSeatsResponseCommand(Long concertId, Long scheduleId, List<Seat> allSeats, List<Seat> availableSeats) {
+    public ConcertSeatsResponseDto(Long concertId, Long scheduleId, List<Seat> allSeats, List<Seat> availableSeats) {
         this.concertId = concertId;
         this.scheduleId = scheduleId;
         this.allSeats = allSeats;

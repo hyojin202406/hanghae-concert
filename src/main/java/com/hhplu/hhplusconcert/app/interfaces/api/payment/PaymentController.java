@@ -1,9 +1,9 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.payment;
 
 import com.hhplu.hhplusconcert.app.application.facade.PaymentFacade;
-import com.hhplu.hhplusconcert.app.application.service.payment.command.GetPaymentsHistoryResponseCommand;
-import com.hhplu.hhplusconcert.app.application.service.payment.command.PaymentRequestCommand;
-import com.hhplu.hhplusconcert.app.application.service.payment.command.PaymentResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.payment.dto.GetPaymentsHistoryResponseDto;
+import com.hhplu.hhplusconcert.app.application.service.payment.dto.PaymentRequestDto;
+import com.hhplu.hhplusconcert.app.application.service.payment.dto.PaymentResponseDto;
 import com.hhplu.hhplusconcert.app.interfaces.api.payment.res.PaymentHistoryResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.payment.res.PaymentResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,7 +33,7 @@ public class PaymentController {
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken
     ) {
-        PaymentResponseCommand command = paymentFacade.pay(new PaymentRequestCommand(userId, paymentId, queueToken));
+        PaymentResponseDto command = paymentFacade.pay(new PaymentRequestDto(userId, paymentId, queueToken));
         return ResponseEntity.ok(new PaymentResponse(command.getPaymentId(), command.getAmount(), command.getPaymentStatus()));
     }
 
@@ -48,7 +48,7 @@ public class PaymentController {
     public ResponseEntity<PaymentHistoryResponse> getPayments(
             @Parameter(description = "사용자 ID") @PathVariable("userId") Long userId,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken) {
-        GetPaymentsHistoryResponseCommand command = paymentFacade.getPayments(userId);
+        GetPaymentsHistoryResponseDto command = paymentFacade.getPayments(userId);
         return ResponseEntity.ok(new PaymentHistoryResponse(command.getUserId(), command.getPayments()));
     }
 }

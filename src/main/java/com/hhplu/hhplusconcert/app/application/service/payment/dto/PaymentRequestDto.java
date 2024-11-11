@@ -1,10 +1,10 @@
-package com.hhplu.hhplusconcert.app.application.service.payment.command;
+package com.hhplu.hhplusconcert.app.application.service.payment.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class PaymentRequestCommand {
+public class PaymentRequestDto {
 
     @NotNull
     private Long userId;
@@ -15,7 +15,7 @@ public class PaymentRequestCommand {
     @NotNull
     private String queueToken;
 
-    public PaymentRequestCommand(Long userId, Long paymentId, String queueToken) {
+    public PaymentRequestDto(Long userId, Long paymentId, String queueToken) {
         this.userId = userId;
         this.paymentId = paymentId;
         this.queueToken = queueToken;

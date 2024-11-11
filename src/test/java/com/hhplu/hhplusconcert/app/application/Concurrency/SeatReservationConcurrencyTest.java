@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.Concurrency;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsDto;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Seat;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.SeatRepository;
 import jakarta.transaction.Transactional;
@@ -40,13 +40,13 @@ public class SeatReservationConcurrencyTest {
         // Given
         int threadCount = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-        List<Future<ReserveSeatsResponseCommand>> futures = new ArrayList<>();
+        List<Future<ReserveSeatsResponseDto>> futures = new ArrayList<>();
 
         // When
         for (int i = 0; i < threadCount; i++) {
             final Long userId = (long) i + 1;
-            ReserveSeatsCommand command = new ReserveSeatsCommand(userId, concertId, scheduleId, seatIds);
-            Future<ReserveSeatsResponseCommand> future = executorService.submit(() -> {
+            ReserveSeatsDto command = new ReserveSeatsDto(userId, concertId, scheduleId, seatIds);
+            Future<ReserveSeatsResponseDto> future = executorService.submit(() -> {
                 try {
                     return reservationFacade.reserveSeats(command);
                 } catch (Exception e) {
@@ -62,8 +62,8 @@ public class SeatReservationConcurrencyTest {
         int failureCount = 0;
 
         // 스레드가 완료될 때까지 대기
-        for (Future<ReserveSeatsResponseCommand> future : futures) {
-            ReserveSeatsResponseCommand reservation = future.get();
+        for (Future<ReserveSeatsResponseDto> future : futures) {
+            ReserveSeatsResponseDto reservation = future.get();
             if (reservation != null) {
                 successCount++;
                 log.info("Reservation successful: {}", reservation.getReservationId());
