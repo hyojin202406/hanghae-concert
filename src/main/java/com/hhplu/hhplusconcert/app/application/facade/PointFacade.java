@@ -1,9 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
-import com.hhplu.hhplusconcert.common.annotation.RedissonLock;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class PointFacade {
     private final PointService pointService;
 
-    public GetPointCommand rechargePoint(RechargeCommand command) {
+    public GetPointDto rechargePoint(RechargeDto command) {
        return pointService.rechargePoint(command);
     }
 }

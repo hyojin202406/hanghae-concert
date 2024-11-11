@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertResponseCommand;
-import com.hhplu.hhplusconcert.app.application.service.concert.command.ConcertSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertResponseDto;
+import com.hhplu.hhplusconcert.app.application.service.concert.dto.ConcertSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ScheduleService;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
@@ -22,17 +22,17 @@ public class ConcertFacade {
     private final ScheduleService scheduleService;
     private final SeatService seatService;
 
-    public ConcertResponseCommand getConcertSchedules(Long concertId) {
+    public ConcertResponseDto getConcertSchedules(Long concertId) {
         Concert concert = concertService.validateConcertExists(concertId);
         List<Schedule> schedules = scheduleService.schedule(concert.getId());
-        return new ConcertResponseCommand(concert.getId(), schedules);
+        return new ConcertResponseDto(concert.getId(), schedules);
     }
 
-    public ConcertSeatsResponseCommand getConcertSeats(Long concertId, Long scheduleId) {
+    public ConcertSeatsResponseDto getConcertSeats(Long concertId, Long scheduleId) {
         Concert concert = concertService.validateConcertExists(concertId);
         List<Schedule> schedule = scheduleService.validateScheduleExists(scheduleId);
         List<Seat> allSeats = seatService.getAllSeatsByScheduleId(scheduleId);
         List<Seat> availableSeats = seatService.getAvailableSeatsByScheduleId(scheduleId);
-        return new ConcertSeatsResponseCommand(concert.getId(), schedule.get(0).getId(), allSeats, availableSeats);
+        return new ConcertSeatsResponseDto(concert.getId(), schedule.get(0).getId(), allSeats, availableSeats);
     }
 }

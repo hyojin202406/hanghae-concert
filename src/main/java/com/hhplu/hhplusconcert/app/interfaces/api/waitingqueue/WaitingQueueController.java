@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue;
 
 import com.hhplu.hhplusconcert.app.application.facade.WaitingQueueFacade;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.CreateWaitingQueueCommand;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.GetWaitingQueueCommand;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.CreateWaitingQueueDto;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.GetWaitingQueueDto;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.QueueResponse;
 import com.hhplu.hhplusconcert.app.interfaces.api.waitingqueue.res.TokenResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ public class WaitingQueueController {
     @PostMapping("/tokens/users/{userId}")
     public ResponseEntity<TokenResponse> token(
             @Parameter(description = "사용자 ID") @PathVariable(name = "userId") Long userId) {
-        CreateWaitingQueueCommand command = waitingQueueFacade.token(userId);
+        CreateWaitingQueueDto command = waitingQueueFacade.token(userId);
         TokenResponse response = TokenResponse.builder()
                 .userId(userId)
                 .queueToken(command.getQueueToken())
@@ -46,7 +46,7 @@ public class WaitingQueueController {
     @ApiResponse(responseCode = "200", description = "대기열 정보 조회 성공")
     @GetMapping("/tokens/users")
     public ResponseEntity<QueueResponse> queue(@RequestHeader("QUEUE-TOKEN") String queueToken) {
-        GetWaitingQueueCommand command = waitingQueueFacade.queue(queueToken);
+        GetWaitingQueueDto command = waitingQueueFacade.queue(queueToken);
         QueueResponse response = QueueResponse.builder()
                 .queuePosition(command.getWaitingQueuePosition())
                 .build();

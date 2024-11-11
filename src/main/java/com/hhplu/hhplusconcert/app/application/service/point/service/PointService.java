@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.point.service;
 
-import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +22,15 @@ public class PointService {
     }
 
 
-    public GetPointCommand rechargePoint(RechargeCommand command) {
+    public GetPointDto rechargePoint(RechargeDto command) {
         Point point = point(command.getUserId());
         point.recharge(command.getPointAmount());
-        return new GetPointCommand(point.getPointAmount());
+        return new GetPointDto(point.getPointAmount());
     }
 
-    public GetPointCommand getPoint(Long userId) {
+    public GetPointDto getPoint(Long userId) {
         Point point = point(userId);
-        return new GetPointCommand(point.getPointAmount());
+        return new GetPointDto(point.getPointAmount());
     }
 
     public Point subtractUserPoints(Long userId, BigDecimal totalAmount) {

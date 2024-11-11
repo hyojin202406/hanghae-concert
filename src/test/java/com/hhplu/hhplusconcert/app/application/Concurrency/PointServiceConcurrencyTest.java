@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.Concurrency;
 
-import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
@@ -28,7 +28,7 @@ public class PointServiceConcurrencyTest {
     void 포인트_충전_동시성_제어_성공() throws InterruptedException {
         int THREAD_COUNT = 100;
 
-        RechargeCommand command = new RechargeCommand(1L, 100L);
+        RechargeDto command = new RechargeDto(1L, 100L);
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);

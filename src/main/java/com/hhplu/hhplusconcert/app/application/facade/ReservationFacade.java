@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsCommand;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsDto;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ConcertService;
 import com.hhplu.hhplusconcert.app.application.service.payment.service.PaymentService;
 import com.hhplu.hhplusconcert.app.application.service.reservation.service.ReservationService;
@@ -27,12 +27,12 @@ public class ReservationFacade {
     private final ConcertService concertService;
 
     @Transactional
-    public ReserveSeatsResponseCommand reserveSeats(ReserveSeatsCommand command) {
+    public ReserveSeatsResponseDto reserveSeats(ReserveSeatsDto command) {
         Concert concert = concertService.validateConcertExists(command.getConcertId());
         Reservation reservation = reservationService.createReservation(command.getUserId());
         List<Seat> seats = seatService.updateSeatStatus(reservation.getId(), command.getScheduleId(), command.getSeatIds());
         long sumPoint = ConcertManagement.calculateTotalPrice(seats);
         paymentService.createPendingPayment(reservation, sumPoint);
-        return new ReserveSeatsResponseCommand(reservation, concert, seats, sumPoint);
+        return new ReserveSeatsResponseDto(reservation, concert, seats, sumPoint);
     }
 }

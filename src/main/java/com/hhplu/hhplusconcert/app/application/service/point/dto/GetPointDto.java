@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.point.command;
+package com.hhplu.hhplusconcert.app.application.service.point.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -6,11 +6,11 @@ import lombok.Getter;
 import java.math.BigDecimal;
 
 @Getter
-public class GetPointCommand {
+public class GetPointDto {
     @NotNull
     private BigDecimal currentPointAmount;
 
-    public GetPointCommand(BigDecimal pointAmount) {
+    public GetPointDto(BigDecimal pointAmount) {
         this.currentPointAmount = pointAmount;
     }
 }

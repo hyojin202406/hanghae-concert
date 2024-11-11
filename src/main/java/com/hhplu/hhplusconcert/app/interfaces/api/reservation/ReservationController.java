@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.reservation;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
-import com.hhplu.hhplusconcert.app.application.service.reservation.command.ReserveSeatsResponseCommand;
+import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsResponseDto;
 import com.hhplu.hhplusconcert.app.interfaces.api.reservation.req.ReservationRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.reservation.res.ReservationResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,7 +30,7 @@ public class ReservationController {
             @Parameter(description = "예약 요청 정보") @RequestBody ReservationRequest request,
             @Parameter(description = "사용자 인증 토큰", required = true) @RequestHeader("QUEUE-TOKEN") String queueToken
     ) {
-        ReserveSeatsResponseCommand command = reservationFacade.reserveSeats(request.toReserveSeatsCommand());
+        ReserveSeatsResponseDto command = reservationFacade.reserveSeats(request.toReserveSeatsCommand());
         return ResponseEntity.ok(ReservationResponse.from(command));
     }
 

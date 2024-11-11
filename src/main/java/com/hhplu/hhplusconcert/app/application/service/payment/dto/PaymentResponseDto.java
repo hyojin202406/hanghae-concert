@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.payment.command;
+package com.hhplu.hhplusconcert.app.application.service.payment.dto;
 
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
 import jakarta.validation.constraints.NotNull;
@@ -7,7 +7,7 @@ import lombok.Getter;
 import java.math.BigDecimal;
 
 @Getter
-public class PaymentResponseCommand {
+public class PaymentResponseDto {
     @NotNull
     private Long paymentId;
 
@@ -17,7 +17,7 @@ public class PaymentResponseCommand {
     @NotNull
     private PaymentStatus paymentStatus;
 
-    public PaymentResponseCommand(Long paymentId, BigDecimal amount, PaymentStatus paymentStatus) {
+    public PaymentResponseDto(Long paymentId, BigDecimal amount, PaymentStatus paymentStatus) {
         this.paymentId = paymentId;
         this.amount = amount;
         this.paymentStatus = paymentStatus;

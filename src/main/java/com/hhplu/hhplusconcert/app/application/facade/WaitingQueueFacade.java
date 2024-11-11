@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
 import com.hhplu.hhplusconcert.app.application.service.user.service.UserService;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.CreateWaitingQueueCommand;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.command.GetWaitingQueueCommand;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.CreateWaitingQueueDto;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.GetWaitingQueueDto;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueRedisService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
@@ -21,14 +21,14 @@ public class WaitingQueueFacade {
     private final WaitingQueueRedisService waitingQueueRedisService;
     private final UserService userService;
 
-    public CreateWaitingQueueCommand token(Long userId) {
+    public CreateWaitingQueueDto token(Long userId) {
         User user = userService.user(userId);
         String token = waitingQueueRedisService.createWaitingQueueToken(user);
-        return new CreateWaitingQueueCommand(token, LocalDateTime.now());
+        return new CreateWaitingQueueDto(token, LocalDateTime.now());
     }
 
-    public GetWaitingQueueCommand queue(String queueToken) {
+    public GetWaitingQueueDto queue(String queueToken) {
         int waitingQueuePosition = waitingQueueRedisService.getUserPosition(queueToken);
-        return new GetWaitingQueueCommand(waitingQueuePosition);
+        return new GetWaitingQueueDto(waitingQueuePosition);
     }
 }

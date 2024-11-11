@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.unittest.service;
 
-import com.hhplu.hhplusconcert.app.application.service.point.command.GetPointCommand;
-import com.hhplu.hhplusconcert.app.application.service.point.command.RechargeCommand;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
+import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
@@ -42,7 +42,7 @@ class PointServiceUnitTest {
 
             // When
             BaseException exception = assertThrows(BaseException.class, () ->
-                    pointService.rechargePoint(new RechargeCommand(userId, rechargeAmount)));
+                    pointService.rechargePoint(new RechargeDto(userId, rechargeAmount)));
 
             // Then
             assertEquals("Invalid request", exception.getMessage());
@@ -62,7 +62,7 @@ class PointServiceUnitTest {
             when(pointRepository.point(userId)).thenReturn(point);
 
             // When
-            GetPointCommand command = pointService.rechargePoint(new RechargeCommand(userId, rechargeAmount));
+            GetPointDto command = pointService.rechargePoint(new RechargeDto(userId, rechargeAmount));
 
             // Then
             assertEquals(BigDecimal.valueOf(60000), command.getCurrentPointAmount()); // 10000 + 50000
@@ -86,7 +86,7 @@ class PointServiceUnitTest {
             when(pointRepository.point(userId)).thenReturn(point);
 
             // When
-            GetPointCommand command = pointService.getPoint(userId);
+            GetPointDto command = pointService.getPoint(userId);
 
             // Then
             assertEquals(BigDecimal.valueOf(10000), command.getCurrentPointAmount()); // 잔액이 10000인지 확인
