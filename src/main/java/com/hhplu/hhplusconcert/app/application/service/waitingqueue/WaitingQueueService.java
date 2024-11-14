@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
+package com.hhplu.hhplusconcert.app.application.service.waitingqueue;
 
 import com.hhplu.hhplusconcert.common.error.ErrorCode;
 import com.hhplu.hhplusconcert.common.exception.BaseException;
@@ -16,10 +16,8 @@ public class WaitingQueueService {
 
     /**
      * 토큰 생성 및 대기열 저장
-     * @param user
-     * @return
      */
-    public WaitingQueue token(User user) {
+    public WaitingQueue createWaitingQueueToken(User user) {
         WaitingQueue waitingQueue = new WaitingQueue();
         waitingQueue.token(user);
         return waitingQueueRepository.token(waitingQueue);
@@ -27,9 +25,8 @@ public class WaitingQueueService {
 
     /**
      * 대기열 토큰 조회
-     * @return
      */
-    public WaitingQueue getToken(String queueToken) {
+    public WaitingQueue getUserPosition(String queueToken) {
         return waitingQueueRepository.getToken(queueToken)
                 .orElseThrow(() -> new BaseException(ErrorCode.WAITING_QUEUE_NOT_FOUND));
     }

@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.common.interceptor;
 
-import com.hhplu.hhplusconcert.app.application.service.token.service.TokenValidationService;
+import com.hhplu.hhplusconcert.app.application.service.token.TokenValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

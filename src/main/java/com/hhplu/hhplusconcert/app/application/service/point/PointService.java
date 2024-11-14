@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.point.service;
+package com.hhplu.hhplusconcert.app.application.service.point;
 
 import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;

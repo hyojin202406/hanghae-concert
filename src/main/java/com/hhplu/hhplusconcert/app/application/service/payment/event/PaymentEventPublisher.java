@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.event;
+package com.hhplu.hhplusconcert.app.application.service.payment.event;
 
 import com.hhplu.hhplusconcert.app.domain.payment.event.dto.PaymentSuccessEvent;
 import org.springframework.context.ApplicationEventPublisher;

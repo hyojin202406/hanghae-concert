@@ -1,10 +1,10 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.user.service.UserService;
+import com.hhplu.hhplusconcert.app.application.service.user.UserService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.CreateWaitingQueueDto;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.dto.GetWaitingQueueDto;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueRedisService;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueService;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueRedisService;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -2,7 +2,7 @@ package com.hhplu.hhplusconcert.app.application.facade;
 
 import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
-import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
+import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
 import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
-import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
+import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
 import io.swagger.v3.oas.annotations.Operation;
