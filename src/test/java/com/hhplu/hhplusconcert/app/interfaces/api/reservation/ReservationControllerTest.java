@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -31,10 +32,16 @@ class ReservationControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    private static final String ACTIVE_QUEUE_KEY = "activeUserQueue";
+
     @BeforeEach
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
+        redisTemplate.opsForList().rightPush(ACTIVE_QUEUE_KEY, "2d08cf07-349e-3537-b91c-f69e16977f60");
     }
 
     @Test
@@ -48,7 +55,7 @@ class ReservationControllerTest {
         ReservationRequest request = new ReservationRequest(userId, concertId, scheduleId, seatIds);
         String requestBody = objectMapper.writeValueAsString(request);
 
-        String queueToken = "d8a74e6b-8946-4a57-9eaf-cb7f48e8c1a4";
+        String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
 
         // When & Then
         mockMvc.perform(post("/api/reservations")

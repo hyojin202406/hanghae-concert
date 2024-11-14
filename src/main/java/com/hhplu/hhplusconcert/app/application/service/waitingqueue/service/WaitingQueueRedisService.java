@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -60,4 +61,7 @@ public class WaitingQueueRedisService {
         return redisTemplate.opsForZSet().popMin(WAITING_QUEUE_KEY);
     }
 
+    public void removeActiveToken(@NotNull String queueToken) {
+        redisTemplate.opsForZSet().remove(WAITING_QUEUE_KEY, queueToken);
+    }
 }

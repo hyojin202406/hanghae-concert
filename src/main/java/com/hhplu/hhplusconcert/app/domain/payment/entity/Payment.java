@@ -34,7 +34,8 @@ public class Payment {
     @Column(nullable = false, name = "payment_at")
     private LocalDateTime paymentAt;
 
-    public void changePaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+
+    public void completedStaus() {
+        this.paymentStatus = PaymentStatus.COMPLETED;
     }
 }
