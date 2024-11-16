@@ -1,6 +1,7 @@
-package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
+package com.hhplu.hhplusconcert.app.application.service.waitingqueue;
 
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
@@ -16,6 +17,9 @@ public class WaitingQueueRedisService {
     private static final String WAITING_QUEUE_KEY = "waitingUserQueue"; // Sorted Set 키 (우선순위 대기열)
     private static final String ACTIVE_QUEUE_KEY = "activeUserQueue"; // 활성 사용자 대기열 (List)
 
+    /**
+     * 토큰 생성 및 대기열 저장
+     */
     public String createWaitingQueueToken(User user) {
         // 유저의 토큰 생성
         user.generateToken();
@@ -37,8 +41,6 @@ public class WaitingQueueRedisService {
 
     /**
      * 사용자의 대기 순번 확인
-     * @param queueToken
-     * @return
      */
     public int getUserPosition(String queueToken) {
         Long rank = redisTemplate.opsForZSet().rank(WAITING_QUEUE_KEY, queueToken);
@@ -60,4 +62,7 @@ public class WaitingQueueRedisService {
         return redisTemplate.opsForZSet().popMin(WAITING_QUEUE_KEY);
     }
 
+    public void removeActiveToken(@NotNull String queueToken) {
+        redisTemplate.opsForZSet().remove(WAITING_QUEUE_KEY, queueToken);
+    }
 }

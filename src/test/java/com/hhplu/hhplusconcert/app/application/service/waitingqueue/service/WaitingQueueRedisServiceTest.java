@@ -1,5 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueRedisService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.token.service;
+package com.hhplu.hhplusconcert.app.application.service.token;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

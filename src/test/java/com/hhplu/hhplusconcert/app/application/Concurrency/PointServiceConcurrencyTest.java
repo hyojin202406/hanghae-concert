@@ -1,7 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.Concurrency;
 
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
-import com.hhplu.hhplusconcert.app.application.service.point.service.PointService;
+import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
 import org.junit.jupiter.api.Test;

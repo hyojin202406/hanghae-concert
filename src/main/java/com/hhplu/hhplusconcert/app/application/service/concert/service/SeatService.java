@@ -50,4 +50,10 @@ public class SeatService {
             seat.changeStatus(SeatStatus.RESERVED);
         }
     }
+
+    public long calculateTotalPoint(List<Seat> seats) {
+        return seats.stream()
+                .mapToLong(Seat::getSeatPrice)
+                .sum();
+    }
 }

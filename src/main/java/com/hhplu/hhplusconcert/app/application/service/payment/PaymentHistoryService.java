@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.service.payment.service;
+package com.hhplu.hhplusconcert.app.application.service.payment;
 
 import com.hhplu.hhplusconcert.common.error.ErrorCode;
 import com.hhplu.hhplusconcert.common.exception.BaseException;

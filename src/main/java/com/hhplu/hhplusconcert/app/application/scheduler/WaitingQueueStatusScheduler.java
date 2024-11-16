@@ -1,6 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.scheduler;
 
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.service.WaitingQueueRedisService;
+import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueRedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ZSetOperations;
