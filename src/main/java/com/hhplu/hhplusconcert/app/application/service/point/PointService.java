@@ -4,6 +4,7 @@ import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,11 @@ public class PointService {
         return pointRepository.point(userId);
     }
 
-
+    @Transactional
     public GetPointDto rechargePoint(RechargeDto command) {
         Point point = point(command.getUserId());
         point.recharge(command.getPointAmount());
+        log.info("recharge point: {}", point.getPointAmount());
         return new GetPointDto(point.getPointAmount());
     }
 
