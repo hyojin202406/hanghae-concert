@@ -16,8 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@Testcontainers
-class TestProducerConsumerTest extends TestContainersTest {
+//@Testcontainers
+//class TestProducerConsumerTest extends TestContainersTest {
+class TestProducerConsumerTest {
 
     @Autowired
     private TestProducer testProducer;
