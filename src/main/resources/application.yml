@@ -23,6 +23,7 @@ spring:
 
 # Kafka 설정 추가
   kafka:
+    bootstrap-servers: localhost:9092
     producer:
       bootstrap-servers: localhost:9092  # Kafka 브로커 주소
       key-serializer: org.apache.kafka.common.serialization.StringSerializer

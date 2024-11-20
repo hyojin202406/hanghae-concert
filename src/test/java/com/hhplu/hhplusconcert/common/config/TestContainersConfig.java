@@ -18,7 +18,8 @@ public class TestContainersConfig {
     private static final GenericContainer<?> redisContainer;
 
     static {
-        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:latest"));
+        kafkaContainer = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:latest"))
+                .withExposedPorts(9093);
         redisContainer = new GenericContainer<>("redis:latest")
                 .withExposedPorts(6379);
     }
