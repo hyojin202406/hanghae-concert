@@ -25,14 +25,14 @@ class TestProducerConsumerTest {
     @Test
     void testProducerAndConsumer() throws InterruptedException {
         // Given
-        Message message = new Message("name5", "message5");
+        Message message = new Message("name", "message");
 
         // When
         testProducer.send("test-topic", message);
         
         // Then
         latch.await(5, TimeUnit.SECONDS); // 5초 대기
-        assertThat(receivedMessage).contains("name5").contains("message5");
+        assertThat(receivedMessage).contains("name").contains("message");
     }
 
     @KafkaListener(topics = "test-topic", groupId = "consumerGroupId")

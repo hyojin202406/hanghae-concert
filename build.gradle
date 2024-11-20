@@ -67,6 +67,7 @@ dependencies {
     testImplementation 'com.redis:testcontainers-redis:2.2.2'
     testImplementation 'org.testcontainers:testcontainers:1.19.0'
     testImplementation 'org.testcontainers:kafka:1.19.0'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
 
     // Kafka
     implementation 'org.springframework.kafka:spring-kafka'
