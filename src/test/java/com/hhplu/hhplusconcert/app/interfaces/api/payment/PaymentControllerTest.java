@@ -43,15 +43,18 @@ class PaymentControllerTest {
     public void mockMvcSetUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
+
         redisTemplate.opsForList().rightPush(ACTIVE_QUEUE_KEY, "2d08cf07-349e-3537-b91c-f69e16977f60");
     }
 
     @Test
     public void 결제_성공() throws Exception {
+        // Given
+        String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
         Long userId = 1L;
         Long paymentId = 1L;
-        String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
 
+        // When & Then
         mockMvc.perform(post("/api/payments/{paymentId}/users/{userId}", paymentId, userId)
                         .header("QUEUE-TOKEN", queueToken)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -63,9 +66,11 @@ class PaymentControllerTest {
 
     @Test
     public void 결제_내역_조회_성공() throws Exception {
-        Long userId = 2L;
+        // Given
         String queueToken = "2d08cf07-349e-3537-b91c-f69e16977f60";
+        Long userId = 2L;
 
+        // When & Then
         mockMvc.perform(post("/api/payments/history/users/{userId}", userId)
                         .header("QUEUE-TOKEN", queueToken)
                         .contentType(MediaType.APPLICATION_JSON))

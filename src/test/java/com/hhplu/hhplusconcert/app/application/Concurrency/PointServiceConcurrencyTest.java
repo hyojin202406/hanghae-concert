@@ -4,6 +4,7 @@ import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
 import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.domain.point.entity.Point;
 import com.hhplu.hhplusconcert.app.domain.point.repository.PointRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ import java.util.concurrent.Executors;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
+@Transactional
 public class PointServiceConcurrencyTest {
 
     @Autowired
@@ -26,6 +28,7 @@ public class PointServiceConcurrencyTest {
 
     @Test
     void 포인트_충전_동시성_제어_성공() throws InterruptedException {
+
         int THREAD_COUNT = 100;
 
         RechargeDto command = new RechargeDto(1L, 100L);

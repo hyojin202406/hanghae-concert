@@ -28,9 +28,6 @@ public class Point {
     private BigDecimal pointAmount;
 
     public void addPointAmount(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("추가할 금액은 0 이상이어야 합니다.");
-        }
         this.pointAmount = this.pointAmount.add(amount);
     }
 

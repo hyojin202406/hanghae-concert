@@ -21,6 +21,21 @@ spring:
       host: localhost
       port: 6379
 
+# Kafka 설정 추가
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest # 초기 오프셋 설정
+      enable-auto-commit: true    # 자동 커밋 활성화
+      max-poll-records: 10        # 한 번에 가져올 최대 메시지 수
+    template:
+      default-topic: error-messages
+
 logging:
   level:
     org.hibernate.SQL: debug

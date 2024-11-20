@@ -13,7 +13,6 @@ public class PointRepositoryImpl implements PointRepository {
     private final PointJpaRepository pointJpaRepository;
 
     @Override
-    @Transactional
     public Point point(Long userId) {
         return pointJpaRepository.findByUserIdWithLock(userId);
     }

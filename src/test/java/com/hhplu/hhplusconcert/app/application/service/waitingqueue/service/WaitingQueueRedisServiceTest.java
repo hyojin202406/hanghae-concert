@@ -2,15 +2,13 @@ package com.hhplu.hhplusconcert.app.application.service.waitingqueue.service;
 
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueRedisService;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
+import com.hhplu.hhplusconcert.common.config.TestContainersTest;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
@@ -21,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Slf4j
 @SpringBootTest
 @Testcontainers
-class WaitingQueueRedisServiceTest {
+class WaitingQueueRedisServiceTest extends TestContainersTest {
 
     @Autowired
     private WaitingQueueRedisService waitingQueueRedisService;
@@ -31,17 +29,6 @@ class WaitingQueueRedisServiceTest {
 
     private static final String WAITING_QUEUE_KEY = "waitingUserQueue";
     private static final String ACTIVE_QUEUE_KEY = "activeUserQueue";
-
-    @Container
-    static GenericContainer<?> redisContainer = new GenericContainer<>("redis:latest")
-            .withExposedPorts(6379);
-
-    @BeforeAll
-    static void setUpRedis() {
-        // Redis 서버의 포트와 호스트 정보를 설정
-        System.setProperty("spring.data.redis.host", redisContainer.getHost());
-        System.setProperty("spring.data.redis.port", redisContainer.getMappedPort(6379).toString());
-    }
 
     @BeforeEach
     void 활성_유저수_증가() {
