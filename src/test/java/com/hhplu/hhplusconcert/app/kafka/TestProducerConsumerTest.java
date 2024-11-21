@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.infrastructure.kafka;
+package com.hhplu.hhplusconcert.app.kafka;
 
 import com.hhplu.hhplusconcert.app.infrastructure.kafka.dto.KafkaMessageDto;
 import com.hhplu.hhplusconcert.app.infrastructure.kafka.producer.TestProducer;

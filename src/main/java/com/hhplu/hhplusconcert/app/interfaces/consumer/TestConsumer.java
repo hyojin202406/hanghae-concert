@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.interfaces.event;
+package com.hhplu.hhplusconcert.app.interfaces.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

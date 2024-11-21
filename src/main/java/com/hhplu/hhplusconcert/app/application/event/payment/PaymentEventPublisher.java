@@ -1,6 +1,5 @@
-package com.hhplu.hhplusconcert.app.application.service.payment.event;
+package com.hhplu.hhplusconcert.app.application.event.payment;
 
-import com.hhplu.hhplusconcert.app.domain.payment.event.dto.PaymentSuccessEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
