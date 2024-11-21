@@ -6,10 +6,8 @@ import lombok.Getter;
 import org.springframework.context.annotation.Configuration;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-@Testcontainers
 @Configuration
 public class TestContainersConfig {
 
@@ -25,13 +23,13 @@ public class TestContainersConfig {
                 .withExposedPorts(6379);
     }
 
-    @PostConstruct // 실행 시 컨테이너 시작
+    @PostConstruct
     public void startContainers() {
         kafkaContainer.start();
         redisContainer.start();
     }
 
-    @PreDestroy // 종료 시 컨테이너 중단
+    @PreDestroy
     public void endContainers() {
         kafkaContainer.stop();
         redisContainer.stop();
