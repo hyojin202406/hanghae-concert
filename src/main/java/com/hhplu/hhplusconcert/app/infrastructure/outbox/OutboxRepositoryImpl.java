@@ -1,5 +1,6 @@
 package com.hhplu.hhplusconcert.app.infrastructure.outbox;
 
+import com.hhplu.hhplusconcert.app.domain.outbox.OutboxStatus;
 import com.hhplu.hhplusconcert.app.domain.outbox.entity.Outbox;
 import com.hhplu.hhplusconcert.app.domain.outbox.repository.OutboxRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,10 @@ public class OutboxRepositoryImpl implements OutboxRepository {
     @Override
     public List<Outbox> findByPayload(String data) {
         return outboxJpaRepository.findByPayload(data);
+    }
+
+    @Override
+    public List<Outbox> findByOutboxStatus(OutboxStatus outboxStatus) {
+        return outboxJpaRepository.findByOutboxStatus(outboxStatus);
     }
 }

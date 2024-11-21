@@ -1,5 +1,6 @@
 package com.hhplu.hhplusconcert.app.application.service.outbox;
 
+import com.hhplu.hhplusconcert.app.domain.outbox.OutboxStatus;
 import com.hhplu.hhplusconcert.app.domain.outbox.entity.Outbox;
 import com.hhplu.hhplusconcert.app.domain.outbox.repository.OutboxRepository;
 import jakarta.transaction.Transactional;
@@ -22,9 +23,12 @@ public class OutboxService {
 
     @Transactional
     public void publishedMessage(String data) {
-        // payload '{"orderKey":1,"paymentKey":1}'
         List<Outbox> byPayload = outboxRepository.findByPayload(data);
         byPayload.forEach(Outbox::publishedStaus);
         log.info("byPayload : {}", byPayload);
+    }
+
+    public List<Outbox> findFailMessages() {
+        return outboxRepository.findByOutboxStatus(OutboxStatus.INIT);
     }
 }

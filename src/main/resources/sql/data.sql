@@ -70,3 +70,7 @@ VALUES
 -- INSERT INTO point (user_id, point_amount)
 -- VALUES (1, 1000.00)
 --     ON DUPLICATE KEY UPDATE point_amount = 1000.00;
+
+
+insert into outbox (event_key,event_type,outbox_status,payload, created_at)
+values ('paymentKey','payment','INIT','{"orderKey":1,"paymentKey":1}', NOW());
