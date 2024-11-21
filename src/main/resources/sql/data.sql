@@ -67,6 +67,6 @@ VALUES
     (4, 120.00, 'COMPLETED', NOW()),
     (5, 130.00, 'PENDING', NOW());
 
-INSERT INTO point (user_id, point_amount)
-VALUES (1, 1000.00)
-    ON DUPLICATE KEY UPDATE point_amount = 1000.00;
+-- INSERT INTO point (user_id, point_amount)
+-- VALUES (1, 1000.00)
+--     ON DUPLICATE KEY UPDATE point_amount = 1000.00;
