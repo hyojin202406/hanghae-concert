@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.UUID;
+
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -29,7 +31,7 @@ class ReservationProducerConsumerTest extends TestContainersTest {
         ReservationSuccessEvent message = new ReservationSuccessEvent(1L, 10L);
 
         // When
-        reservationMessageProducer.send("reservation-test-topic", message);
+        reservationMessageProducer.send("reservation-test-topic", UUID.randomUUID().toString(), message);
 
         // then
         await().atMost(ofSeconds(10))

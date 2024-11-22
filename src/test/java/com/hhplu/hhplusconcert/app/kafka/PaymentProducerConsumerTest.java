@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.UUID;
+
 import static java.time.Duration.ofSeconds;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -28,7 +30,7 @@ class PaymentProducerConsumerTest extends TestContainersTest {
         PaymentSuccessEvent message = new PaymentSuccessEvent(1L, 10L);
 
         // When
-        paymentMessageProducer.send("payment-test-topic", message);
+        paymentMessageProducer.send("payment-test-topic", UUID.randomUUID().toString(), message);
 
         // then
         await().atMost(ofSeconds(10))

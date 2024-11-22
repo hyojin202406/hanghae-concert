@@ -32,7 +32,7 @@ public class PaymentEventListener {
             String payload = objectMapper.writeValueAsString(event);
 
             Outbox outbox = Outbox.builder()
-                    .eventKey("paymentKey")
+                    .eventKey(event.getEventKey())
                     .eventType("payment")
                     .payload(payload)
                     .outboxStatus(OutboxStatus.INIT)
@@ -50,6 +50,6 @@ public class PaymentEventListener {
     public void handlePayment(PaymentSuccessEvent event) {
         // 카프카 발행
         log.info("handlePayment : {}", event);
-        paymentMessageProducer.send("payment-topic", event);
+        paymentMessageProducer.send("payment-topic", event.getEventKey(), event);
     }
 }

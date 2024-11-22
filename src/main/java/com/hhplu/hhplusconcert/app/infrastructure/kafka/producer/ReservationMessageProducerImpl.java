@@ -16,7 +16,7 @@ public class ReservationMessageProducerImpl implements ReservationMessageProduce
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public void send(String kafkaTopic, ReservationSuccessEvent message) {
+    public void send(String kafkaTopic, String eventKey, ReservationSuccessEvent message) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
@@ -24,6 +24,6 @@ public class ReservationMessageProducerImpl implements ReservationMessageProduce
         } catch (Exception e) {
             e.printStackTrace();
         }
-        kafkaTemplate.send(kafkaTopic, jsonInString);
+        kafkaTemplate.send(kafkaTopic, eventKey, jsonInString);
     }
 }

@@ -20,12 +20,14 @@ public class OutboxRepositoryImpl implements OutboxRepository {
     }
 
     @Override
-    public List<Outbox> findByPayload(String data) {
-        return outboxJpaRepository.findByPayload(data);
-    }
-
-    @Override
     public List<Outbox> findByOutboxStatus(OutboxStatus outboxStatus) {
         return outboxJpaRepository.findByOutboxStatus(outboxStatus);
     }
+
+    @Override
+    public List<Outbox> findByEventKey(String eventKey) {
+        return outboxJpaRepository.findByEventKey(eventKey);
+    }
+
+
 }

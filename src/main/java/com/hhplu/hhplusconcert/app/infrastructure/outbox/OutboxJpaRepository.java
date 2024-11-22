@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface OutboxJpaRepository extends JpaRepository<Outbox, Long> {
-    List<Outbox> findByPayload(String data);
-
     List<Outbox> findByOutboxStatus(OutboxStatus outboxStatus);
+
+    List<Outbox> findByEventKey(String eventKey);
 }

@@ -27,12 +27,14 @@ public class ReservationEventListener {
     @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
     public void saveReservationOutBox(ReservationSuccessEvent event) {
         try {
-            log.info("saveReservationOutBox : {}", event);
+            log.info("saveReservationOutBox: {}", event);
 
+            // 이벤트를 직렬화하여 payload 생성
             String payload = objectMapper.writeValueAsString(event);
 
+            // Outbox 생성 및 저장 (이벤트의 eventKey 재사용)
             Outbox outbox = Outbox.builder()
-                    .eventKey("reservationKey")
+                    .eventKey(event.getEventKey())
                     .eventType("reservation")
                     .payload(payload)
                     .outboxStatus(OutboxStatus.INIT)
@@ -40,7 +42,7 @@ public class ReservationEventListener {
                     .build();
             outBoxService.save(outbox);
         } catch (JsonProcessingException e) {
-            log.error("Failed to convert event to JSON: {}", e.getMessage(), e);
+            log.error("Failed to serialize event to JSON: {}", e.getMessage(), e);
             throw new RuntimeException("Failed to process reservation event", e);
         }
     }
@@ -50,6 +52,6 @@ public class ReservationEventListener {
     public void handleReservation(ReservationSuccessEvent event) {
         // 카프카 발행
         log.info("handleReservation : {}", event);
-        reservationMessageProducer.send("reservation-topic", event);
+        reservationMessageProducer.send("reservation-topic", event.getEventKey(), event);
     }
 }

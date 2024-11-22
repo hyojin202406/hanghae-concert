@@ -16,7 +16,7 @@ public class PaymentMessageProducerImpl implements PaymentMessageProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
-    public void send(String kafkaTopic, PaymentSuccessEvent message) {
+    public void send(String kafkaTopic, String eventKey, PaymentSuccessEvent message) {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = "";
         try {
@@ -24,6 +24,6 @@ public class PaymentMessageProducerImpl implements PaymentMessageProducer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        kafkaTemplate.send(kafkaTopic, jsonInString);
+        kafkaTemplate.send(kafkaTopic, eventKey, jsonInString);
     }
 }

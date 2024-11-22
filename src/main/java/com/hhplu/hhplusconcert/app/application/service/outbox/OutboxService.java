@@ -23,7 +23,7 @@ public class OutboxService {
 
     @Transactional
     public void publishedMessage(String data) {
-        List<Outbox> byPayload = outboxRepository.findByPayload(data);
+        List<Outbox> byPayload = outboxRepository.findByEventKey(data);
         byPayload.forEach(Outbox::publishedStaus);
         log.info("byPayload : {}", byPayload);
     }

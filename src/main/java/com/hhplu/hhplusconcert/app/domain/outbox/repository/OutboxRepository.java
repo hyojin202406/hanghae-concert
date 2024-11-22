@@ -8,7 +8,7 @@ import java.util.List;
 public interface OutboxRepository {
     void save(Outbox outbox);
 
-    List<Outbox> findByPayload(String data);
-
     List<Outbox> findByOutboxStatus(OutboxStatus outboxStatus);
+
+    List<Outbox> findByEventKey(String eventKey);
 }
