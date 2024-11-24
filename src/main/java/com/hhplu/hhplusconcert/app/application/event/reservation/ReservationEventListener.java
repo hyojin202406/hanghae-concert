@@ -3,7 +3,6 @@ package com.hhplu.hhplusconcert.app.application.event.reservation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplu.hhplusconcert.app.application.service.outbox.OutboxService;
-import com.hhplu.hhplusconcert.app.domain.outbox.OutboxStatus;
 import com.hhplu.hhplusconcert.app.domain.outbox.entity.Outbox;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationMessageProducer;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -28,18 +25,8 @@ public class ReservationEventListener {
     public void saveReservationOutBox(ReservationSuccessEvent event) {
         try {
             log.info("saveReservationOutBox: {}", event);
-
-            // 이벤트를 직렬화하여 payload 생성
             String payload = objectMapper.writeValueAsString(event);
-
-            // Outbox 생성 및 저장 (이벤트의 eventKey 재사용)
-            Outbox outbox = Outbox.builder()
-                    .eventKey(event.getEventKey())
-                    .eventType("reservation")
-                    .payload(payload)
-                    .outboxStatus(OutboxStatus.INIT)
-                    .createdAt(LocalDateTime.now())
-                    .build();
+            Outbox outbox = Outbox.createOutbox("reservation", event.getEventKey(), payload);
             outBoxService.save(outbox);
         } catch (JsonProcessingException e) {
             log.error("Failed to serialize event to JSON: {}", e.getMessage(), e);

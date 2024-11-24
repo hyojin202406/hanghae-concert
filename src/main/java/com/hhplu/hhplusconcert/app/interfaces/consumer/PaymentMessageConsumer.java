@@ -17,6 +17,6 @@ public class PaymentMessageConsumer {
     @KafkaListener(topics = "payment-topic", groupId = "consumerGroupId")
     public void listener(ConsumerRecord<String, String> data) {
         final String eventKey = data.key();
-        outboxService.publishedMessage(eventKey);
+        outboxService.markPublished(eventKey);
     }
 }

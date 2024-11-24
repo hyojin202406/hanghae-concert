@@ -22,7 +22,7 @@ public class OutboxService {
     }
 
     @Transactional
-    public void publishedMessage(String data) {
+    public void markPublished(String data) {
         List<Outbox> byPayload = outboxRepository.findByEventKey(data);
         byPayload.forEach(Outbox::publishedStaus);
         log.info("byPayload : {}", byPayload);

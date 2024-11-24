@@ -3,7 +3,6 @@ package com.hhplu.hhplusconcert.app.application.event.payment;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplu.hhplusconcert.app.application.service.outbox.OutboxService;
-import com.hhplu.hhplusconcert.app.domain.outbox.OutboxStatus;
 import com.hhplu.hhplusconcert.app.domain.outbox.entity.Outbox;
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentMessageProducer;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Component
@@ -28,16 +25,8 @@ public class PaymentEventListener {
     public void savePaymentOutBox(PaymentSuccessEvent event) {
         try {
             log.info("savePaymentOutBox : {}", event);
-
             String payload = objectMapper.writeValueAsString(event);
-
-            Outbox outbox = Outbox.builder()
-                    .eventKey(event.getEventKey())
-                    .eventType("payment")
-                    .payload(payload)
-                    .outboxStatus(OutboxStatus.INIT)
-                    .createdAt(LocalDateTime.now())
-                    .build();
+            Outbox outbox = Outbox.createOutbox("payment", event.getEventKey(), payload);
             outBoxService.save(outbox);
         } catch (JsonProcessingException e) {
             log.error("Failed to convert event to JSON: {}", e.getMessage(), e);
