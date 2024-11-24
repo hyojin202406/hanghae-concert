@@ -17,10 +17,9 @@ public class ReservationMessageConsumer {
     private final OutboxService outboxService;
 
     @KafkaListener(topics = "reservation-topic", groupId = "consumerGroupId")
-//    public void listener(String data) {
     public void listener(ConsumerRecord<String, String> data, Acknowledgment acknowledgment, Consumer<String, String> consumer) {
         final String eventKey = data.key();
-        outboxService.publishedMessage(eventKey);
+        outboxService.markPublished(eventKey);
         acknowledgment.acknowledge();
     }
 

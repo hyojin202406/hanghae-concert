@@ -1,6 +1,5 @@
 package com.hhplu.hhplusconcert.app.kafka;
 
-import com.hhplu.hhplusconcert.app.application.event.payment.PaymentSuccessEvent;
 import com.hhplu.hhplusconcert.app.application.event.reservation.ReservationSuccessEvent;
 import com.hhplu.hhplusconcert.app.domain.reservation.ReservationMessageProducer;
 import com.hhplu.hhplusconcert.common.config.TestContainersTest;
