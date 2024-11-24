@@ -1,6 +1,5 @@
-package com.hhplu.hhplusconcert.app.application.service.reservation.event;
+package com.hhplu.hhplusconcert.app.application.event.reservation;
 
-import com.hhplu.hhplusconcert.app.domain.reservation.event.dto.ReservationSuccessEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

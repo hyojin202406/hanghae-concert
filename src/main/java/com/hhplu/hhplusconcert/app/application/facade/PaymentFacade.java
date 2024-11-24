@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.application.facade;
 
-import com.hhplu.hhplusconcert.app.application.service.payment.event.PaymentEventPublisher;
+import com.hhplu.hhplusconcert.app.application.event.payment.PaymentEventPublisher;
+import com.hhplu.hhplusconcert.app.application.event.payment.PaymentSuccessEvent;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.SeatService;
 import com.hhplu.hhplusconcert.app.application.service.payment.dto.GetPaymentsHistoryResponseDto;
 import com.hhplu.hhplusconcert.app.application.service.payment.dto.PaymentRequestDto;
@@ -10,10 +11,8 @@ import com.hhplu.hhplusconcert.app.application.service.payment.PaymentService;
 import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.application.service.user.UserService;
 import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueRedisService;
-import com.hhplu.hhplusconcert.app.application.service.waitingqueue.WaitingQueueService;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.Payment;
 import com.hhplu.hhplusconcert.app.domain.payment.entity.PaymentHistory;
-import com.hhplu.hhplusconcert.app.domain.payment.event.dto.PaymentSuccessEvent;
 import com.hhplu.hhplusconcert.app.domain.user.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +31,8 @@ public class PaymentFacade {
     private final PaymentService paymentService;
     private final PaymentHistoryService paymentHistoryService;
     private final SeatService seatService;
-    private final WaitingQueueService waitingQueueService;
     private final WaitingQueueRedisService waitingQueueRedisService;
-    private final PaymentEventPublisher eventPublisher;
+    private final PaymentEventPublisher paymentEventPublisher;
 
     @Transactional
     public PaymentResponseDto pay(PaymentRequestDto paymentRequestDto) {
@@ -49,7 +47,7 @@ public class PaymentFacade {
 
         paymentHistoryService.createPaymentHistory(user.getId(), payment.getId(), payment.getPaymentStatus(), payment.getAmount(), payment.getPaymentAt());
 
-        eventPublisher.success(new PaymentSuccessEvent(payment.getReservationId(), payment.getId()));
+        paymentEventPublisher.success(new PaymentSuccessEvent(payment.getReservationId(), payment.getId()));
 
         return new PaymentResponseDto(payment.getId(), payment.getAmount(), payment.getPaymentStatus());
     }
