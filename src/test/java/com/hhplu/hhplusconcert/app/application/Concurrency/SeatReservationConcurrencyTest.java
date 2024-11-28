@@ -1,4 +1,4 @@
-package com.hhplu.hhplusconcert.app.application.Concurrency;
+package com.hhplu.hhplusconcert.app.application.concurrency;
 
 import com.hhplu.hhplusconcert.app.application.facade.ReservationFacade;
 import com.hhplu.hhplusconcert.app.application.service.reservation.dto.ReserveSeatsDto;
