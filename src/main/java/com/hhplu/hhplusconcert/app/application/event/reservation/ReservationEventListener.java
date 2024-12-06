@@ -37,7 +37,6 @@ public class ReservationEventListener {
     @Async
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleReservation(ReservationSuccessEvent event) {
-        // 카프카 발행
         log.info("handleReservation : {}", event);
         reservationMessageProducer.send("reservation-topic", event.getEventKey(), event);
     }

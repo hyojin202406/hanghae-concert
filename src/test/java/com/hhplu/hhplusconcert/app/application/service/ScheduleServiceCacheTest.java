@@ -3,6 +3,7 @@ package com.hhplu.hhplusconcert.app.application.service;
 import com.hhplu.hhplusconcert.app.application.service.concert.service.ScheduleService;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ScheduleRepository;
+import com.hhplu.hhplusconcert.common.config.TestContainersTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,14 +14,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-//@SpringBootTest(properties = "spring.config.location=classpath:/application-mysql.yml")
-//@ActiveProfiles("mysql")  // 필요에 따라 특정 프로파일을 활성화
 @SpringBootTest
-class ScheduleServiceTest {
+class ScheduleServiceCacheTest extends TestContainersTest{
 
     @Autowired
     private ScheduleService scheduleService;
@@ -40,10 +40,10 @@ class ScheduleServiceTest {
         );
 
         // 스케줄 조회 시 mockSchedules 반환
-        when(scheduleRepository.existsSchedule(concertId)).thenReturn(mockSchedules);
+        when(scheduleRepository.getSchedulesByConcertId(concertId)).thenReturn(Optional.of(mockSchedules));
 
         // When: 첫 번째 호출 -> DB에서 데이터 조회
-        scheduleService.redisCacheableSchedule(concertId);
+        scheduleService.schedule(concertId);
     }
 
     @AfterEach
@@ -54,7 +54,7 @@ class ScheduleServiceTest {
 
 
     @Test
-    void 스케줄_조회_성공() {
+    void 레디스_캐싱_스케줄_조회_성공() {
         long startTime = System.nanoTime();
 
         // When
@@ -70,34 +70,18 @@ class ScheduleServiceTest {
     }
 
     @Test
-    void 레디스_캐싱_스케줄_조회_성공() {
-        Long concertId = 1L;
-
-        long startTime = System.nanoTime();
-
-        // When
-        List<Schedule> schedules = scheduleService.redisCacheableSchedule(concertId);
-
-        // Then
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-
-        System.out.println("레디스 캐싱 스케줄 조회 경과 시간 (나노초): " + duration);
-
-        assertThat(schedules).hasSize(2);
-    }
-
-    @Test
     void 레디스_캐싱_스케줄_조회_검증_성공() {
         // Given
         Long concertId = 1L;
 
         // When: 두 번째 호출 -> 캐시에서 데이터 반환
-        List<Schedule> schedules = scheduleService.redisCacheableSchedule(concertId);
+        scheduleService.schedule(concertId);
 
-        // Then: 두 번째 호출의 결과를 검증
-        assertThat(schedules).hasSize(2);
-        verify(scheduleRepository, times(0)).existsSchedule(concertId);
+        // When: 세 번째 호출 -> 캐시에서 데이터 반환
+        scheduleService.schedule(concertId);
+
+        // Then: 호출의 결과를 검증
+        verify(scheduleRepository, times(1)).getSchedulesByConcertId(concertId);
     }
 
 }

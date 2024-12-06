@@ -20,11 +20,6 @@ public class PaymentController {
 
     private final PaymentFacade paymentFacade;
 
-    /**
-     * 결제
-     * @param userId
-     * @return
-     */
     @Operation(summary = "결제", description = "사용자가 결제를 진행합니다.")
     @ApiResponse(responseCode = "200", description = "결제 성공")
     @PostMapping("{paymentId}/users/{userId}")
@@ -37,11 +32,6 @@ public class PaymentController {
         return ResponseEntity.ok(new PaymentResponse(command.getPaymentId(), command.getAmount(), command.getPaymentStatus()));
     }
 
-    /**
-     * 결제 내역 조회
-     * @param userId
-     * @return
-     */
     @Operation(summary = "결제 내역 조회", description = "사용자의 결제 내역을 조회합니다.")
     @ApiResponse(responseCode = "200", description = "결제 내역 조회 성공")
     @PostMapping("/history/users/{userId}")

@@ -5,11 +5,18 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.time.Duration;
 
 @Configuration
 public class RedisConfig {
@@ -19,7 +26,6 @@ public class RedisConfig {
     @Value("${spring.data.redis.port}")
     private int port;
 
-    // Redisson Client 설정
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
@@ -28,13 +34,21 @@ public class RedisConfig {
         return Redisson.create(config);
     }
 
-    // Redisson ConnectionFactory 설정
+    @Bean
+    public CacheManager contentCacheManager(RedisConnectionFactory cf) {
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                .entryTtl(Duration.ofMinutes(3L)); // 캐시 수명 3분 설정
+
+        return RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(cf).cacheDefaults(redisCacheConfiguration).build();
+    }
+
     @Bean
     public RedissonConnectionFactory redisConnectionFactory(RedissonClient redissonClient) {
         return new RedissonConnectionFactory(redissonClient);
     }
 
-    // RedisTemplate 설정
     @Bean
     public RedisTemplate<String, Object> redisTemplateForObject(RedissonConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

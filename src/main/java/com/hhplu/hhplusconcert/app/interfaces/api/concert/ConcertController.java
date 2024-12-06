@@ -19,11 +19,6 @@ public class ConcertController {
 
     private final ConcertFacade concertFacade;
 
-    /**
-     * 콘서트 일정 조회
-     * @param concertId
-     * @return
-     */
     @Operation(summary = "콘서트 일정 조회", description = "주어진 콘서트 ID에 대한 일정 정보를 반환합니다.")
     @ApiResponse(responseCode = "200", description = "일정 조회 성공")
     @GetMapping("/{concertId}/schedules")
@@ -34,12 +29,6 @@ public class ConcertController {
         return ResponseEntity.ok(ScheduleResponse.from(command));
     }
 
-    /**
-     * 콘서트 좌석 조회
-     * @param concertId
-     * @param scheduleId
-     * @return
-     */
     @Operation(summary = "콘서트 좌석 조회", description = "주어진 콘서트 ID와 일정 ID에 대한 좌석 정보를 반환합니다.")
     @ApiResponse(responseCode = "200", description = "좌석 조회 성공")
     @GetMapping("/{concertId}/schedules/{scheduleId}/seats")

@@ -1,8 +1,8 @@
 package com.hhplu.hhplusconcert.app.interfaces.api.point;
 
+import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.GetPointDto;
 import com.hhplu.hhplusconcert.app.application.service.point.dto.RechargeDto;
-import com.hhplu.hhplusconcert.app.application.service.point.PointService;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.req.PointRequest;
 import com.hhplu.hhplusconcert.app.interfaces.api.point.res.PointResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,12 +19,6 @@ public class PointController {
 
     private final PointService pointService;
 
-    /**
-     * 잔액 충전
-     * @param userId
-     * @param request
-     * @return
-     */
     @Operation(summary = "잔액 충전", description = "사용자의 포인트 잔액을 충전합니다.")
     @ApiResponse(responseCode = "200", description = "충전 성공")
     @PostMapping("/users/{userId}/recharge")
@@ -35,11 +29,6 @@ public class PointController {
         return ResponseEntity.ok(PointResponse.from(userId, command));
     }
 
-    /**
-     * 잔액 조회
-     * @param userId
-     * @return
-     */
     @Operation(summary = "잔액 조회", description = "사용자의 포인트 잔액을 조회합니다.")
     @ApiResponse(responseCode = "200", description = "잔액 조회 성공")
     @PostMapping("/users/{userId}")

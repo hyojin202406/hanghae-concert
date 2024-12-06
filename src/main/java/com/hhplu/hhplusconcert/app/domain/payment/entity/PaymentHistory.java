@@ -37,4 +37,13 @@ public class PaymentHistory {
     @Column(nullable = false, name = "payment_at")
     private LocalDateTime paymentAt;
 
+    public static PaymentHistory from(Long userId, Long paymentId, PaymentStatus paymentStatus, BigDecimal amount, LocalDateTime paymentAt) {
+        return PaymentHistory.builder()
+                .userId(userId)
+                .paymentId(paymentId)
+                .paymentStatus(paymentStatus)
+                .amount(amount)
+                .paymentAt(paymentAt)
+                .build();
+    }
 }

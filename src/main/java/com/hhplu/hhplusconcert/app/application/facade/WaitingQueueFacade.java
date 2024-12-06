@@ -24,7 +24,7 @@ public class WaitingQueueFacade {
     public CreateWaitingQueueDto token(Long userId) {
         User user = userService.user(userId);
         String token = waitingQueueRedisService.createWaitingQueueToken(user);
-        return new CreateWaitingQueueDto(token, LocalDateTime.now());
+        return new CreateWaitingQueueDto(userId, token, LocalDateTime.now());
     }
 
     public GetWaitingQueueDto queue(String queueToken) {

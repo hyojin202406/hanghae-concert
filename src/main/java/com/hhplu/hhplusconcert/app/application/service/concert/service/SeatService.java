@@ -44,11 +44,9 @@ public class SeatService {
     }
 
     public void reserveSeats(Long reservationId) {
-        List<Seat> seats = seatRepository.findSeatsByReservationId(reservationId)
-                .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_AVAILABLE));
-        for (Seat seat : seats) {
-            seat.changeStatus(SeatStatus.RESERVED);
-        }
+        seatRepository.findSeatsByReservationId(reservationId)
+                .orElseThrow(() -> new BaseException(ErrorCode.SEAT_NOT_AVAILABLE))
+                .forEach(seat -> seat.changeStatus(SeatStatus.RESERVED));
     }
 
     public long calculateTotalPoint(List<Seat> seats) {

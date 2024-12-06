@@ -19,18 +19,7 @@ public class PaymentService {
     private final PaymentRepository paymentRepository;
 
     public void createPendingPayment(Reservation reservation, long sumPoint) {
-
-        // 결제 정보 생성
-        Payment payment = Payment.builder()
-                .reservationId(reservation.getId())
-                .amount(BigDecimal.valueOf(sumPoint))
-                .paymentStatus(PaymentStatus.PENDING) // 결제 준비 상태
-                .paymentAt(LocalDateTime.now())
-                .build();
-
-        // Payment(PENDING 상태) 저장
-        Payment savedPayment = paymentRepository.savePayment(payment);
-
+        Payment savedPayment = paymentRepository.savePayment(Payment.from(reservation, sumPoint));
         reservation.changePaymentId(savedPayment.getId());
     }
 

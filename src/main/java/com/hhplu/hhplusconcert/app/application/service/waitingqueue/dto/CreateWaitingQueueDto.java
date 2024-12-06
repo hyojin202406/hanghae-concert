@@ -8,12 +8,16 @@ import java.time.LocalDateTime;
 @Getter
 public class CreateWaitingQueueDto {
     @NotNull
+    private Long userId;
+
+    @NotNull
     private String queueToken;
 
     @NotNull
     private LocalDateTime issuedAt;
 
-    public CreateWaitingQueueDto(String queueToken, LocalDateTime issuedAt) {
+    public CreateWaitingQueueDto(Long userId, String queueToken, LocalDateTime issuedAt) {
+        this.userId = userId;
         this.queueToken = queueToken;
         this.issuedAt = issuedAt;
     }

@@ -29,30 +29,22 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     public Long getLastActiveId() {
         return waitingQueueJpaRepository.findFirstByQueueStatusOrderByIssuedAtDesc(WaitingQueueStatus.ACTIVE)
                 .map(WaitingQueue::getId)
-                .orElse(0L); // 값이 존재하지 않으면 0 반환
+                .orElse(0L);
     }
 
     @Override
     public void deactivateStatus() {
         LocalDateTime now = LocalDateTime.now();
         List<WaitingQueue> expiredQueues = waitingQueueJpaRepository.findByExpiredAtBefore(now);
-
-        for (WaitingQueue queue : expiredQueues) {
-            queue.changeWaitingQueueStatus(WaitingQueueStatus.EXPIRED);
-        }
-
-        waitingQueueJpaRepository.saveAll(expiredQueues); // 모든 변경 사항 저장
+        expiredQueues.forEach(WaitingQueue::changeToExpiredStatus);
+        waitingQueueJpaRepository.saveAll(expiredQueues);
     }
 
     @Override
     public void activateStatus() {
         List<WaitingQueue> waitingQueues = waitingQueueJpaRepository.findTop10ByQueueStatusOrderByIssuedAtAsc(WaitingQueueStatus.WAITING);
-
-        for (WaitingQueue queue : waitingQueues) {
-            queue.changeWaitingQueueStatus(WaitingQueueStatus.ACTIVE);
-        }
-
-        waitingQueueJpaRepository.saveAll(waitingQueues); // 모든 변경 사항 저장
+        waitingQueues.forEach(WaitingQueue::changeToActiveStatus);
+        waitingQueueJpaRepository.saveAll(waitingQueues);
     }
 
     @Override

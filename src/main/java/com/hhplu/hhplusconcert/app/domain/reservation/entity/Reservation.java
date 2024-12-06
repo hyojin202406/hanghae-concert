@@ -32,6 +32,15 @@ public class Reservation {
     @Column(name = "reservation_status")
     private ReservationStatus reservationStatus;
 
+    public static Reservation from(Long userId) {
+        return Reservation.builder()
+                .userId(userId)
+                .paymentId(null) // 결제 정보는 별도 처리
+                .reservedAt(LocalDateTime.now())
+                .reservationStatus(ReservationStatus.TEMPORARY_RESERVED)
+                .build();
+    }
+
     public void changePaymentId(Long paymentId) {
         this.paymentId = paymentId;
     }
