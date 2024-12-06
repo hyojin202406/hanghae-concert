@@ -14,10 +14,12 @@ public class WaitingQueueStatusScheduler {
 
     private final WaitingQueueRedisService waitingQueueRedisService;
 
-    // 스케줄러로 활성 유저 대기열에 10명씩 추가
+    // 스케줄러로 활성 유저 대기열에 300명씩 추가
     @Scheduled(cron = "0 0/10 * * * *")
     public void activateUsers() {
-        for (int i = 0; i < 10; i++) {
+        waitingQueueRedisService.setActiveQueueTTL();
+
+        for (int i = 0; i < 300; i++) {
             ZSetOperations.TypedTuple<Object> tokenWithScore = waitingQueueRedisService.popMinFromWaitingQueue();
             if (tokenWithScore != null) {
                 Object token = tokenWithScore.getValue();
@@ -26,8 +28,5 @@ public class WaitingQueueStatusScheduler {
                 break; // 더 이상 대기열에 사용자가 없으면 중단
             }
         }
-
-        waitingQueueRedisService.setActiveQueueTTL();
     }
-
 }

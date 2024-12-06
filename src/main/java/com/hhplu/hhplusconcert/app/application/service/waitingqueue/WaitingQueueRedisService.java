@@ -53,12 +53,17 @@ public class WaitingQueueRedisService {
     }
 
     public void setActiveQueueTTL() {
-        if (redisTemplate.getExpire(ACTIVE_QUEUE_KEY) == -1) {
-            redisTemplate.expire(ACTIVE_QUEUE_KEY, 300, TimeUnit.SECONDS);
+        Long expire = redisTemplate.getExpire(ACTIVE_QUEUE_KEY);
+        if (expire == -1) {
+            redisTemplate.expire(ACTIVE_QUEUE_KEY, 30, TimeUnit.MINUTES);
         }
     }
 
     public ZSetOperations.TypedTuple<Object> popMinFromWaitingQueue() {
+        Long size = redisTemplate.opsForZSet().zCard(WAITING_QUEUE_KEY);
+        if (size == null || size == 0) {
+            return null; // 대기열이 비어 있으면 null 반환
+        }
         return redisTemplate.opsForZSet().popMin(WAITING_QUEUE_KEY);
     }
 
