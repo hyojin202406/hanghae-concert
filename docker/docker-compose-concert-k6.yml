@@ -51,13 +51,42 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     depends_on:
       - zookeeper
     networks:
       - concert_network
+
+  spring:
+    build:
+      context: C:/study/hhplus/ch3/hhplus-concert # Dockerfile 경로
+      dockerfile: Dockerfile # Dockerfile 파일명
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hhplus_stress?characterEncoding=UTF-8&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "1234"
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      TZ: Asia/Seoul
+    depends_on:
+      - mysql
+      - kafka
+      - redis
+    deploy:
+      resources:
+        limits:
+          cpus: '2'    # 최대 CPU 사용
+          memory: 4GB   # 최대 메모리 사용
+        reservations:
+          cpus: '2'    # 최소 CPU 보장
+          memory: 4GB   # 최소 메모리 보장
+    networks:
+      - concert_network
+    ports:
+      - '8082:8080' # Spring 애플리케이션의 포트
 
 volumes:
   mysqldata:
