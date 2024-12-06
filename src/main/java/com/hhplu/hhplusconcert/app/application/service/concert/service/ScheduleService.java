@@ -13,22 +13,12 @@ import java.util.List;
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
 
-    public List<Schedule> schedule(Long concertId) {
-        List<Schedule> schedules = scheduleRepository.existsSchedule(concertId);
-        Schedule.existSchedules(schedules);
-        return schedules;
-    }
-
     @Cacheable(value = "concertSchedules")
-    public List<Schedule> redisCacheableSchedule(Long concertId) {
-        List<Schedule> schedules = scheduleRepository.existsSchedule(concertId);
-        Schedule.existSchedules(schedules);
-        return schedules;
+    public List<Schedule> schedule(Long concertId) {
+        return scheduleRepository.getSchedulesByConcertId(concertId);
     }
 
-    public List<Schedule> validateScheduleExists(Long scheduleId) {
-        List<Schedule> schedules = scheduleRepository.existsSchedule(scheduleId);
-        Schedule.existSchedules(schedules);
-        return schedules;
+    public Schedule validateScheduleExists(Long scheduleId) {
+        return scheduleRepository.getSchedulesByScheduleId(scheduleId);
     }
 }

@@ -30,9 +30,9 @@ public class ConcertFacade {
 
     public ConcertSeatsResponseDto getConcertSeats(Long concertId, Long scheduleId) {
         Concert concert = concertService.validateConcertExists(concertId);
-        List<Schedule> schedule = scheduleService.validateScheduleExists(scheduleId);
+        Schedule schedule = scheduleService.validateScheduleExists(scheduleId);
         List<Seat> allSeats = seatService.getAllSeatsByScheduleId(scheduleId);
         List<Seat> availableSeats = seatService.getAvailableSeatsByScheduleId(scheduleId);
-        return new ConcertSeatsResponseDto(concert.getId(), schedule.get(0).getId(), allSeats, availableSeats);
+        return new ConcertSeatsResponseDto(concert.getId(), schedule.getId(), allSeats, availableSeats);
     }
 }
