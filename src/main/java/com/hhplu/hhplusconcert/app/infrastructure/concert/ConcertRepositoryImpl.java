@@ -2,18 +2,17 @@ package com.hhplu.hhplusconcert.app.infrastructure.concert;
 
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Concert;
 import com.hhplu.hhplusconcert.app.domain.concert.repository.ConcertRepository;
-import com.hhplu.hhplusconcert.common.error.ErrorCode;
-import com.hhplu.hhplusconcert.common.exception.BaseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
 public class ConcertRepositoryImpl implements ConcertRepository {
     private final ConcertJpaRepository concertJpaRepository;
     @Override
-    public Concert existsConcert(Long concertId) {
-        return concertJpaRepository.findById(concertId)
-                .orElseThrow(() -> new BaseException(ErrorCode.CONCERT_NOT_FOUND));
+    public Optional<Concert> existsConcert(Long concertId) {
+        return concertJpaRepository.findById(concertId);
     }
 }

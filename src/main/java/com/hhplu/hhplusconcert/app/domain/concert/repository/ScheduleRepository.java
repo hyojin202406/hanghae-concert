@@ -3,9 +3,10 @@ package com.hhplu.hhplusconcert.app.domain.concert.repository;
 import com.hhplu.hhplusconcert.app.domain.concert.entity.Schedule;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ScheduleRepository {
-    List<Schedule> getSchedulesByConcertId(Long concertId);
+    Optional<List<Schedule>> getSchedulesByConcertId(Long concertId);
 
-    Schedule getSchedulesByScheduleId(Long scheduleId);
+    Optional<Schedule> getSchedulesByScheduleId(Long scheduleId);
 }
