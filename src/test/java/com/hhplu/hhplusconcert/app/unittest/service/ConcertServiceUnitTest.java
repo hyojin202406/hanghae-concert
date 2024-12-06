@@ -10,8 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -30,7 +30,7 @@ class ConcertServiceUnitTest {
         // Given
         Long concertId = 1L;
         when(scheduleRepository.getSchedulesByConcertId(concertId))
-                .thenReturn(new ArrayList<>()); // 빈 리스트 반환
+                .thenReturn(null); // 빈 리스트 반환
 
         // When
         List<Schedule> schedules = scheduleService.schedule(concertId);
@@ -51,7 +51,7 @@ class ConcertServiceUnitTest {
                 Schedule.builder().id(4L).concertId(1L).scheduleStaredtAt(LocalDateTime.of(2025, 1, 17, 10, 0)).scheduleEndedAt(LocalDateTime.of(2025, 1, 17, 12, 0)).build()
         );
 
-        when(scheduleRepository.getSchedulesByConcertId(concertId)).thenReturn(schedules);
+        when(scheduleRepository.getSchedulesByConcertId(concertId)).thenReturn(Optional.of(schedules));
 
         // When
         List<Schedule> result = scheduleService.schedule(concertId);

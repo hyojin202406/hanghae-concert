@@ -14,12 +14,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class ScheduleServiceCacheTest {
+class ScheduleServiceCacheTest extends TestContainersTest{
 
     @Autowired
     private ScheduleService scheduleService;
@@ -39,7 +40,7 @@ class ScheduleServiceCacheTest {
         );
 
         // 스케줄 조회 시 mockSchedules 반환
-        when(scheduleRepository.getSchedulesByConcertId(concertId)).thenReturn(mockSchedules);
+        when(scheduleRepository.getSchedulesByConcertId(concertId)).thenReturn(Optional.of(mockSchedules));
 
         // When: 첫 번째 호출 -> DB에서 데이터 조회
         scheduleService.schedule(concertId);
