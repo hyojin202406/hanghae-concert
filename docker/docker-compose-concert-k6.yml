@@ -94,7 +94,3 @@ volumes:
 networks:
   concert_network:
     driver: bridge
-
-
-# 도커 컴포즈 설치: docker-compose -p concert -f docker-compose-concert.yml up -d
-# 카프카 접속 명령어: docker exec -it kafka bash
