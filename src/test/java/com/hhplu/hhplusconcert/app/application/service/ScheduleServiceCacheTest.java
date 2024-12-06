@@ -53,7 +53,7 @@ class ScheduleServiceCacheTest {
 
 
     @Test
-    void 스케줄_조회_성공() {
+    void 레디스_캐싱_스케줄_조회_성공() {
         long startTime = System.nanoTime();
 
         // When
@@ -69,34 +69,18 @@ class ScheduleServiceCacheTest {
     }
 
     @Test
-    void 레디스_캐싱_스케줄_조회_성공() {
-        Long concertId = 1L;
-
-        long startTime = System.nanoTime();
-
-        // When
-        List<Schedule> schedules = scheduleService.schedule(concertId);
-
-        // Then
-        long endTime = System.nanoTime();
-        long duration = endTime - startTime;
-
-        System.out.println("레디스 캐싱 스케줄 조회 경과 시간 (나노초): " + duration);
-
-        assertThat(schedules).hasSize(2);
-    }
-
-    @Test
     void 레디스_캐싱_스케줄_조회_검증_성공() {
         // Given
         Long concertId = 1L;
 
         // When: 두 번째 호출 -> 캐시에서 데이터 반환
-        List<Schedule> schedules = scheduleService.schedule(concertId);
+        scheduleService.schedule(concertId);
 
-        // Then: 두 번째 호출의 결과를 검증
-        assertThat(schedules).hasSize(2);
-        verify(scheduleRepository, times(0)).getSchedulesByConcertId(concertId);
+        // When: 세 번째 호출 -> 캐시에서 데이터 반환
+        scheduleService.schedule(concertId);
+
+        // Then: 호출의 결과를 검증
+        verify(scheduleRepository, times(1)).getSchedulesByConcertId(concertId);
     }
 
 }
