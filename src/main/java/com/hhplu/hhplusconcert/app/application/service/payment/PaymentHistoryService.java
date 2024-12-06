@@ -19,14 +19,7 @@ public class PaymentHistoryService {
     private final PaymentHistoryRepository paymentHistoryRepository;
 
     public PaymentHistory createPaymentHistory(Long userId, Long paymentId, PaymentStatus paymentStatus, BigDecimal amount, LocalDateTime paymentAt) {
-        PaymentHistory paymentHistory = PaymentHistory.builder()
-                .userId(userId)
-                .paymentId(paymentId)
-                .paymentStatus(paymentStatus)
-                .amount(amount)
-                .paymentAt(paymentAt)
-                .build();
-        return paymentHistoryRepository.savePaymentHistory(paymentHistory);
+        return paymentHistoryRepository.savePaymentHistory(PaymentHistory.from(userId, paymentId, paymentStatus, amount, paymentAt));
     }
 
     public List<PaymentHistory> getPaymentsHistory(Long userId) {

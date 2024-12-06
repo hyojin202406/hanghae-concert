@@ -19,37 +19,20 @@ public class WaitingQueueController {
 
     private final WaitingQueueFacade waitingQueueFacade;
 
-    /**
-     * 유저 토큰 발급
-     * @param userId
-     * @return
-     */
     @Operation(summary = "유저 토큰 발급", description = "사용자에게 대기열 토큰을 발급합니다.")
     @ApiResponse(responseCode = "200", description = "토큰 발급 성공")
     @PostMapping("/tokens/users/{userId}")
     public ResponseEntity<TokenResponse> token(
             @Parameter(description = "사용자 ID") @PathVariable(name = "userId") Long userId) {
         CreateWaitingQueueDto command = waitingQueueFacade.token(userId);
-        TokenResponse response = TokenResponse.builder()
-                .userId(userId)
-                .queueToken(command.getQueueToken())
-                .issuedAt(command.getIssuedAt())
-                .build();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(TokenResponse.from(command));
     }
 
-    /**
-     * 대기열 정보 조회
-     * @return
-     */
     @Operation(summary = "대기열 정보 조회", description = "사용자의 대기열 정보를 조회합니다.")
     @ApiResponse(responseCode = "200", description = "대기열 정보 조회 성공")
     @GetMapping("/tokens/users")
     public ResponseEntity<QueueResponse> queue(@RequestHeader("QUEUE-TOKEN") String queueToken) {
         GetWaitingQueueDto command = waitingQueueFacade.queue(queueToken);
-        QueueResponse response = QueueResponse.builder()
-                .queuePosition(command.getWaitingQueuePosition())
-                .build();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(QueueResponse.from(command));
     }
 }

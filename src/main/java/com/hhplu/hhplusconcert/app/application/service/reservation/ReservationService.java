@@ -1,12 +1,9 @@
 package com.hhplu.hhplusconcert.app.application.service.reservation;
 
-import com.hhplu.hhplusconcert.app.domain.reservation.ReservationStatus;
 import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import com.hhplu.hhplusconcert.app.domain.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 
 @Service
@@ -15,12 +12,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     public Reservation createReservation(Long userId) {
-        Reservation reservation = Reservation.builder()
-                .userId(userId)
-                .paymentId(null) // 결제 정보는 별도 처리
-                .reservedAt(LocalDateTime.now())
-                .reservationStatus(ReservationStatus.TEMPORARY_RESERVED)
-                .build();
+        Reservation reservation = Reservation.from(userId);
         reservationRepository.saveReservation(reservation);
         return reservation;
     }

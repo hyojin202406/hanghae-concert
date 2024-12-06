@@ -18,11 +18,6 @@ public class ReservationController {
 
     private final ReservationFacade reservationFacade;
 
-    /**
-     * 좌석 예약
-     * @param request
-     * @return
-     */
     @Operation(summary = "좌석 예약", description = "사용자가 좌석을 예약합니다.")
     @ApiResponse(responseCode = "200", description = "예약 성공")
     @PostMapping

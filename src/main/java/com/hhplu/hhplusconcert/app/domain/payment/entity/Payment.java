@@ -1,6 +1,7 @@
 package com.hhplu.hhplusconcert.app.domain.payment.entity;
 
 import com.hhplu.hhplusconcert.app.domain.payment.PaymentStatus;
+import com.hhplu.hhplusconcert.app.domain.reservation.entity.Reservation;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,15 @@ public class Payment {
 
     @Column(nullable = false, name = "payment_at")
     private LocalDateTime paymentAt;
+
+    public static Payment from(Reservation reservation, long sumPoint) {
+        return Payment.builder()
+                .reservationId(reservation.getId())
+                .amount(BigDecimal.valueOf(sumPoint))
+                .paymentStatus(PaymentStatus.PENDING)
+                .paymentAt(LocalDateTime.now())
+                .build();
+    }
 
 
     public void completedStaus() {
