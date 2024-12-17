@@ -12,14 +12,14 @@
 ## 서비스 설계
 - [**유즈케이스 분석**](https://xmind.ai/share/Su2VagJq?xid=nIqEcML4): 서비스 주요 흐름과 사용자 행동을 체계적으로 분석.
 - [**마일스톤**](https://github.com/users/hyojin202406/projects/1): 개발 진행 상황 및 주요 목표를 정리한 프로젝트 관리 내용.
-- [**시퀀스 다이어그램**](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/Sequence_diagram.md): 주요 기능의 실행 흐름을 시각적으로 표현.
+- [**시퀀스 다이어그램**](docs/Sequence_Diagram.md): 주요 기능의 실행 흐름을 시각적으로 표현.
 
 ---
 
 ## 데이터 및 구조 설계
-- [**ERD**](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/ERD.md): 서비스 데이터베이스 구조 설계.
-- [**API 명세**](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/API.md): API 요청/응답 스펙과 데이터 구조 상세 설명.
-- [**프로젝트 구조**](https://github.com/hyojin202406/hanghae-concert/blob/main/docs/Project_configuration.md): 프로젝트 디렉토리 구성 및 각 계층의 역할.
+- [**ERD**](docs/ERD.md): 서비스 데이터베이스 구조 설계.
+- [**API 명세**](docs/API.md): API 요청/응답 스펙과 데이터 구조 상세 설명.
+- [**프로젝트 구조**](docs/Project.md): 프로젝트 디렉토리 구성 및 각 계층의 역할.
 
 ---
 
